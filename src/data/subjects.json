@@ -1,0 +1,312 @@
+{
+  "CBSE": {
+    "science": [
+      "Physics",
+      "Chemistry",
+      "Mathematics",
+      "Biology",
+      "Computer Science",
+      "English Core",
+      "English Elective",
+      "Hindi",
+      "Physical Education",
+      "Economics",
+      "Informatics Practices",
+      "Psychology"
+    ],
+    "commerce": [
+      "Accountancy",
+      "Business Studies",
+      "Economics",
+      "Mathematics",
+      "Applied Mathematics",
+      "English Core",
+      "Hindi",
+      "Informatics Practices",
+      "Entrepreneurship",
+      "Physical Education",
+      "Computer Science",
+      "Legal Studies"
+    ],
+    "humanities": [
+      "History",
+      "Political Science",
+      "Geography",
+      "Sociology",
+      "Psychology",
+      "Economics",
+      "English Core",
+      "Hindi",
+      "Physical Education",
+      "Fine Arts",
+      "Home Science",
+      "Legal Studies"
+    ]
+  },
+  "ICSE": {
+    "science": [
+      "English",
+      "Physics",
+      "Chemistry",
+      "Mathematics",
+      "Biology",
+      "Computer Science",
+      "Environmental Science",
+      "Biotechnology",
+      "Economics",
+      "Physical Education",
+      "Hindi",
+      "Art"
+    ],
+    "commerce": [
+      "English",
+      "Commerce",
+      "Accounts",
+      "Economics",
+      "Mathematics",
+      "Computer Science",
+      "Commercial Applications",
+      "Entrepreneurship",
+      "Physical Education",
+      "Hindi",
+      "Environmental Science",
+      "Psychology"
+    ],
+    "humanities": [
+      "English",
+      "History",
+      "Political Science",
+      "Geography",
+      "Sociology",
+      "Psychology",
+      "Economics",
+      "Mass Media and Communication",
+      "Hindi",
+      "Physical Education",
+      "Art",
+      "Home Science"
+    ]
+  },
+  "State Board": {
+    "science": [
+      "Physics",
+      "Chemistry",
+      "Mathematics",
+      "Biology",
+      "Computer Science",
+      "Statistics",
+      "English",
+      "Regional Language",
+      "Environmental Science",
+      "Physical Education",
+      "Electronics",
+      "Biotechnology"
+    ],
+    "commerce": [
+      "Accountancy",
+      "Business Mathematics",
+      "Business Studies",
+      "Economics",
+      "Statistics",
+      "English",
+      "Regional Language",
+      "Computer Applications",
+      "Entrepreneurship",
+      "Physical Education",
+      "Secretarial Practice",
+      "Banking and Insurance"
+    ],
+    "humanities": [
+      "History",
+      "Political Science",
+      "Geography",
+      "Sociology",
+      "Psychology",
+      "Economics",
+      "English",
+      "Regional Language",
+      "Philosophy",
+      "Public Administration",
+      "Physical Education",
+      "Fine Arts"
+    ]
+  },
+  "IB": {
+    "Group 1": {
+      "HL": [
+        "English A: Literature",
+        "English A: Language and Literature",
+        "Hindi A: Literature",
+        "French A: Literature",
+        "Spanish A: Literature",
+        "Arabic A: Literature"
+      ],
+      "SL": [
+        "English A: Literature",
+        "English A: Language and Literature",
+        "Hindi A: Language and Literature",
+        "French A: Language and Literature",
+        "Spanish A: Language and Literature",
+        "German A: Literature"
+      ]
+    },
+    "Group 2": {
+      "HL": [
+        "English B",
+        "French B",
+        "Spanish B",
+        "Hindi B",
+        "German B",
+        "Mandarin B"
+      ],
+      "SL": [
+        "English B",
+        "French B",
+        "Spanish B",
+        "Hindi B",
+        "French ab initio",
+        "Spanish ab initio",
+        "German ab initio"
+      ]
+    },
+    "Group 3": {
+      "HL": [
+        "History",
+        "Economics",
+        "Psychology",
+        "Geography",
+        "Global Politics",
+        "Business Management",
+        "Philosophy"
+      ],
+      "SL": [
+        "History",
+        "Economics",
+        "Psychology",
+        "Geography",
+        "Digital Society",
+        "Social and Cultural Anthropology",
+        "Business Management"
+      ]
+    },
+    "Group 4": {
+      "HL": [
+        "Physics",
+        "Chemistry",
+        "Biology",
+        "Computer Science",
+        "Design Technology",
+        "Environmental Systems and Societies",
+        "Sports, Exercise and Health Science"
+      ],
+      "SL": [
+        "Physics",
+        "Chemistry",
+        "Biology",
+        "Computer Science",
+        "Design Technology",
+        "Environmental Systems and Societies",
+        "Sports, Exercise and Health Science"
+      ]
+    },
+    "Group 5": {
+      "HL": [
+        "Mathematics: Analysis and Approaches",
+        "Mathematics: Applications and Interpretation",
+        "Further Mathematics",
+        "Statistics for Research",
+        "Discrete Mathematics",
+        "Mathematical Modelling"
+      ],
+      "SL": [
+        "Mathematics: Analysis and Approaches",
+        "Mathematics: Applications and Interpretation",
+        "Statistics for Research",
+        "Data Interpretation",
+        "Financial Mathematics",
+        "Quantitative Reasoning"
+      ]
+    },
+    "Group 6": {
+      "HL": [
+        "Visual Arts",
+        "Music",
+        "Theatre",
+        "Film",
+        "Dance",
+        "Interdisciplinary Arts"
+      ],
+      "SL": [
+        "Visual Arts",
+        "Music",
+        "Theatre",
+        "Film",
+        "Dance",
+        "Digital Arts"
+      ]
+    }
+  },
+  "Cambridge": {
+    "IGCSE": [
+      "English as a First Language",
+      "English Literature",
+      "Mathematics",
+      "Additional Mathematics",
+      "Physics",
+      "Chemistry",
+      "Biology",
+      "Computer Science",
+      "Economics",
+      "Business Studies",
+      "Accounting",
+      "Geography",
+      "History",
+      "Sociology",
+      "Environmental Management"
+    ],
+    "A-Level": {
+      "science": [
+        "Mathematics",
+        "Further Mathematics",
+        "Physics",
+        "Chemistry",
+        "Biology",
+        "Computer Science",
+        "Information Technology",
+        "Psychology",
+        "Environmental Management",
+        "Marine Science",
+        "English Language",
+        "Physical Education"
+      ],
+      "commerce": [
+        "Accounting",
+        "Business",
+        "Economics",
+        "Mathematics",
+        "Further Mathematics",
+        "Information Technology",
+        "English Language",
+        "Psychology",
+        "Sociology",
+        "Travel and Tourism",
+        "Media Studies",
+        "Law"
+      ],
+      "humanities": [
+        "History",
+        "Geography",
+        "Sociology",
+        "Psychology",
+        "English Literature",
+        "English Language",
+        "Media Studies",
+        "Global Perspectives and Research",
+        "Travel and Tourism",
+        "Law",
+        "Art and Design",
+        "Drama"
+      ]
+    }
+  }
+}

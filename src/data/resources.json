@@ -1,0 +1,548 @@
+[
+  {
+    "id": "khan-academy-sat",
+    "category": "test-prep",
+    "title": "Khan Academy SAT Prep",
+    "url": "https://www.khanacademy.org/test-prep/sat",
+    "description": "Official SAT-style practice lessons, drills, and full-length prep support.",
+    "tags": [
+      "SAT",
+      "practice",
+      "official"
+    ],
+    "free": true,
+    "icon": "📘"
+  },
+  {
+    "id": "college-board-sat-practice",
+    "category": "test-prep",
+    "title": "College Board Official SAT Practice",
+    "url": "https://satsuite.collegeboard.org/sat/practice-preparation",
+    "description": "Official SAT preparation hub with sample questions, Bluebook tests, and guidance.",
+    "tags": [
+      "SAT",
+      "College Board",
+      "official"
+    ],
+    "free": true,
+    "icon": "📝"
+  },
+  {
+    "id": "unacademy-jee-neet",
+    "category": "test-prep",
+    "title": "Unacademy JEE and NEET",
+    "url": "https://unacademy.com/",
+    "description": "Live classes, test series, and free tier content for Indian entrance exams.",
+    "tags": [
+      "JEE",
+      "NEET",
+      "India"
+    ],
+    "free": true,
+    "icon": "🎯"
+  },
+  {
+    "id": "allen-online-jee",
+    "category": "test-prep",
+    "title": "Allen Online Free Resources",
+    "url": "https://www.allen.ac.in/",
+    "description": "Exam strategy articles, sample papers, and selected prep material from Allen.",
+    "tags": [
+      "JEE",
+      "practice",
+      "India"
+    ],
+    "free": true,
+    "icon": "📚"
+  },
+  {
+    "id": "byjus-free-content",
+    "category": "test-prep",
+    "title": "BYJU'S Free Study Content",
+    "url": "https://byjus.com/",
+    "description": "Free concept explainers, notes, and exam articles across school and entrance tests.",
+    "tags": [
+      "JEE",
+      "NEET",
+      "school"
+    ],
+    "free": true,
+    "icon": "🧠"
+  },
+  {
+    "id": "magoosh-sat-gre",
+    "category": "test-prep",
+    "title": "Magoosh SAT and GRE Resources",
+    "url": "https://magoosh.com/",
+    "description": "Strategy articles, vocabulary tools, and limited free prep for SAT and GRE.",
+    "tags": [
+      "SAT",
+      "GRE",
+      "strategy"
+    ],
+    "free": false,
+    "icon": "📖"
+  },
+  {
+    "id": "nta-cuet-official",
+    "category": "test-prep",
+    "title": "NTA CUET Official Practice",
+    "url": "https://exams.nta.ac.in/CUET-UG/",
+    "description": "Official CUET updates, sample content, and exam notices from the NTA portal.",
+    "tags": [
+      "CUET",
+      "official",
+      "India"
+    ],
+    "free": true,
+    "icon": "🇮🇳"
+  },
+  {
+    "id": "ap-classroom",
+    "category": "test-prep",
+    "title": "AP Classroom",
+    "url": "https://apstudents.collegeboard.org/",
+    "description": "AP learning support, course-specific practice, and exam readiness resources.",
+    "tags": [
+      "AP",
+      "College Board",
+      "practice"
+    ],
+    "free": true,
+    "icon": "🏫"
+  },
+  {
+    "id": "princeton-review-free-tests",
+    "category": "test-prep",
+    "title": "The Princeton Review Free Practice Tests",
+    "url": "https://www.princetonreview.com/college/free-test-prep",
+    "description": "Free diagnostic tests and sample prep content for SAT, ACT, and more.",
+    "tags": [
+      "SAT",
+      "ACT",
+      "diagnostic"
+    ],
+    "free": true,
+    "icon": "🧪"
+  },
+  {
+    "id": "embibe-engineering-medical",
+    "category": "test-prep",
+    "title": "Embibe Exam Preparation",
+    "url": "https://www.embibe.com/",
+    "description": "Personalized mock tests and adaptive preparation for Indian competitive exams.",
+    "tags": [
+      "JEE",
+      "NEET",
+      "mock tests"
+    ],
+    "free": true,
+    "icon": "🚀"
+  },
+  {
+    "id": "coursera",
+    "category": "courses",
+    "title": "Coursera",
+    "url": "https://www.coursera.org/",
+    "description": "University-led courses with free audit access for many programs.",
+    "tags": [
+      "MOOC",
+      "university",
+      "audit"
+    ],
+    "free": true,
+    "icon": "🎓"
+  },
+  {
+    "id": "edx",
+    "category": "courses",
+    "title": "edX",
+    "url": "https://www.edx.org/",
+    "description": "Online courses from top institutions with free audit options on many classes.",
+    "tags": [
+      "MOOC",
+      "audit",
+      "certificates"
+    ],
+    "free": true,
+    "icon": "🌍"
+  },
+  {
+    "id": "mit-ocw",
+    "category": "courses",
+    "title": "MIT OpenCourseWare",
+    "url": "https://ocw.mit.edu/",
+    "description": "Free lecture notes, assignments, and videos from MIT courses.",
+    "tags": [
+      "engineering",
+      "science",
+      "free"
+    ],
+    "free": true,
+    "icon": "🏛️"
+  },
+  {
+    "id": "nptel",
+    "category": "courses",
+    "title": "NPTEL",
+    "url": "https://nptel.ac.in/",
+    "description": "IIT and IISc-backed courses across engineering, science, and management.",
+    "tags": [
+      "IIT",
+      "India",
+      "certification"
+    ],
+    "free": true,
+    "icon": "🇮🇳"
+  },
+  {
+    "id": "stanford-online-free",
+    "category": "courses",
+    "title": "Stanford Online Free Courses",
+    "url": "https://online.stanford.edu/free-courses",
+    "description": "Selected free Stanford courses in technology, health, and personal development.",
+    "tags": [
+      "Stanford",
+      "free",
+      "technology"
+    ],
+    "free": true,
+    "icon": "🌲"
+  },
+  {
+    "id": "harvard-online-free",
+    "category": "courses",
+    "title": "Harvard Online Free Courses",
+    "url": "https://pll.harvard.edu/catalog/free",
+    "description": "Harvard's catalog of free courses including CS50 and career-focused learning.",
+    "tags": [
+      "Harvard",
+      "CS50",
+      "free"
+    ],
+    "free": true,
+    "icon": "🟥"
+  },
+  {
+    "id": "udemy-free-courses",
+    "category": "courses",
+    "title": "Udemy Free Courses",
+    "url": "https://www.udemy.com/courses/free/",
+    "description": "Browse selected free beginner courses across coding, business, and design.",
+    "tags": [
+      "skills",
+      "beginner",
+      "free"
+    ],
+    "free": true,
+    "icon": "💡"
+  },
+  {
+    "id": "freecodecamp-courses",
+    "category": "courses",
+    "title": "freeCodeCamp",
+    "url": "https://www.freecodecamp.org/",
+    "description": "Structured coding curriculum with certifications and project-based practice.",
+    "tags": [
+      "coding",
+      "projects",
+      "certificates"
+    ],
+    "free": true,
+    "icon": "💻"
+  },
+  {
+    "id": "swayam",
+    "category": "courses",
+    "title": "SWAYAM",
+    "url": "https://swayam.gov.in/",
+    "description": "Government-backed Indian MOOC platform with school and university-level courses.",
+    "tags": [
+      "India",
+      "MOOC",
+      "school"
+    ],
+    "free": true,
+    "icon": "📗"
+  },
+  {
+    "id": "kaggle-learn",
+    "category": "courses",
+    "title": "Kaggle Learn",
+    "url": "https://www.kaggle.com/learn",
+    "description": "Short hands-on micro-courses for Python, ML, data analysis, and AI.",
+    "tags": [
+      "data science",
+      "AI",
+      "hands-on"
+    ],
+    "free": true,
+    "icon": "📊"
+  },
+  {
+    "id": "common-app-guide",
+    "category": "application-help",
+    "title": "Common App First-Year Guide",
+    "url": "https://www.commonapp.org/apply/first-year-students",
+    "description": "Official guidance for building and submitting a Common App application.",
+    "tags": [
+      "US admissions",
+      "official",
+      "applications"
+    ],
+    "free": true,
+    "icon": "🧾"
+  },
+  {
+    "id": "collegevine",
+    "category": "application-help",
+    "title": "CollegeVine",
+    "url": "https://www.collegevine.com/",
+    "description": "Free tools, essays guidance, and admissions calculators for college applicants.",
+    "tags": [
+      "essays",
+      "admissions",
+      "planning"
+    ],
+    "free": true,
+    "icon": "🌿"
+  },
+  {
+    "id": "prepscholar-essay-tips",
+    "category": "application-help",
+    "title": "PrepScholar Essay Writing Tips",
+    "url": "https://blog.prepscholar.com/college-essay-examples-that-worked",
+    "description": "Essay examples and writing advice for stronger college application statements.",
+    "tags": [
+      "essays",
+      "writing",
+      "examples"
+    ],
+    "free": true,
+    "icon": "✍️"
+  },
+  {
+    "id": "ucas-guide",
+    "category": "application-help",
+    "title": "UCAS Undergraduate Guide",
+    "url": "https://www.ucas.com/undergraduate/applying-university",
+    "description": "Official UK application timelines, personal statement help, and offer guidance.",
+    "tags": [
+      "UK",
+      "UCAS",
+      "official"
+    ],
+    "free": true,
+    "icon": "🇬🇧"
+  },
+  {
+    "id": "big-interview-resources",
+    "category": "application-help",
+    "title": "Big Interview Resources",
+    "url": "https://resources.biginterview.com/college/",
+    "description": "Free articles and checklists for interview preparation and confidence building.",
+    "tags": [
+      "interviews",
+      "career",
+      "practice"
+    ],
+    "free": true,
+    "icon": "🎤"
+  },
+  {
+    "id": "scribbr-sop-guide",
+    "category": "application-help",
+    "title": "Scribbr Statement of Purpose Guide",
+    "url": "https://www.scribbr.com/graduate-school/statement-of-purpose/",
+    "description": "Practical SOP structure, examples, and revision tips for applications.",
+    "tags": [
+      "SOP",
+      "graduate school",
+      "writing"
+    ],
+    "free": true,
+    "icon": "📄"
+  },
+  {
+    "id": "purdue-owl-personal-statement",
+    "category": "application-help",
+    "title": "Purdue OWL Personal Statement Help",
+    "url": "https://owl.purdue.edu/owl/job_search_writing/preparing_an_application/writing_the_personal_statement/index.html",
+    "description": "Trusted writing guidance for personal statements and application narratives.",
+    "tags": [
+      "personal statement",
+      "writing",
+      "trusted"
+    ],
+    "free": true,
+    "icon": "🦉"
+  },
+  {
+    "id": "buddy4study",
+    "category": "scholarships",
+    "title": "Buddy4Study",
+    "url": "https://www.buddy4study.com/",
+    "description": "Indian scholarship discovery platform with eligibility filters and alerts.",
+    "tags": [
+      "scholarships",
+      "India",
+      "search"
+    ],
+    "free": true,
+    "icon": "💸"
+  },
+  {
+    "id": "scholarshipportal",
+    "category": "scholarships",
+    "title": "ScholarshipPortal",
+    "url": "https://www.scholarshipportal.com/",
+    "description": "Search engine for scholarships and grants across Europe and beyond.",
+    "tags": [
+      "Europe",
+      "scholarships",
+      "study abroad"
+    ],
+    "free": true,
+    "icon": "🌐"
+  },
+  {
+    "id": "iefa",
+    "category": "scholarships",
+    "title": "IEFA Scholarships",
+    "url": "https://www.iefa.org/",
+    "description": "International scholarship and financial aid listings for study abroad.",
+    "tags": [
+      "international",
+      "financial aid",
+      "search"
+    ],
+    "free": true,
+    "icon": "🎒"
+  },
+  {
+    "id": "chevening",
+    "category": "scholarships",
+    "title": "Chevening Scholarships",
+    "url": "https://www.chevening.org/scholarships/",
+    "description": "Official UK government scholarship program for future global leaders.",
+    "tags": [
+      "UK",
+      "government",
+      "postgraduate"
+    ],
+    "free": true,
+    "icon": "👑"
+  },
+  {
+    "id": "fulbright",
+    "category": "scholarships",
+    "title": "Fulbright Program",
+    "url": "https://foreign.fulbrightonline.org/",
+    "description": "Official information for Fulbright opportunities to study or research in the US.",
+    "tags": [
+      "US",
+      "research",
+      "official"
+    ],
+    "free": true,
+    "icon": "🗽"
+  },
+  {
+    "id": "daad-scholarships",
+    "category": "scholarships",
+    "title": "DAAD Scholarships",
+    "url": "https://www.daad.de/en/studying-in-germany/scholarships/",
+    "description": "Scholarship database and funding guidance for studying in Germany.",
+    "tags": [
+      "Germany",
+      "funding",
+      "study abroad"
+    ],
+    "free": true,
+    "icon": "🇩🇪"
+  },
+  {
+    "id": "freecodecamp-skills",
+    "category": "skills",
+    "title": "freeCodeCamp Skills",
+    "url": "https://www.freecodecamp.org/learn",
+    "description": "Self-paced coding tracks that build practical software and web development skills.",
+    "tags": [
+      "coding",
+      "skills",
+      "practice"
+    ],
+    "free": true,
+    "icon": "🛠️"
+  },
+  {
+    "id": "codecademy-free-tier",
+    "category": "skills",
+    "title": "Codecademy Free Tier",
+    "url": "https://www.codecademy.com/catalog/all",
+    "description": "Interactive beginner lessons in programming, data science, and web development.",
+    "tags": [
+      "interactive",
+      "coding",
+      "beginner"
+    ],
+    "free": true,
+    "icon": "⌨️"
+  },
+  {
+    "id": "duolingo",
+    "category": "skills",
+    "title": "Duolingo",
+    "url": "https://www.duolingo.com/",
+    "description": "Gamified language-learning app useful for study abroad and test readiness support.",
+    "tags": [
+      "languages",
+      "study abroad",
+      "daily practice"
+    ],
+    "free": true,
+    "icon": "🗣️"
+  },
+  {
+    "id": "google-skillshop",
+    "category": "skills",
+    "title": "Google Skillshop",
+    "url": "https://skillshop.withgoogle.com/",
+    "description": "Free Google training and badges across marketing, analytics, and cloud tools.",
+    "tags": [
+      "Google",
+      "certificates",
+      "digital skills"
+    ],
+    "free": true,
+    "icon": "🔎"
+  },
+  {
+    "id": "linkedin-learning-student",
+    "category": "skills",
+    "title": "LinkedIn Learning",
+    "url": "https://www.linkedin.com/learning/",
+    "description": "Professional skill courses with free trials and student access via some institutions.",
+    "tags": [
+      "career",
+      "professional skills",
+      "trial"
+    ],
+    "free": true,
+    "icon": "💼"
+  },
+  {
+    "id": "microsoft-learn",
+    "category": "skills",
+    "title": "Microsoft Learn",
+    "url": "https://learn.microsoft.com/training/",
+    "description": "Role-based learning paths for cloud, AI, data, and productivity skills.",
+    "tags": [
+      "Microsoft",
+      "cloud",
+      "AI"
+    ],
+    "free": true,
+    "icon": "☁️"
+  }
+]

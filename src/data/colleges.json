@@ -1,0 +1,2155 @@
+[
+  {
+    "id": "iit-bombay",
+    "name": "Indian Institute of Technology Bombay",
+    "shortName": "IIT Bombay",
+    "location": "Mumbai, Maharashtra",
+    "country": "India",
+    "type": "public",
+    "programs": [
+      "Engineering",
+      "Computer Science",
+      "Sciences",
+      "Design",
+      "Management"
+    ],
+    "admissionRequirements": {
+      "minGrades": 75,
+      "requiredExams": [
+        "JEE Main",
+        "JEE Advanced"
+      ],
+      "requiredSubjects": [
+        "Physics",
+        "Chemistry",
+        "Mathematics"
+      ],
+      "preferredSubjects": [
+        "Computer Science",
+        "Engineering Graphics"
+      ],
+      "minTestScores": {
+        "jee": 99.2
+      },
+      "internationalStudentNotes": "Foreign nationals generally need JEE Advanced eligibility, strong Class XII equivalents and proof of English-medium study if applicable."
+    },
+    "feesINR": 245000,
+    "scholarships": [
+      {
+        "name": "Merit-cum-Means Scholarship",
+        "type": "need",
+        "amount": "Up to full tuition remission + stipend",
+        "description": "For high-performing students from lower-income families who meet institute income criteria."
+      },
+      {
+        "name": "Institute Free Studentship",
+        "type": "need",
+        "amount": "Partial or full tuition waiver",
+        "description": "Need-based tuition support for a limited percentage of undergraduate students."
+      },
+      {
+        "name": "Institute Sports Scholarship",
+        "type": "sport",
+        "amount": "Variable grant and support",
+        "description": "Supports students with strong inter-IIT or national-level sports participation."
+      }
+    ],
+    "acceptanceRate": 1.2,
+    "deadlines": [
+      {
+        "round": "JEE Main Session 1",
+        "month": "January",
+        "description": "First qualifying attempt for JEE Advanced pathway."
+      },
+      {
+        "round": "JEE Advanced",
+        "month": "May",
+        "description": "Primary exam used for IIT admissions."
+      },
+      {
+        "round": "JoSAA Counselling",
+        "month": "June-July",
+        "description": "Seat allocation and branch locking happen here."
+      }
+    ],
+    "extracurricularPreferences": [
+      "National or international Olympiad medals",
+      "Robotics, coding or maker projects",
+      "Research internships or hackathons",
+      "Sustained technical club leadership"
+    ],
+    "boardNotes": {
+      "CBSE": "Class XII results from CBSE are accepted directly; most shortlisted applicants present at least 75% with strong PCM marks.",
+      "ICSE": "ISC marks are treated on par with CBSE; Physics, Chemistry and Mathematics should align with the intended STEM program.",
+      "State Board": "State board students are eligible, but very high board percentages plus strong entrance exam performance are usually needed for top branches.",
+      "IB": "IB Diploma is accepted; 36-42 points with HL Mathematics and HL sciences is typically viewed as competitive.",
+      "Cambridge": "A-level applicants should usually present A/A* grades in Mathematics and science subjects; AS results may support predicted grades."
+    },
+    "ranking": "Regularly ranked among the top engineering institutes in India",
+    "website": "https://www.iitb.ac.in"
+  },
+  {
+    "id": "iit-delhi",
+    "name": "Indian Institute of Technology Delhi",
+    "shortName": "IIT Delhi",
+    "location": "New Delhi, Delhi",
+    "country": "India",
+    "type": "public",
+    "programs": [
+      "Engineering",
+      "Computer Science",
+      "Sciences",
+      "Design",
+      "Interdisciplinary Studies"
+    ],
+    "admissionRequirements": {
+      "minGrades": 75,
+      "requiredExams": [
+        "JEE Main",
+        "JEE Advanced"
+      ],
+      "requiredSubjects": [
+        "Physics",
+        "Chemistry",
+        "Mathematics"
+      ],
+      "preferredSubjects": [
+        "Computer Science",
+        "Mathematics Olympiad training"
+      ],
+      "minTestScores": {
+        "jee": 99.1
+      },
+      "internationalStudentNotes": "International and OCI applicants should track JEE Advanced requirements early; competitive STEM preparation is essential."
+    },
+    "feesINR": 255000,
+    "scholarships": [
+      {
+        "name": "Merit-cum-Means Scholarship",
+        "type": "need",
+        "amount": "Tuition waiver + monthly allowance",
+        "description": "Institute support for academically strong students from eligible income bands."
+      },
+      {
+        "name": "Institute Merit Prize",
+        "type": "merit",
+        "amount": "Cash award",
+        "description": "Recognizes top academic performers within the undergraduate batch."
+      },
+      {
+        "name": "Sports Scholarship Scheme",
+        "type": "sport",
+        "amount": "Variable assistance",
+        "description": "For students contributing significantly to IIT Delhi sports teams."
+      }
+    ],
+    "acceptanceRate": 1.5,
+    "deadlines": [
+      {
+        "round": "JEE Main Session 1",
+        "month": "January"
+      },
+      {
+        "round": "JEE Main Session 2",
+        "month": "April",
+        "description": "Many applicants improve percentile in this second attempt."
+      },
+      {
+        "round": "JEE Advanced + JoSAA",
+        "month": "May-July",
+        "description": "Exam, rank release and counselling cycle."
+      }
+    ],
+    "extracurricularPreferences": [
+      "Olympiad or NTSE-style achievement",
+      "Competitive programming and technical contests",
+      "Meaningful STEM project portfolios",
+      "Leadership in science clubs or student initiatives"
+    ],
+    "boardNotes": {
+      "CBSE": "Class XII results from CBSE are accepted directly; most shortlisted applicants present at least 75% with strong PCM marks.",
+      "ICSE": "ISC marks are treated on par with CBSE; Physics, Chemistry and Mathematics should align with the intended STEM program.",
+      "State Board": "State board students are eligible, but very high board percentages plus strong entrance exam performance are usually needed for top branches.",
+      "IB": "IB Diploma is accepted; 36-42 points with HL Mathematics and HL sciences is typically viewed as competitive.",
+      "Cambridge": "A-level applicants should usually present A/A* grades in Mathematics and science subjects; AS results may support predicted grades."
+    },
+    "ranking": "Consistently among India’s top engineering institutions",
+    "website": "https://home.iitd.ac.in"
+  },
+  {
+    "id": "iit-madras",
+    "name": "Indian Institute of Technology Madras",
+    "shortName": "IIT Madras",
+    "location": "Chennai, Tamil Nadu",
+    "country": "India",
+    "type": "public",
+    "programs": [
+      "Engineering",
+      "Computer Science",
+      "Sciences",
+      "Data Science",
+      "Humanities & Social Sciences"
+    ],
+    "admissionRequirements": {
+      "minGrades": 75,
+      "requiredExams": [
+        "JEE Main",
+        "JEE Advanced"
+      ],
+      "requiredSubjects": [
+        "Physics",
+        "Chemistry",
+        "Mathematics"
+      ],
+      "preferredSubjects": [
+        "Computer Science",
+        "Statistics"
+      ],
+      "minTestScores": {
+        "jee": 99.0
+      },
+      "internationalStudentNotes": "Applicants from outside India should verify recognized school qualifications and JEE Advanced eligibility windows well ahead of the exam."
+    },
+    "feesINR": 240000,
+    "scholarships": [
+      {
+        "name": "Institute Merit-cum-Means",
+        "type": "need",
+        "amount": "Partial tuition waiver + stipend",
+        "description": "Support for academically strong students from lower-income families."
+      },
+      {
+        "name": "SC/ST Tuition Exemption",
+        "type": "need",
+        "amount": "Full tuition waiver",
+        "description": "Category-based fee relief under institute and government norms."
+      },
+      {
+        "name": "Institute Merit Scholarship",
+        "type": "merit",
+        "amount": "Cash award",
+        "description": "Granted to high-ranking students on institute academic performance."
+      }
+    ],
+    "acceptanceRate": 1.7,
+    "deadlines": [
+      {
+        "round": "JEE Main",
+        "month": "January-April"
+      },
+      {
+        "round": "JEE Advanced",
+        "month": "May"
+      },
+      {
+        "round": "JoSAA Reporting",
+        "month": "June-July",
+        "description": "Document verification and seat acceptance period."
+      }
+    ],
+    "extracurricularPreferences": [
+      "Math and science Olympiads",
+      "Research or tinkering projects",
+      "Coding competitions and hackathons",
+      "Deep subject curiosity shown through sustained work"
+    ],
+    "boardNotes": {
+      "CBSE": "Class XII results from CBSE are accepted directly; most shortlisted applicants present at least 75% with strong PCM marks.",
+      "ICSE": "ISC marks are treated on par with CBSE; Physics, Chemistry and Mathematics should align with the intended STEM program.",
+      "State Board": "State board students are eligible, but very high board percentages plus strong entrance exam performance are usually needed for top branches.",
+      "IB": "IB Diploma is accepted; 36-42 points with HL Mathematics and HL sciences is typically viewed as competitive.",
+      "Cambridge": "A-level applicants should usually present A/A* grades in Mathematics and science subjects; AS results may support predicted grades."
+    },
+    "ranking": "Frequently placed at or near #1 for engineering in India",
+    "website": "https://www.iitm.ac.in"
+  },
+  {
+    "id": "nit-trichy",
+    "name": "National Institute of Technology Tiruchirappalli",
+    "shortName": "NIT Trichy",
+    "location": "Tiruchirappalli, Tamil Nadu",
+    "country": "India",
+    "type": "public",
+    "programs": [
+      "Engineering",
+      "Computer Science",
+      "Architecture",
+      "Management",
+      "Sciences"
+    ],
+    "admissionRequirements": {
+      "minGrades": 75,
+      "requiredExams": [
+        "JEE Main"
+      ],
+      "requiredSubjects": [
+        "Physics",
+        "Chemistry",
+        "Mathematics"
+      ],
+      "preferredSubjects": [
+        "Computer Science"
+      ],
+      "minTestScores": {
+        "jee": 97.8
+      },
+      "internationalStudentNotes": "NRI and foreign national applicants often use the DASA/CIWG route with equivalent qualifying scores where applicable."
+    },
+    "feesINR": 185000,
+    "scholarships": [
+      {
+        "name": "Merit-cum-Means Scholarship",
+        "type": "need",
+        "amount": "Tuition support",
+        "description": "Income-linked support for academically strong students."
+      },
+      {
+        "name": "Central Sector Scholarship",
+        "type": "merit",
+        "amount": "As per government norms",
+        "description": "Students may avail eligible central merit scholarships routed through the institute."
+      },
+      {
+        "name": "Sports Fee Concession",
+        "type": "sport",
+        "amount": "Variable",
+        "description": "Support for institute-level athletes and tournament participants."
+      }
+    ],
+    "acceptanceRate": 9.0,
+    "deadlines": [
+      {
+        "round": "JEE Main Session 1",
+        "month": "January"
+      },
+      {
+        "round": "JEE Main Session 2",
+        "month": "April"
+      },
+      {
+        "round": "JoSAA + CSAB",
+        "month": "June-August",
+        "description": "Includes regular and special rounds."
+      }
+    ],
+    "extracurricularPreferences": [
+      "STEM competitions and school innovation fairs",
+      "Coding or electronics club work",
+      "Consistent academics with practical projects",
+      "Leadership in technical festivals or chapters"
+    ],
+    "boardNotes": {
+      "CBSE": "Class XII results from CBSE are accepted directly; most shortlisted applicants present at least 75% with strong PCM marks.",
+      "ICSE": "ISC marks are treated on par with CBSE; Physics, Chemistry and Mathematics should align with the intended STEM program.",
+      "State Board": "State board students are eligible, but very high board percentages plus strong entrance exam performance are usually needed for top branches.",
+      "IB": "IB Diploma is accepted; 36-42 points with HL Mathematics and HL sciences is typically viewed as competitive.",
+      "Cambridge": "A-level applicants should usually present A/A* grades in Mathematics and science subjects; AS results may support predicted grades."
+    },
+    "ranking": "Among the most sought-after NITs for engineering",
+    "website": "https://www.nitt.edu"
+  },
+  {
+    "id": "nit-warangal",
+    "name": "National Institute of Technology Warangal",
+    "shortName": "NIT Warangal",
+    "location": "Warangal, Telangana",
+    "country": "India",
+    "type": "public",
+    "programs": [
+      "Engineering",
+      "Computer Science",
+      "Sciences",
+      "Management"
+    ],
+    "admissionRequirements": {
+      "minGrades": 75,
+      "requiredExams": [
+        "JEE Main"
+      ],
+      "requiredSubjects": [
+        "Physics",
+        "Chemistry",
+        "Mathematics"
+      ],
+      "preferredSubjects": [
+        "Computer Science",
+        "Electronics"
+      ],
+      "minTestScores": {
+        "jee": 97.2
+      },
+      "internationalStudentNotes": "DASA and related supernumerary channels may be available for eligible foreign national and NRI applicants."
+    },
+    "feesINR": 195000,
+    "scholarships": [
+      {
+        "name": "Merit Scholarship",
+        "type": "merit",
+        "amount": "Cash award",
+        "description": "Awarded to top academic performers at institute level."
+      },
+      {
+        "name": "Merit-cum-Means Assistance",
+        "type": "need",
+        "amount": "Partial tuition waiver",
+        "description": "Need-sensitive aid for students who maintain academic standing."
+      },
+      {
+        "name": "Sports Incentive Grant",
+        "type": "sport",
+        "amount": "Variable",
+        "description": "Supports students representing NIT Warangal in recognized competitions."
+      }
+    ],
+    "acceptanceRate": 12.0,
+    "deadlines": [
+      {
+        "round": "JEE Main",
+        "month": "January-April"
+      },
+      {
+        "round": "JoSAA Counselling",
+        "month": "June-July"
+      },
+      {
+        "round": "CSAB Special Rounds",
+        "month": "August"
+      }
+    ],
+    "extracurricularPreferences": [
+      "Hands-on engineering projects",
+      "Hackathons and coding profiles",
+      "Olympiads or school STEM honors",
+      "Leadership in technical or community clubs"
+    ],
+    "boardNotes": {
+      "CBSE": "Class XII results from CBSE are accepted directly; most shortlisted applicants present at least 75% with strong PCM marks.",
+      "ICSE": "ISC marks are treated on par with CBSE; Physics, Chemistry and Mathematics should align with the intended STEM program.",
+      "State Board": "State board students are eligible, but very high board percentages plus strong entrance exam performance are usually needed for top branches.",
+      "IB": "IB Diploma is accepted; 36-42 points with HL Mathematics and HL sciences is typically viewed as competitive.",
+      "Cambridge": "A-level applicants should usually present A/A* grades in Mathematics and science subjects; AS results may support predicted grades."
+    },
+    "ranking": "Regularly ranked among the top NITs in India",
+    "website": "https://www.nitw.ac.in"
+  },
+  {
+    "id": "bits-pilani",
+    "name": "Birla Institute of Technology and Science, Pilani",
+    "shortName": "BITS Pilani",
+    "location": "Pilani, Rajasthan",
+    "country": "India",
+    "type": "private",
+    "programs": [
+      "Engineering",
+      "Computer Science",
+      "Sciences",
+      "Pharmacy",
+      "Economics"
+    ],
+    "admissionRequirements": {
+      "minGrades": 75,
+      "requiredExams": [
+        "BITSAT"
+      ],
+      "requiredSubjects": [
+        "Physics",
+        "Chemistry",
+        "Mathematics or Biology"
+      ],
+      "preferredSubjects": [
+        "Computer Science",
+        "Statistics"
+      ],
+      "internationalStudentNotes": "International students may apply through the International Students’ Admission Scheme using SAT scores where that route is open."
+    },
+    "feesINR": 575000,
+    "scholarships": [
+      {
+        "name": "Merit Scholarship",
+        "type": "merit",
+        "amount": "25%-100% tuition waiver",
+        "description": "Based on semester CGPA and entry performance; highly competitive at the top slab."
+      },
+      {
+        "name": "Merit-cum-Need Scholarship",
+        "type": "need",
+        "amount": "15%-80% tuition waiver",
+        "description": "Combines family income review with academic performance."
+      },
+      {
+        "name": "BITS Sports Excellence Support",
+        "type": "sport",
+        "amount": "Variable reimbursement",
+        "description": "For high-performing athletes representing the campus in major meets."
+      }
+    ],
+    "acceptanceRate": 18.0,
+    "deadlines": [
+      {
+        "round": "BITSAT Registration",
+        "month": "January-March"
+      },
+      {
+        "round": "BITSAT Exam Window",
+        "month": "May-June"
+      },
+      {
+        "round": "Admission Iterations",
+        "month": "July-August",
+        "description": "Multiple waitlist and seat allocation rounds."
+      }
+    ],
+    "extracurricularPreferences": [
+      "Strong academic profile plus project work",
+      "Coding, startup or product-building experience",
+      "Olympiad or competitive exam excellence",
+      "Leadership in clubs, festivals or social impact groups"
+    ],
+    "boardNotes": {
+      "CBSE": "Class XII results from CBSE are accepted directly; most shortlisted applicants present at least 75% overall and 60% in each PCB/PCM subject with strong PCM marks.",
+      "ICSE": "ISC marks are treated on par with CBSE; Physics, Chemistry and Mathematics should align with the intended STEM program.",
+      "State Board": "State board students are eligible, but very high board percentages plus strong entrance exam performance are usually needed for top branches.",
+      "IB": "IB Diploma is accepted; 36-42 points with HL Mathematics and HL sciences is typically viewed as competitive.",
+      "Cambridge": "A-level applicants should usually present A/A* grades in Mathematics and science subjects; AS results may support predicted grades."
+    },
+    "ranking": "One of India’s top private institutions for STEM",
+    "website": "https://www.bits-pilani.ac.in"
+  },
+  {
+    "id": "du-srcc",
+    "name": "Shri Ram College of Commerce, University of Delhi",
+    "shortName": "SRCC",
+    "location": "New Delhi, Delhi",
+    "country": "India",
+    "type": "public",
+    "programs": [
+      "Business",
+      "Economics",
+      "Commerce",
+      "Arts & Humanities"
+    ],
+    "admissionRequirements": {
+      "minGrades": 95,
+      "requiredExams": [
+        "CUET"
+      ],
+      "requiredSubjects": [
+        "Language",
+        "Accountancy or Mathematics",
+        "Economics or Business Studies"
+      ],
+      "preferredSubjects": [
+        "Mathematics",
+        "Economics"
+      ],
+      "minTestScores": {
+        "cuet": 99.0
+      },
+      "internationalStudentNotes": "International applicants usually apply through the University of Delhi foreign admissions process; strong board marks remain important."
+    },
+    "feesINR": 32000,
+    "scholarships": [
+      {
+        "name": "SRCC Merit Scholarship",
+        "type": "merit",
+        "amount": "Partial fee waiver",
+        "description": "Given to top-performing students in commerce and economics streams."
+      },
+      {
+        "name": "Students Aid Society Support",
+        "type": "need",
+        "amount": "Variable grant",
+        "description": "Need-based assistance for deserving students with documented financial hardship."
+      },
+      {
+        "name": "Sports Quota Support",
+        "type": "sport",
+        "amount": "Fee relief and support",
+        "description": "For admitted students with strong recognized sports credentials."
+      }
+    ],
+    "acceptanceRate": 4.5,
+    "deadlines": [
+      {
+        "round": "CUET Registration",
+        "month": "February-March"
+      },
+      {
+        "round": "CUET Examination",
+        "month": "May"
+      },
+      {
+        "round": "DU CSAS Allocation",
+        "month": "June-July",
+        "description": "Preference filling and seat allocation through the central portal."
+      }
+    ],
+    "extracurricularPreferences": [
+      "Commerce or economics Olympiads",
+      "Debating and case competitions",
+      "Student entrepreneurship or finance clubs",
+      "Community leadership with measurable impact"
+    ],
+    "boardNotes": {
+      "CBSE": "CBSE applicants are considered at par with other recognized boards; successful applicants often present 95%+ in Class XII and strong language scores.",
+      "ICSE": "ISC applicants are eligible and often benefit from strong English and subject depth in commerce, economics or humanities.",
+      "State Board": "Normalization may apply during merit evaluation; strong board marks and entrance performance are important for competitive cutoffs.",
+      "IB": "IB Diploma with 36-40 points is generally competitive; HL Economics, Mathematics or Business subjects are helpful where relevant.",
+      "Cambridge": "Cambridge A-level/AS qualifications are accepted; applicants should show consistent high grades in relevant essay-based or quantitative subjects."
+    },
+    "ranking": "Widely regarded as India’s premier undergraduate commerce college",
+    "website": "https://www.srcc.edu"
+  },
+  {
+    "id": "st-xaviers-mumbai",
+    "name": "St. Xavier's College, Mumbai",
+    "shortName": "St. Xavier's Mumbai",
+    "location": "Mumbai, Maharashtra",
+    "country": "India",
+    "type": "private",
+    "programs": [
+      "Arts & Humanities",
+      "Commerce",
+      "Sciences",
+      "Mass Communication"
+    ],
+    "admissionRequirements": {
+      "minGrades": 85,
+      "requiredExams": [
+        "Merit-Based Board Evaluation",
+        "Xavier Aptitude Test (course-specific)"
+      ],
+      "requiredSubjects": [
+        "English",
+        "Relevant stream subjects"
+      ],
+      "preferredSubjects": [
+        "Economics",
+        "Psychology",
+        "Mathematics"
+      ],
+      "internationalStudentNotes": "International applicants are usually reviewed on board results, English proficiency and program-specific fit."
+    },
+    "feesINR": 95000,
+    "scholarships": [
+      {
+        "name": "Merit Scholarship",
+        "type": "merit",
+        "amount": "Partial tuition waiver",
+        "description": "For top academic performers across undergraduate programs."
+      },
+      {
+        "name": "Jesuit Need-Based Aid",
+        "type": "need",
+        "amount": "Variable grant",
+        "description": "Financial support for deserving students with demonstrated need."
+      },
+      {
+        "name": "Cultural and Sports Assistance",
+        "type": "sport",
+        "amount": "Variable",
+        "description": "Support for students who contribute strongly in inter-college sports or cultural representation."
+      }
+    ],
+    "acceptanceRate": 20.0,
+    "deadlines": [
+      {
+        "round": "Application Window",
+        "month": "May-June"
+      },
+      {
+        "round": "Merit Lists / Course Tests",
+        "month": "June-July"
+      },
+      {
+        "round": "Final Admission",
+        "month": "July"
+      }
+    ],
+    "extracurricularPreferences": [
+      "Debate, theatre or literary involvement",
+      "Social service and Jesuit-value alignment",
+      "Strong communication profile",
+      "Culture, media or festival leadership"
+    ],
+    "boardNotes": {
+      "CBSE": "CBSE applicants are considered at par with other recognized boards; successful applicants often present 85%+ in Class XII and strong language scores.",
+      "ICSE": "ISC applicants are eligible and often benefit from strong English and subject depth in commerce, economics or humanities.",
+      "State Board": "Normalization may apply during merit evaluation; strong board marks and entrance performance are important for competitive cutoffs.",
+      "IB": "IB Diploma with 36-40 points is generally competitive; HL Economics, Mathematics or Business subjects are helpful where relevant.",
+      "Cambridge": "Cambridge A-level/AS qualifications are accepted; applicants should show consistent high grades in relevant essay-based or quantitative subjects."
+    },
+    "ranking": "Highly reputed autonomous college in Mumbai for arts, commerce and sciences",
+    "website": "https://xaviers.ac"
+  },
+  {
+    "id": "christ-university",
+    "name": "Christ University",
+    "shortName": "Christ University",
+    "location": "Bengaluru, Karnataka",
+    "country": "India",
+    "type": "private",
+    "programs": [
+      "Business",
+      "Computer Science",
+      "Arts & Humanities",
+      "Sciences",
+      "Law"
+    ],
+    "admissionRequirements": {
+      "minGrades": 70,
+      "requiredExams": [
+        "Christ University Entrance Test",
+        "Micro Presentation",
+        "Personal Interview"
+      ],
+      "requiredSubjects": [
+        "English",
+        "Relevant stream subjects"
+      ],
+      "preferredSubjects": [
+        "Mathematics",
+        "Economics",
+        "Computer Science"
+      ],
+      "internationalStudentNotes": "International applicants should expect transcript review, passport documentation and English proficiency checks where needed."
+    },
+    "feesINR": 275000,
+    "scholarships": [
+      {
+        "name": "Merit Scholarship",
+        "type": "merit",
+        "amount": "10%-50% fee concession",
+        "description": "Based on outstanding academic performance after enrollment."
+      },
+      {
+        "name": "Financial Assistance Scheme",
+        "type": "need",
+        "amount": "Variable fee reduction",
+        "description": "Need-based concessions for students with documented financial hardship."
+      },
+      {
+        "name": "Cultural and Sports Scholarship",
+        "type": "sport",
+        "amount": "Variable",
+        "description": "Recognizes achievements in sports and major co-curricular events."
+      }
+    ],
+    "acceptanceRate": 17.0,
+    "deadlines": [
+      {
+        "round": "Application Opens",
+        "month": "December-January"
+      },
+      {
+        "round": "Entrance Test & Interviews",
+        "month": "March-April"
+      },
+      {
+        "round": "Offer Release",
+        "month": "April-May"
+      }
+    ],
+    "extracurricularPreferences": [
+      "Leadership in school clubs or NGOs",
+      "Public speaking, MUN or event management",
+      "Community service and social responsibility",
+      "Balanced profile across academics and co-curriculars"
+    ],
+    "boardNotes": {
+      "CBSE": "CBSE applicants are considered at par with other recognized boards; successful applicants often present 70%+ in Class XII and strong language scores.",
+      "ICSE": "ISC applicants are eligible and often benefit from strong English and subject depth in commerce, economics or humanities.",
+      "State Board": "Normalization may apply during merit evaluation; strong board marks and entrance performance are important for competitive cutoffs.",
+      "IB": "IB Diploma with 36-40 points is generally competitive; HL Economics, Mathematics or Business subjects are helpful where relevant.",
+      "Cambridge": "Cambridge A-level/AS qualifications are accepted; applicants should show consistent high grades in relevant essay-based or quantitative subjects."
+    },
+    "ranking": "Popular private university with strong brand in business and liberal programs",
+    "website": "https://christuniversity.in"
+  },
+  {
+    "id": "ashoka-university",
+    "name": "Ashoka University",
+    "shortName": "Ashoka",
+    "location": "Sonipat, Haryana",
+    "country": "India",
+    "type": "private",
+    "programs": [
+      "Arts & Humanities",
+      "Sciences",
+      "Computer Science",
+      "Business",
+      "Economics"
+    ],
+    "admissionRequirements": {
+      "minGrades": 85,
+      "requiredExams": [
+        "Ashoka Aptitude Assessment",
+        "Personal Interview"
+      ],
+      "requiredSubjects": [
+        "English"
+      ],
+      "preferredSubjects": [
+        "Mathematics",
+        "Economics",
+        "History",
+        "Computer Science"
+      ],
+      "minTestScores": {
+        "sat": 1450,
+        "act": 32
+      },
+      "internationalStudentNotes": "SAT or ACT can strengthen applications even when not mandatory; essays and interview quality matter heavily."
+    },
+    "feesINR": 995000,
+    "scholarships": [
+      {
+        "name": "Ashoka Merit Scholarship",
+        "type": "merit",
+        "amount": "Partial tuition waiver",
+        "description": "Limited awards for exceptional academic and intellectual promise."
+      },
+      {
+        "name": "Need-Based Financial Aid",
+        "type": "need",
+        "amount": "Up to significant tuition support",
+        "description": "Income-assessed support that can materially reduce total cost."
+      },
+      {
+        "name": "Diversity and Inclusion Grant",
+        "type": "diversity",
+        "amount": "Variable",
+        "description": "Supports underrepresented backgrounds and first-generation learners in select cases."
+      }
+    ],
+    "acceptanceRate": 18.0,
+    "deadlines": [
+      {
+        "round": "Round 1",
+        "month": "November",
+        "description": "Earlier review for strongest applicants."
+      },
+      {
+        "round": "Round 2",
+        "month": "January"
+      },
+      {
+        "round": "Round 3 / Final",
+        "month": "April",
+        "description": "Late round subject to seat availability."
+      }
+    ],
+    "extracurricularPreferences": [
+      "Evidence of intellectual curiosity beyond syllabus",
+      "Writing, debate or research experience",
+      "Community impact and leadership",
+      "Creative or interdisciplinary pursuits with depth"
+    ],
+    "boardNotes": {
+      "CBSE": "CBSE applicants are considered at par with other recognized boards; successful applicants often present 85%+ in Class XII and strong language scores.",
+      "ICSE": "ISC applicants are eligible and often benefit from strong English and subject depth in commerce, economics or humanities.",
+      "State Board": "Normalization may apply during merit evaluation; strong board marks and entrance performance are important for competitive cutoffs.",
+      "IB": "IB Diploma with 36-40 points is generally competitive; HL Economics, Mathematics or Business subjects are helpful where relevant.",
+      "Cambridge": "Cambridge A-level/AS qualifications are accepted; applicants should show consistent high grades in relevant essay-based or quantitative subjects."
+    },
+    "ranking": "Selective liberal arts university with strong global partnerships",
+    "website": "https://www.ashoka.edu.in"
+  },
+  {
+    "id": "lsr-delhi",
+    "name": "Lady Shri Ram College for Women, University of Delhi",
+    "shortName": "LSR",
+    "location": "New Delhi, Delhi",
+    "country": "India",
+    "type": "public",
+    "programs": [
+      "Arts & Humanities",
+      "Business",
+      "Economics",
+      "Social Sciences"
+    ],
+    "admissionRequirements": {
+      "minGrades": 94,
+      "requiredExams": [
+        "CUET"
+      ],
+      "requiredSubjects": [
+        "Language",
+        "Relevant domain subjects"
+      ],
+      "preferredSubjects": [
+        "Economics",
+        "Political Science",
+        "Mathematics"
+      ],
+      "minTestScores": {
+        "cuet": 98.5
+      },
+      "internationalStudentNotes": "International applicants typically use the University of Delhi foreign student process and need strong school transcripts."
+    },
+    "feesINR": 22000,
+    "scholarships": [
+      {
+        "name": "LSR Merit Scholarship",
+        "type": "merit",
+        "amount": "Partial fee support",
+        "description": "For top academic performers in college examinations."
+      },
+      {
+        "name": "Students Aid Fund",
+        "type": "need",
+        "amount": "Variable assistance",
+        "description": "Supports students facing financial constraints."
+      },
+      {
+        "name": "Sports Category Support",
+        "type": "sport",
+        "amount": "Fee relief and kit support",
+        "description": "For students with recognized competitive sports credentials."
+      }
+    ],
+    "acceptanceRate": 6.0,
+    "deadlines": [
+      {
+        "round": "CUET Registration",
+        "month": "February-March"
+      },
+      {
+        "round": "CUET Exam",
+        "month": "May"
+      },
+      {
+        "round": "DU CSAS Allocation",
+        "month": "June-July"
+      }
+    ],
+    "extracurricularPreferences": [
+      "Debate, writing and social sector involvement",
+      "Women’s leadership initiatives",
+      "Community engagement and advocacy",
+      "Consistent academic distinction in humanities or commerce"
+    ],
+    "boardNotes": {
+      "CBSE": "CBSE applicants are considered at par with other recognized boards; successful applicants often present 94%+ in Class XII and strong language scores.",
+      "ICSE": "ISC applicants are eligible and often benefit from strong English and subject depth in commerce, economics or humanities.",
+      "State Board": "Normalization may apply during merit evaluation; strong board marks and entrance performance are important for competitive cutoffs.",
+      "IB": "IB Diploma with 36-40 points is generally competitive; HL Economics, Mathematics or Business subjects are helpful where relevant.",
+      "Cambridge": "Cambridge A-level/AS qualifications are accepted; applicants should show consistent high grades in relevant essay-based or quantitative subjects."
+    },
+    "ranking": "One of India’s top undergraduate women’s colleges",
+    "website": "https://lsr.edu.in"
+  },
+  {
+    "id": "manipal-mit",
+    "name": "Manipal Institute of Technology",
+    "shortName": "MIT Manipal",
+    "location": "Manipal, Karnataka",
+    "country": "India",
+    "type": "private",
+    "programs": [
+      "Engineering",
+      "Computer Science",
+      "Sciences",
+      "Design"
+    ],
+    "admissionRequirements": {
+      "minGrades": 60,
+      "requiredExams": [
+        "MET",
+        "JEE Main (optional alternate pathway)"
+      ],
+      "requiredSubjects": [
+        "Physics",
+        "Mathematics",
+        "Chemistry or technical vocational subject"
+      ],
+      "preferredSubjects": [
+        "Computer Science",
+        "Statistics"
+      ],
+      "minTestScores": {
+        "jee": 90.0
+      },
+      "internationalStudentNotes": "International admissions may consider SAT or equivalent school credentials along with English proficiency."
+    },
+    "feesINR": 435000,
+    "scholarships": [
+      {
+        "name": "Manipal Merit Scholarship",
+        "type": "merit",
+        "amount": "Partial tuition waiver",
+        "description": "Based on entrance rank and strong academic performance."
+      },
+      {
+        "name": "Scholar and Achiever Award",
+        "type": "merit",
+        "amount": "Variable",
+        "description": "Rewards top performers in the institution across semesters."
+      },
+      {
+        "name": "Sports Scholarship",
+        "type": "sport",
+        "amount": "Variable fee concession",
+        "description": "For students with significant sports achievements."
+      }
+    ],
+    "acceptanceRate": 28.0,
+    "deadlines": [
+      {
+        "round": "MET Registration",
+        "month": "October-March"
+      },
+      {
+        "round": "MET Test Window",
+        "month": "April-May"
+      },
+      {
+        "round": "Counselling",
+        "month": "June-July"
+      }
+    ],
+    "extracurricularPreferences": [
+      "Project portfolios and maker activities",
+      "Coding contests or app development",
+      "Balanced communication and teamwork",
+      "Leadership in school or community tech events"
+    ],
+    "boardNotes": {
+      "CBSE": "Class XII results from CBSE are accepted directly; most shortlisted applicants present at least 60% with strong PCM marks.",
+      "ICSE": "ISC marks are treated on par with CBSE; Physics, Chemistry and Mathematics should align with the intended STEM program.",
+      "State Board": "State board students are eligible, but very high board percentages plus strong entrance exam performance are usually needed for top branches.",
+      "IB": "IB Diploma is accepted; 36-42 points with HL Mathematics and HL sciences is typically viewed as competitive.",
+      "Cambridge": "A-level applicants should usually present A/A* grades in Mathematics and science subjects; AS results may support predicted grades."
+    },
+    "ranking": "Well-known private engineering institute with strong industry links",
+    "website": "https://manipal.edu/mit.html"
+  },
+  {
+    "id": "vit-vellore",
+    "name": "Vellore Institute of Technology",
+    "shortName": "VIT Vellore",
+    "location": "Vellore, Tamil Nadu",
+    "country": "India",
+    "type": "private",
+    "programs": [
+      "Engineering",
+      "Computer Science",
+      "Sciences",
+      "Business"
+    ],
+    "admissionRequirements": {
+      "minGrades": 60,
+      "requiredExams": [
+        "VITEEE"
+      ],
+      "requiredSubjects": [
+        "Physics",
+        "Chemistry",
+        "Mathematics or Biology"
+      ],
+      "preferredSubjects": [
+        "Computer Science",
+        "Statistics"
+      ],
+      "internationalStudentNotes": "International applicants may use SAT scores under select admission channels and should verify program-specific criteria."
+    },
+    "feesINR": 198000,
+    "scholarships": [
+      {
+        "name": "GV School Development Programme Scholarship",
+        "type": "merit",
+        "amount": "25%-100% tuition waiver",
+        "description": "High VITEEE rankers can receive substantial tuition concessions."
+      },
+      {
+        "name": "Merit Scholarship for Board Toppers",
+        "type": "merit",
+        "amount": "Variable",
+        "description": "Supports top school board performers joining the university."
+      },
+      {
+        "name": "Sports Scholarship",
+        "type": "sport",
+        "amount": "Variable fee support",
+        "description": "For students with proven competitive sports performance."
+      }
+    ],
+    "acceptanceRate": 32.0,
+    "deadlines": [
+      {
+        "round": "VITEEE Registration",
+        "month": "November-March"
+      },
+      {
+        "round": "VITEEE Exam",
+        "month": "April"
+      },
+      {
+        "round": "Counselling and Seat Allotment",
+        "month": "May-June"
+      }
+    ],
+    "extracurricularPreferences": [
+      "Competitive coding or technical certifications",
+      "STEM projects with demonstrable outcomes",
+      "Leadership in events or clubs",
+      "Participation in school-level innovation challenges"
+    ],
+    "boardNotes": {
+      "CBSE": "Class XII results from CBSE are accepted directly; most shortlisted applicants present at least 60% with strong PCM marks.",
+      "ICSE": "ISC marks are treated on par with CBSE; Physics, Chemistry and Mathematics should align with the intended STEM program.",
+      "State Board": "State board students are eligible, but very high board percentages plus strong entrance exam performance are usually needed for top branches.",
+      "IB": "IB Diploma is accepted; 36-42 points with HL Mathematics and HL sciences is typically viewed as competitive.",
+      "Cambridge": "A-level applicants should usually present A/A* grades in Mathematics and science subjects; AS results may support predicted grades."
+    },
+    "ranking": "Among India’s better-known private engineering universities",
+    "website": "https://vit.ac.in"
+  },
+  {
+    "id": "mit",
+    "name": "Massachusetts Institute of Technology",
+    "shortName": "MIT",
+    "location": "Cambridge, Massachusetts",
+    "country": "United States",
+    "type": "private",
+    "programs": [
+      "Engineering",
+      "Computer Science",
+      "Sciences",
+      "Business",
+      "Architecture"
+    ],
+    "admissionRequirements": {
+      "minGrades": 95,
+      "requiredExams": [
+        "SAT or ACT"
+      ],
+      "requiredSubjects": [
+        "Mathematics",
+        "English",
+        "Physics or Chemistry"
+      ],
+      "preferredSubjects": [
+        "Calculus",
+        "Computer Science",
+        "Research coursework"
+      ],
+      "minTestScores": {
+        "sat": 1520,
+        "act": 34,
+        "ap": 4
+      },
+      "internationalStudentNotes": "International applicants are expected to show exceptional rigor, often including advanced math/science coursework, Olympiads, research or maker work."
+    },
+    "feesINR": 7130000,
+    "feesUSD": 82900,
+    "scholarships": [
+      {
+        "name": "MIT Scholarship",
+        "type": "need",
+        "amount": "Average award around $60,000",
+        "description": "Need-based institutional aid that meets a large share of demonstrated financial need."
+      },
+      {
+        "name": "Undergraduate Research Opportunities Program Stipend",
+        "type": "merit",
+        "amount": "Variable stipend",
+        "description": "Research funding for undergraduates working with faculty on projects."
+      },
+      {
+        "name": "First Generation and Low-Income Grant Support",
+        "type": "diversity",
+        "amount": "Variable",
+        "description": "Supplemental support and programming for first-generation or lower-income students."
+      }
+    ],
+    "acceptanceRate": 4.8,
+    "deadlines": [
+      {
+        "round": "Early Action",
+        "month": "November",
+        "description": "Non-binding early round."
+      },
+      {
+        "round": "Regular Action",
+        "month": "January"
+      },
+      {
+        "round": "Financial Aid Documents",
+        "month": "February",
+        "description": "Need-based aid review requires timely submission."
+      }
+    ],
+    "extracurricularPreferences": [
+      "International Olympiads or elite STEM competitions",
+      "Original research or build projects",
+      "Deep maker culture and coding portfolios",
+      "Impactful leadership rooted in technical passion"
+    ],
+    "boardNotes": {
+      "CBSE": "CBSE Class XII is widely recognized; highly competitive applicants usually show 90-95%+ with rigorous math/science or humanities coursework, depending on major.",
+      "ICSE": "ICSE/ISC is well understood by admissions teams; strong internal consistency, school rank and board exam scores help.",
+      "State Board": "State board applicants are considered, but top universities expect context on school rigor and often value externally benchmarked scores such as SAT, ACT or APs.",
+      "IB": "IB Diploma with 40-44 points is especially strong; HL 6/7 scores can strengthen placement and advanced standing decisions.",
+      "Cambridge": "A-levels at A*/A standard are highly competitive; additional evidence such as research, Olympiads or APs can help international applicants."
+    },
+    "ranking": "Regularly ranked #1 globally for engineering and technology",
+    "website": "https://www.mit.edu"
+  },
+  {
+    "id": "stanford",
+    "name": "Stanford University",
+    "shortName": "Stanford",
+    "location": "Stanford, California",
+    "country": "United States",
+    "type": "private",
+    "programs": [
+      "Engineering",
+      "Computer Science",
+      "Business",
+      "Sciences",
+      "Arts & Humanities"
+    ],
+    "admissionRequirements": {
+      "minGrades": 94,
+      "requiredExams": [
+        "SAT or ACT"
+      ],
+      "requiredSubjects": [
+        "English",
+        "Mathematics",
+        "Laboratory Science"
+      ],
+      "preferredSubjects": [
+        "Calculus",
+        "Computer Science",
+        "Economics"
+      ],
+      "minTestScores": {
+        "sat": 1500,
+        "act": 34,
+        "ap": 4
+      },
+      "internationalStudentNotes": "Top international candidates typically combine stellar academics with leadership, initiative and unusual depth in one or two pursuits."
+    },
+    "feesINR": 7250000,
+    "feesUSD": 84300,
+    "scholarships": [
+      {
+        "name": "Stanford Scholarship",
+        "type": "need",
+        "amount": "Can cover full demonstrated need",
+        "description": "Primary institutional need-based award for undergraduates."
+      },
+      {
+        "name": "Athletic Grant-in-Aid",
+        "type": "sport",
+        "amount": "Variable",
+        "description": "Available for recruited NCAA athletes in eligible varsity sports."
+      },
+      {
+        "name": "First-Generation / Low-Income Support Grants",
+        "type": "diversity",
+        "amount": "Variable",
+        "description": "Supplementary aid and support structures for FLI students."
+      }
+    ],
+    "acceptanceRate": 3.9,
+    "deadlines": [
+      {
+        "round": "Restrictive Early Action",
+        "month": "November"
+      },
+      {
+        "round": "Regular Decision",
+        "month": "January"
+      },
+      {
+        "round": "Financial Aid Priority",
+        "month": "February"
+      }
+    ],
+    "extracurricularPreferences": [
+      "Founding or scaling meaningful initiatives",
+      "Research, startup or product-building depth",
+      "High-impact community service with leadership",
+      "A distinctive personal narrative with sustained excellence"
+    ],
+    "boardNotes": {
+      "CBSE": "CBSE Class XII is widely recognized; highly competitive applicants usually show 90-95%+ with rigorous math/science or humanities coursework, depending on major.",
+      "ICSE": "ICSE/ISC is well understood by admissions teams; strong internal consistency, school rank and board exam scores help.",
+      "State Board": "State board applicants are considered, but top universities expect context on school rigor and often value externally benchmarked scores such as SAT, ACT or APs.",
+      "IB": "IB Diploma with 40-44 points is especially strong; HL 6/7 scores can strengthen placement and advanced standing decisions.",
+      "Cambridge": "A-levels at A*/A standard are highly competitive; additional evidence such as research, Olympiads or APs can help international applicants."
+    },
+    "ranking": "Consistently ranked among the world’s top universities",
+    "website": "https://www.stanford.edu"
+  },
+  {
+    "id": "harvard",
+    "name": "Harvard University",
+    "shortName": "Harvard",
+    "location": "Cambridge, Massachusetts",
+    "country": "United States",
+    "type": "private",
+    "programs": [
+      "Arts & Humanities",
+      "Sciences",
+      "Business",
+      "Social Sciences",
+      "Computer Science"
+    ],
+    "admissionRequirements": {
+      "minGrades": 95,
+      "requiredExams": [
+        "SAT or ACT"
+      ],
+      "requiredSubjects": [
+        "English",
+        "Mathematics",
+        "History or Social Science",
+        "Laboratory Science"
+      ],
+      "preferredSubjects": [
+        "Calculus",
+        "Economics",
+        "Research or advanced writing"
+      ],
+      "minTestScores": {
+        "sat": 1510,
+        "act": 34,
+        "ap": 4
+      },
+      "internationalStudentNotes": "Harvard values academic excellence plus unusual distinction; international applicants should present strong school context, recommendations and extracurricular impact."
+    },
+    "feesINR": 7130000,
+    "feesUSD": 82900,
+    "scholarships": [
+      {
+        "name": "Harvard College Scholarship",
+        "type": "need",
+        "amount": "Can cover full demonstrated need",
+        "description": "Core need-based aid package for admitted undergraduates."
+      },
+      {
+        "name": "Harvard Financial Aid Initiative",
+        "type": "need",
+        "amount": "Substantial support for lower-income families",
+        "description": "Expands affordability for families within qualifying income ranges."
+      },
+      {
+        "name": "Varsity Athletics Grant Support",
+        "type": "sport",
+        "amount": "Variable",
+        "description": "Support for recruited varsity athletes under NCAA rules."
+      }
+    ],
+    "acceptanceRate": 3.4,
+    "deadlines": [
+      {
+        "round": "Restrictive Early Action",
+        "month": "November"
+      },
+      {
+        "round": "Regular Decision",
+        "month": "January"
+      },
+      {
+        "round": "Financial Aid Submission",
+        "month": "February"
+      }
+    ],
+    "extracurricularPreferences": [
+      "National-level achievement in one or more fields",
+      "Leadership with visible social impact",
+      "Intellectual vitality shown through research, writing or competitions",
+      "Community engagement that feels authentic and sustained"
+    ],
+    "boardNotes": {
+      "CBSE": "CBSE Class XII is widely recognized; highly competitive applicants usually show 90-95%+ with rigorous math/science or humanities coursework, depending on major.",
+      "ICSE": "ICSE/ISC is well understood by admissions teams; strong internal consistency, school rank and board exam scores help.",
+      "State Board": "State board applicants are considered, but top universities expect context on school rigor and often value externally benchmarked scores such as SAT, ACT or APs.",
+      "IB": "IB Diploma with 40-44 points is especially strong; HL 6/7 scores can strengthen placement and advanced standing decisions.",
+      "Cambridge": "A-levels at A*/A standard are highly competitive; additional evidence such as research, Olympiads or APs can help international applicants."
+    },
+    "ranking": "Consistently ranked among the top universities worldwide",
+    "website": "https://www.harvard.edu"
+  },
+  {
+    "id": "oxford",
+    "name": "University of Oxford",
+    "shortName": "Oxford",
+    "location": "Oxford, England",
+    "country": "United Kingdom",
+    "type": "public",
+    "programs": [
+      "Arts & Humanities",
+      "Sciences",
+      "Engineering",
+      "Medicine",
+      "Social Sciences"
+    ],
+    "admissionRequirements": {
+      "minGrades": 95,
+      "requiredExams": [
+        "UCAS Application",
+        "Course-Specific Admissions Test",
+        "Written Work or Interview (where required)"
+      ],
+      "requiredSubjects": [
+        "Program-specific prerequisite subjects"
+      ],
+      "preferredSubjects": [
+        "Further Mathematics for quantitative courses",
+        "Essay-based depth for humanities"
+      ],
+      "internationalStudentNotes": "Oxford places heavy weight on super-curricular depth, admissions tests and interview performance; Indian board applicants often need exceptionally high marks."
+    },
+    "feesINR": 4550000,
+    "feesUSD": 53000,
+    "scholarships": [
+      {
+        "name": "Reach Oxford Scholarship",
+        "type": "need",
+        "amount": "Tuition, college fees and partial living support",
+        "description": "For selected international students from eligible countries with financial need."
+      },
+      {
+        "name": "College and Department Scholarships",
+        "type": "merit",
+        "amount": "Variable",
+        "description": "Individual colleges may offer academic awards for outstanding entrants."
+      },
+      {
+        "name": "Crankstart and Access Support",
+        "type": "diversity",
+        "amount": "Variable",
+        "description": "Support structures and bursaries aimed at widening participation and access."
+      }
+    ],
+    "acceptanceRate": 17.0,
+    "deadlines": [
+      {
+        "round": "UCAS Deadline",
+        "month": "October",
+        "description": "Oxford undergraduate applications close earlier than most UK universities."
+      },
+      {
+        "round": "Admissions Tests",
+        "month": "October-November"
+      },
+      {
+        "round": "Interview Invitations and Final Decisions",
+        "month": "December-January"
+      }
+    ],
+    "extracurricularPreferences": [
+      "Academic reading beyond syllabus",
+      "Subject olympiads, essay prizes or research papers",
+      "Deep subject conversations reflected in interviews",
+      "Quality of intellectual engagement over sheer activity count"
+    ],
+    "boardNotes": {
+      "CBSE": "CBSE is accepted, but the most selective courses often expect 95%+ overall with very high marks in relevant Class XII subjects.",
+      "ICSE": "ISC qualifications are accepted as equivalent to other Indian boards; subject-level excellence matters more than overall average for selective courses.",
+      "State Board": "State board applicants may need exceptionally high percentages and strong supporting evidence because grading standards vary by board.",
+      "IB": "IB Diploma is a standard route; 38-42 points with higher-level 6s and 7s is often expected for competitive programs.",
+      "Cambridge": "A-level offers usually range from AAA to A*A*A depending on the course; subject prerequisites are enforced closely."
+    },
+    "ranking": "Frequently ranked among the top 5 universities globally",
+    "website": "https://www.ox.ac.uk"
+  },
+  {
+    "id": "cambridge",
+    "name": "University of Cambridge",
+    "shortName": "Cambridge",
+    "location": "Cambridge, England",
+    "country": "United Kingdom",
+    "type": "public",
+    "programs": [
+      "Arts & Humanities",
+      "Sciences",
+      "Engineering",
+      "Computer Science",
+      "Mathematics"
+    ],
+    "admissionRequirements": {
+      "minGrades": 95,
+      "requiredExams": [
+        "UCAS Application",
+        "Course-Specific Assessment",
+        "Interview"
+      ],
+      "requiredSubjects": [
+        "Program-specific prerequisite subjects"
+      ],
+      "preferredSubjects": [
+        "Further Mathematics",
+        "Advanced science subjects",
+        "Extended reading or research"
+      ],
+      "internationalStudentNotes": "Cambridge emphasizes academic potential, subject fit and interview strength; many successful Indian applicants present near-perfect school marks."
+    },
+    "feesINR": 4470000,
+    "feesUSD": 52000,
+    "scholarships": [
+      {
+        "name": "Cambridge Trust Undergraduate Funding",
+        "type": "need",
+        "amount": "Variable",
+        "description": "Selective financial support for international undergraduates through the Cambridge Trust."
+      },
+      {
+        "name": "College Entrance Scholarships",
+        "type": "merit",
+        "amount": "Variable",
+        "description": "Some colleges award merit-based scholarships to exceptional entrants."
+      },
+      {
+        "name": "Stormzy Scholarship",
+        "type": "diversity",
+        "amount": "Full support in eligible cases",
+        "description": "A high-profile widening participation scholarship available under specific eligibility criteria."
+      }
+    ],
+    "acceptanceRate": 18.0,
+    "deadlines": [
+      {
+        "round": "UCAS Deadline",
+        "month": "October"
+      },
+      {
+        "round": "Assessments and Written Work",
+        "month": "October-November"
+      },
+      {
+        "round": "Interview and Decision Cycle",
+        "month": "December-January"
+      }
+    ],
+    "extracurricularPreferences": [
+      "Very strong super-curricular preparation",
+      "Mathematical or scientific problem-solving depth",
+      "Evidence of independent academic exploration",
+      "Focused subject commitment rather than broad résumé building"
+    ],
+    "boardNotes": {
+      "CBSE": "CBSE is accepted, but the most selective courses often expect 95%+ overall with very high marks in relevant Class XII subjects.",
+      "ICSE": "ISC qualifications are accepted as equivalent to other Indian boards; subject-level excellence matters more than overall average for selective courses.",
+      "State Board": "State board applicants may need exceptionally high percentages and strong supporting evidence because grading standards vary by board.",
+      "IB": "IB Diploma is a standard route; 38-42 points with higher-level 6s and 7s is often expected for competitive programs.",
+      "Cambridge": "A-level offers usually range from AAA to A*A*A depending on the course; subject prerequisites are enforced closely."
+    },
+    "ranking": "Regularly ranked among the top universities globally",
+    "website": "https://www.cam.ac.uk"
+  },
+  {
+    "id": "u-toronto",
+    "name": "University of Toronto",
+    "shortName": "U of T",
+    "location": "Toronto, Ontario",
+    "country": "Canada",
+    "type": "public",
+    "programs": [
+      "Computer Science",
+      "Engineering",
+      "Business",
+      "Sciences",
+      "Arts & Humanities"
+    ],
+    "admissionRequirements": {
+      "minGrades": 90,
+      "requiredExams": [
+        "High School Transcript"
+      ],
+      "requiredSubjects": [
+        "English",
+        "Mathematics",
+        "Program-specific prerequisites"
+      ],
+      "preferredSubjects": [
+        "Calculus",
+        "Physics",
+        "Economics"
+      ],
+      "minTestScores": {
+        "sat": 1450,
+        "act": 32,
+        "ap": 4
+      },
+      "internationalStudentNotes": "Competitive programs such as engineering, Rotman Commerce and computer science often expect strong math preparation and supplemental profiles."
+    },
+    "feesINR": 4040000,
+    "feesUSD": 47000,
+    "scholarships": [
+      {
+        "name": "Lester B. Pearson International Scholarship",
+        "type": "merit",
+        "amount": "Full tuition, books and residence support",
+        "description": "Prestigious award for exceptional international students with leadership and impact."
+      },
+      {
+        "name": "University of Toronto Scholars Program",
+        "type": "merit",
+        "amount": "Entrance award",
+        "description": "Merit-based recognition for top incoming students."
+      },
+      {
+        "name": "International Scholar Awards",
+        "type": "diversity",
+        "amount": "Variable",
+        "description": "Faculty-specific awards that can support talented international students from diverse backgrounds."
+      }
+    ],
+    "acceptanceRate": 43.0,
+    "deadlines": [
+      {
+        "round": "OUAC Application",
+        "month": "January"
+      },
+      {
+        "round": "Supplemental Applications",
+        "month": "January-February",
+        "description": "Required for select faculties and programs."
+      },
+      {
+        "round": "Document Deadline",
+        "month": "February"
+      }
+    ],
+    "extracurricularPreferences": [
+      "Leadership and initiative for supplemental applications",
+      "Research, coding or competition evidence for STEM",
+      "Community involvement with clear outcomes",
+      "Strong written communication for profile-based programs"
+    ],
+    "boardNotes": {
+      "CBSE": "CBSE applicants are commonly admitted; universities usually review Grade XI and XII marks with emphasis on prerequisite subjects.",
+      "ICSE": "ISC results are recognized and competitive when supported by strong English and math/science performance.",
+      "State Board": "State board students are eligible, though some programs prefer higher marks or supplemental context on grading rigor.",
+      "IB": "IB Diploma with 34-40 points is competitive for selective programs and may earn transfer credit or advanced standing.",
+      "Cambridge": "A-level qualifications are accepted directly; prerequisite subjects and predicted grades matter for selective entry."
+    },
+    "ranking": "One of Canada’s top-ranked universities",
+    "website": "https://www.utoronto.ca"
+  },
+  {
+    "id": "nus-singapore",
+    "name": "National University of Singapore",
+    "shortName": "NUS",
+    "location": "Singapore",
+    "country": "Singapore",
+    "type": "public",
+    "programs": [
+      "Engineering",
+      "Computer Science",
+      "Business",
+      "Sciences",
+      "Medicine"
+    ],
+    "admissionRequirements": {
+      "minGrades": 93,
+      "requiredExams": [
+        "High School Transcript"
+      ],
+      "requiredSubjects": [
+        "English",
+        "Mathematics",
+        "Program-specific science subjects"
+      ],
+      "preferredSubjects": [
+        "Further Mathematics",
+        "Computer Science",
+        "Research experience"
+      ],
+      "minTestScores": {
+        "sat": 1480,
+        "act": 33,
+        "ap": 4
+      },
+      "internationalStudentNotes": "Admissions are highly academic; applicants from Indian boards often benefit from strong SAT, AP or Olympiad evidence in addition to top school scores."
+    },
+    "feesINR": 1460000,
+    "feesUSD": 17000,
+    "scholarships": [
+      {
+        "name": "NUS Global Merit Scholarship",
+        "type": "merit",
+        "amount": "Tuition coverage + possible stipend",
+        "description": "Highly competitive award for exceptional academic and leadership profiles."
+      },
+      {
+        "name": "NUS Undergraduate Scholarship",
+        "type": "merit",
+        "amount": "Tuition support",
+        "description": "Merit-based funding for top admitted students."
+      },
+      {
+        "name": "Science & Technology Undergraduate Scholarship",
+        "type": "diversity",
+        "amount": "Tuition + living allowance",
+        "description": "Selective scholarship for talented regional students in STEM-related courses."
+      }
+    ],
+    "acceptanceRate": 8.0,
+    "deadlines": [
+      {
+        "round": "International Application Window",
+        "month": "October-February"
+      },
+      {
+        "round": "Supporting Documents",
+        "month": "February-March"
+      },
+      {
+        "round": "Offers",
+        "month": "May-July"
+      }
+    ],
+    "extracurricularPreferences": [
+      "Academic distinction first, activities second",
+      "Olympiads, research and competitions",
+      "Leadership with evidence of execution",
+      "Regional or international recognition in STEM or service"
+    ],
+    "boardNotes": {
+      "CBSE": "CBSE Class XII is accepted; NUS typically expects very strong marks in relevant subjects plus standardized testing where applicable.",
+      "ICSE": "ISC applicants are eligible and should demonstrate excellent subject scores, especially in mathematics and sciences for STEM.",
+      "State Board": "State board applications are reviewed individually; exceptional marks and additional testing can strengthen the profile.",
+      "IB": "IB Diploma with 38-42 points is competitive; HL Mathematics and relevant sciences are preferred for engineering and computing.",
+      "Cambridge": "Cambridge A-levels with A/A* grades are commonly accepted and align well with subject-specific prerequisites."
+    },
+    "ranking": "Consistently ranked among Asia’s top universities",
+    "website": "https://www.nus.edu.sg"
+  },
+  {
+    "id": "u-melbourne",
+    "name": "University of Melbourne",
+    "shortName": "Melbourne",
+    "location": "Melbourne, Victoria",
+    "country": "Australia",
+    "type": "public",
+    "programs": [
+      "Sciences",
+      "Business",
+      "Arts & Humanities",
+      "Computer Science",
+      "Biomedicine"
+    ],
+    "admissionRequirements": {
+      "minGrades": 88,
+      "requiredExams": [
+        "High School Transcript"
+      ],
+      "requiredSubjects": [
+        "English",
+        "Program-specific prerequisite subjects"
+      ],
+      "preferredSubjects": [
+        "Mathematics",
+        "Biology",
+        "Economics"
+      ],
+      "internationalStudentNotes": "Most programs are grades-driven; direct entry depends on meeting faculty prerequisites and English-language requirements."
+    },
+    "feesINR": 3010000,
+    "feesUSD": 35000,
+    "scholarships": [
+      {
+        "name": "Melbourne International Undergraduate Scholarship",
+        "type": "merit",
+        "amount": "Up to 100% fee remission",
+        "description": "Automatic merit-based consideration for strong international applicants."
+      },
+      {
+        "name": "Access Melbourne Support",
+        "type": "diversity",
+        "amount": "Variable",
+        "description": "Support pathways and bursaries for students from underrepresented backgrounds."
+      },
+      {
+        "name": "Elite Athlete Program Support",
+        "type": "sport",
+        "amount": "Variable",
+        "description": "Academic flexibility and support for high-performing athletes."
+      }
+    ],
+    "acceptanceRate": 70.0,
+    "deadlines": [
+      {
+        "round": "Semester 1 Main Intake",
+        "month": "October-December",
+        "description": "Many international applications close in this period."
+      },
+      {
+        "round": "Document Completion",
+        "month": "January"
+      },
+      {
+        "round": "Semester 2 Intake",
+        "month": "April-May",
+        "description": "Available for selected programs."
+      }
+    ],
+    "extracurricularPreferences": [
+      "Good extracurriculars help for scholarships more than baseline admission",
+      "Leadership, volunteering and sport add value",
+      "Portfolio or research evidence can strengthen selective pathways",
+      "Clear academic preparation in prerequisite subjects"
+    ],
+    "boardNotes": {
+      "CBSE": "CBSE scores are accepted directly for most undergraduate entry pathways; prerequisite subject marks remain important.",
+      "ICSE": "ISC applicants are eligible and competitive when they present strong English plus relevant subject grades.",
+      "State Board": "State board applicants can be admitted, though some faculties expect higher cutoffs or foundation support for weaker subject preparation.",
+      "IB": "IB Diploma is widely accepted and often competitive from 32-38 points upward depending on the course.",
+      "Cambridge": "A-levels are accepted directly; grade requirements depend on faculty and the strength of subject preparation."
+    },
+    "ranking": "One of Australia’s highest-ranked universities",
+    "website": "https://www.unimelb.edu.au"
+  },
+  {
+    "id": "imperial-london",
+    "name": "Imperial College London",
+    "shortName": "Imperial",
+    "location": "London, England",
+    "country": "United Kingdom",
+    "type": "public",
+    "programs": [
+      "Engineering",
+      "Computer Science",
+      "Sciences",
+      "Medicine",
+      "Business"
+    ],
+    "admissionRequirements": {
+      "minGrades": 95,
+      "requiredExams": [
+        "UCAS Application",
+        "Course-Specific Test or Interview (where required)"
+      ],
+      "requiredSubjects": [
+        "Mathematics",
+        "Program-specific science subjects"
+      ],
+      "preferredSubjects": [
+        "Further Mathematics",
+        "Computer Science",
+        "Extended project or research"
+      ],
+      "internationalStudentNotes": "Imperial places strong weight on quantitative readiness; Indian applicants need very high subject marks, especially in mathematics and sciences."
+    },
+    "feesINR": 4380000,
+    "feesUSD": 51000,
+    "scholarships": [
+      {
+        "name": "President's Undergraduate Scholarship",
+        "type": "merit",
+        "amount": "Up to full tuition in select cases",
+        "description": "Prestigious merit scholarship for exceptional undergraduate entrants."
+      },
+      {
+        "name": "Imperial Bursary and Hardship Support",
+        "type": "need",
+        "amount": "Variable",
+        "description": "Need-based support, more common for eligible students with documented financial hardship."
+      },
+      {
+        "name": "Outreach and Widening Participation Grant",
+        "type": "diversity",
+        "amount": "Variable",
+        "description": "Supports students from underrepresented backgrounds through select programs."
+      }
+    ],
+    "acceptanceRate": 15.0,
+    "deadlines": [
+      {
+        "round": "UCAS Deadline",
+        "month": "January",
+        "description": "Medicine may have earlier deadlines through UCAS."
+      },
+      {
+        "round": "Additional Tests / Interviews",
+        "month": "January-March"
+      },
+      {
+        "round": "Decision Cycle",
+        "month": "March-May"
+      }
+    ],
+    "extracurricularPreferences": [
+      "Strong academic depth in the intended subject",
+      "Research, Olympiads or technical competitions",
+      "Evidence of engineering or science curiosity outside class",
+      "Less emphasis on generic leadership than on subject readiness"
+    ],
+    "boardNotes": {
+      "CBSE": "CBSE is accepted, but the most selective courses often expect 95%+ overall with very high marks in relevant Class XII subjects.",
+      "ICSE": "ISC qualifications are accepted as equivalent to other Indian boards; subject-level excellence matters more than overall average for selective courses.",
+      "State Board": "State board applicants may need exceptionally high percentages and strong supporting evidence because grading standards vary by board.",
+      "IB": "IB Diploma is a standard route; 38-42 points with higher-level 6s and 7s is often expected for competitive programs.",
+      "Cambridge": "A-level offers usually range from AAA to A*A*A depending on the course; subject prerequisites are enforced closely."
+    },
+    "ranking": "Regularly ranked among the top STEM-focused universities worldwide",
+    "website": "https://www.imperial.ac.uk"
+  },
+  {
+    "id": "ucl",
+    "name": "University College London",
+    "shortName": "UCL",
+    "location": "London, England",
+    "country": "United Kingdom",
+    "type": "public",
+    "programs": [
+      "Arts & Humanities",
+      "Engineering",
+      "Computer Science",
+      "Sciences",
+      "Social Sciences"
+    ],
+    "admissionRequirements": {
+      "minGrades": 92,
+      "requiredExams": [
+        "UCAS Application"
+      ],
+      "requiredSubjects": [
+        "Program-specific prerequisite subjects"
+      ],
+      "preferredSubjects": [
+        "Mathematics",
+        "Essay-based depth",
+        "Research or portfolio evidence where relevant"
+      ],
+      "internationalStudentNotes": "UCL reviews academic fit carefully; some programs may ask for admissions tests or portfolios in addition to grades."
+    },
+    "feesINR": 4040000,
+    "feesUSD": 47000,
+    "scholarships": [
+      {
+        "name": "UCL Global Undergraduate Scholarship",
+        "type": "diversity",
+        "amount": "Partial to full tuition support",
+        "description": "Supports international students from lower-income backgrounds."
+      },
+      {
+        "name": "Denys Holland Scholarship",
+        "type": "need",
+        "amount": "Partial tuition support",
+        "description": "Recognizes students who can show financial need and broad contribution potential."
+      },
+      {
+        "name": "Faculty Merit Awards",
+        "type": "merit",
+        "amount": "Variable",
+        "description": "Some faculties and departments offer merit-based entrance awards."
+      }
+    ],
+    "acceptanceRate": 35.0,
+    "deadlines": [
+      {
+        "round": "UCAS Deadline",
+        "month": "January"
+      },
+      {
+        "round": "Portfolio / Test Requirements",
+        "month": "January-March",
+        "description": "Applies to selected programs such as architecture or fine arts."
+      },
+      {
+        "round": "Decision Cycle",
+        "month": "March-May"
+      }
+    ],
+    "extracurricularPreferences": [
+      "Strong subject alignment and motivation",
+      "Research, writing or technical exploration related to the course",
+      "Community engagement can help but does not replace academic fit",
+      "Portfolio quality matters in creative disciplines"
+    ],
+    "boardNotes": {
+      "CBSE": "CBSE is accepted, but the most selective courses often expect 95%+ overall with very high marks in relevant Class XII subjects.",
+      "ICSE": "ISC qualifications are accepted as equivalent to other Indian boards; subject-level excellence matters more than overall average for selective courses.",
+      "State Board": "State board applicants may need exceptionally high percentages and strong supporting evidence because grading standards vary by board.",
+      "IB": "IB Diploma is a standard route; 38-42 points with higher-level 6s and 7s is often expected for competitive programs.",
+      "Cambridge": "A-level offers usually range from AAA to A*A*A depending on the course; subject prerequisites are enforced closely."
+    },
+    "ranking": "Consistently among the top 20 universities globally",
+    "website": "https://www.ucl.ac.uk"
+  },
+  {
+    "id": "ubc",
+    "name": "University of British Columbia",
+    "shortName": "UBC",
+    "location": "Vancouver, British Columbia",
+    "country": "Canada",
+    "type": "public",
+    "programs": [
+      "Sciences",
+      "Engineering",
+      "Business",
+      "Arts & Humanities",
+      "Computer Science"
+    ],
+    "admissionRequirements": {
+      "minGrades": 88,
+      "requiredExams": [
+        "High School Transcript",
+        "Personal Profile for select programs"
+      ],
+      "requiredSubjects": [
+        "English",
+        "Mathematics",
+        "Program-specific prerequisites"
+      ],
+      "preferredSubjects": [
+        "Calculus",
+        "Physics",
+        "Economics"
+      ],
+      "minTestScores": {
+        "sat": 1400,
+        "act": 31,
+        "ap": 4
+      },
+      "internationalStudentNotes": "The Personal Profile matters for some faculties; applicants should combine solid academics with meaningful activities and reflection."
+    },
+    "feesINR": 3530000,
+    "feesUSD": 41000,
+    "scholarships": [
+      {
+        "name": "International Major Entrance Scholarship",
+        "type": "merit",
+        "amount": "Substantial renewable award",
+        "description": "For outstanding international students entering UBC directly from secondary school."
+      },
+      {
+        "name": "Outstanding International Student Award",
+        "type": "merit",
+        "amount": "One-time entrance award",
+        "description": "Recognizes strong academic performance and extracurricular contribution."
+      },
+      {
+        "name": "Beyond Tomorrow Scholars Program",
+        "type": "diversity",
+        "amount": "Variable",
+        "description": "Supports students who have overcome significant adversity and bring diverse experiences."
+      }
+    ],
+    "acceptanceRate": 52.0,
+    "deadlines": [
+      {
+        "round": "Application Deadline",
+        "month": "January"
+      },
+      {
+        "round": "Scholarship Consideration",
+        "month": "December",
+        "description": "Earlier deadline often applies for major entrance awards."
+      },
+      {
+        "round": "Document Uploads",
+        "month": "January-February"
+      }
+    ],
+    "extracurricularPreferences": [
+      "Thoughtful leadership and service in the Personal Profile",
+      "Academic consistency in prerequisite subjects",
+      "Project, research or innovation evidence for STEM",
+      "Authentic extracurricular reflection rather than title collecting"
+    ],
+    "boardNotes": {
+      "CBSE": "CBSE applicants are commonly admitted; universities usually review Grade XI and XII marks with emphasis on prerequisite subjects.",
+      "ICSE": "ISC results are recognized and competitive when supported by strong English and math/science performance.",
+      "State Board": "State board students are eligible, though some programs prefer higher marks or supplemental context on grading rigor.",
+      "IB": "IB Diploma with 34-40 points is competitive for selective programs and may earn transfer credit or advanced standing.",
+      "Cambridge": "A-level qualifications are accepted directly; prerequisite subjects and predicted grades matter for selective entry."
+    },
+    "ranking": "One of Canada’s top public research universities",
+    "website": "https://www.ubc.ca"
+  },
+  {
+    "id": "eth-zurich",
+    "name": "ETH Zurich",
+    "shortName": "ETH Zurich",
+    "location": "Zurich",
+    "country": "Switzerland",
+    "type": "public",
+    "programs": [
+      "Engineering",
+      "Computer Science",
+      "Sciences",
+      "Architecture",
+      "Mathematics"
+    ],
+    "admissionRequirements": {
+      "minGrades": 95,
+      "requiredExams": [
+        "Recognized Secondary School Certificate",
+        "German Language Proficiency"
+      ],
+      "requiredSubjects": [
+        "Mathematics",
+        "Physics",
+        "Chemistry"
+      ],
+      "preferredSubjects": [
+        "Further Mathematics",
+        "Computer Science",
+        "Research or Olympiad training"
+      ],
+      "internationalStudentNotes": "Most bachelor programs are taught primarily in German; international students should confirm Swiss recognition rules and language eligibility early."
+    },
+    "feesINR": 150000,
+    "feesUSD": 1750,
+    "scholarships": [
+      {
+        "name": "ETH Foundation Scholarship Support",
+        "type": "need",
+        "amount": "Variable",
+        "description": "Foundation-linked support may be available for students with financial hardship."
+      },
+      {
+        "name": "Swiss Study Foundation Support",
+        "type": "merit",
+        "amount": "Variable",
+        "description": "External merit-based support route for exceptionally strong academic profiles."
+      },
+      {
+        "name": "Solidarity Fund Assistance",
+        "type": "diversity",
+        "amount": "Emergency or limited support",
+        "description": "Targeted help for students facing hardship or significant barriers."
+      }
+    ],
+    "acceptanceRate": 27.0,
+    "deadlines": [
+      {
+        "round": "Application Window Opens",
+        "month": "November"
+      },
+      {
+        "round": "Main Deadline",
+        "month": "March-April",
+        "description": "Timing varies by applicant category and qualification type."
+      },
+      {
+        "round": "Language / Document Completion",
+        "month": "May-June"
+      }
+    ],
+    "extracurricularPreferences": [
+      "Mathematical and scientific depth",
+      "Olympiads, problem-solving contests and research rigor",
+      "Independent technical work with strong fundamentals",
+      "Academic excellence matters far more than broad extracurricular volume"
+    ],
+    "boardNotes": {
+      "CBSE": "Indian board applicants should confirm Swiss recognition rules; ETH often expects very high Class XII marks plus additional recognized qualifications where required.",
+      "ICSE": "ISC is reviewed against Swiss equivalency standards; mathematics and science depth are critical for direct admission to STEM.",
+      "State Board": "State board applicants may need supplementary qualifications because Swiss recognition can be stricter for non-standardized boards.",
+      "IB": "IB Diploma with strong HL Mathematics and sciences is one of the cleaner international routes for eligibility.",
+      "Cambridge": "Cambridge A-levels in Mathematics and sciences are well aligned with ETH prerequisites; German-language requirements still apply for most bachelor programs."
+    },
+    "ranking": "Regularly ranked among the top continental European universities for STEM",
+    "website": "https://ethz.ch"
+  }
+]

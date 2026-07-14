@@ -4,7 +4,10 @@ export interface StudentProfile {
   currentGrade: Grade;
   subjects: string[];
   grades: number; // percentage or GPA converted to percentage
+  ibScore?: number; // IB score out of 45
+  cambridgeGrades?: Record<string, string>; // subject -> grade (A*, A, B, etc.)
   testScores: TestScores;
+  intendedMajors: string[];
   targetColleges: string[];
   preferredCountries: string[];
   extracurriculars: string[];
@@ -14,6 +17,26 @@ export interface StudentProfile {
 
 export type EducationBoard = 'CBSE' | 'ICSE' | 'State Board' | 'IB' | 'Cambridge';
 export type Grade = '9th' | '10th' | '11th' | '12th' | 'Gap Year';
+
+export const INTENDED_MAJORS = [
+  'Engineering/Technology',
+  'Computer Science/IT',
+  'Medicine/Health Sciences',
+  'Business/Commerce',
+  'Law',
+  'Arts/Humanities',
+  'Social Sciences',
+  'Natural Sciences',
+  'Design',
+  'Architecture',
+  'Media/Communications',
+  'Education',
+  'Agriculture',
+  'Hospitality',
+  'Unsure / Exploring',
+] as const;
+
+export type IntendedMajor = (typeof INTENDED_MAJORS)[number];
 
 export type BudgetRange =
   | 'under-5l'
@@ -63,6 +86,7 @@ export interface College {
   feesUSD?: number; // annual in USD
   scholarships: Scholarship[];
   acceptanceRate: number; // percentage
+  difficultyTier: 1 | 2 | 3 | 4 | 5; // 1=extremely hard, 5=accessible
   deadlines: Deadline[];
   extracurricularPreferences: string[];
   boardNotes: Record<string, string>;
@@ -145,6 +169,16 @@ export interface GapAnalysis {
   missingSubjects: string[];
   extracurricularGaps: string[];
   strengths: string[];
+  subjectGaps: SubjectGap[];
+}
+
+export interface SubjectGap {
+  subject: string;
+  currentGrade: number; // percentage estimate
+  targetGrade: number;
+  gap: number;
+  priority: 'high' | 'medium' | 'low';
+  suggestion: string;
 }
 
 export interface ResourceSuggestion {

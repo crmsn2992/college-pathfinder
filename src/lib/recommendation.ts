@@ -301,6 +301,9 @@ export function generateGapAnalysis(
     .slice(0, 4)
     .map(([activity]) => activity);
 
+  // Generate subject-specific gap analysis
+  const subjectGaps = generateSubjectGaps(profile, targetGrades, focusRecommendations);
+
   return {
     currentGrades: profile.grades,
     targetGrades,
@@ -309,7 +312,94 @@ export function generateGapAnalysis(
     missingSubjects: [...subjectSet],
     extracurricularGaps,
     strengths: identifyStrengths(profile, focusRecommendations),
+    subjectGaps,
   };
+}
+
+function generateSubjectGaps(
+  profile: StudentProfile,
+  targetGrades: number,
+  recommendations: CollegeRecommendation[],
+): import('@/lib/types').SubjectGap[] {
+  if (profile.subjects.length === 0) return [];
+
+  // Determine which subjects are most critical for target colleges
+  const requiredSubjectSet = new Set<string>();
+  for (const rec of recommendations) {
+    for (const subj of rec.college.admissionRequirements.requiredSubjects) {
+      requiredSubjectSet.add(normalize(subj));
+    }
+  }
+
+  const subjectSuggestions: Record<string, string> = {
+    'physics': 'Focus on mechanics, electrodynamics, and optics — heavily tested in competitive exams',
+    'chemistry': 'Prioritize organic chemistry reactions and physical chemistry numericals',
+    'mathematics': 'Practice calculus, algebra, and coordinate geometry daily',
+    'biology': 'Focus on NCERT thoroughly — most medical exam questions come from textbook',
+    'english': 'Read widely and practice essay writing for college applications',
+    'computer science': 'Build projects and practice data structures & algorithms',
+    'economics': 'Focus on micro/macro theory and current affairs for CUET',
+    'accountancy': 'Practice financial statements and ratio analysis problems',
+    'business studies': 'Focus on case studies and real-world business examples',
+    'history': 'Create timelines and practice source-based questions',
+    'political science': 'Connect theory to current political developments',
+  };
+
+  // For IB/Cambridge students with subject-level grades
+  if (profile.educationBoard === 'Cambridge' && profile.cambridgeGrades) {
+    const gradeToPercent: Record<string, number> = { 'A*': 95, 'A': 88, 'B': 78, 'C': 68, 'D': 58, 'E': 48 };
+    return profile.subjects.map(subject => {
+      const currentGrade = gradeToPercent[profile.cambridgeGrades?.[subject] || ''] || profile.grades;
+      const isRequired = requiredSubjectSet.has(normalize(subject));
+      const subjectTarget = isRequired ? Math.max(targetGrades + 5, 85) : targetGrades;
+      const gap = Math.max(0, subjectTarget - currentGrade);
+      return {
+        subject,
+        currentGrade,
+        targetGrade: subjectTarget,
+        gap,
+        priority: gap > 15 ? 'high' as const : gap > 5 ? 'medium' as const : 'low' as const,
+        suggestion: subjectSuggestions[normalize(subject)] || `Aim for ${subjectTarget}%+ in ${subject}`,
+      };
+    }).sort((a, b) => b.gap - a.gap);
+  }
+
+  // For IB students
+  if (profile.educationBoard === 'IB' && profile.ibScore) {
+    const avgSubjectScore = Math.round(((profile.ibScore - 3) / 6)); // rough per-subject average out of 7
+    const avgPercent = Math.round((avgSubjectScore / 7) * 100);
+    return profile.subjects.slice(0, 6).map(subject => {
+      const isRequired = requiredSubjectSet.has(normalize(subject));
+      const subjectTarget = isRequired ? Math.max(targetGrades + 5, 85) : targetGrades;
+      const gap = Math.max(0, subjectTarget - avgPercent);
+      return {
+        subject,
+        currentGrade: avgPercent,
+        targetGrade: subjectTarget,
+        gap,
+        priority: gap > 15 ? 'high' as const : gap > 5 ? 'medium' as const : 'low' as const,
+        suggestion: subjectSuggestions[normalize(subject)] || `Target a 6 or 7 in ${subject} at HL level`,
+      };
+    }).sort((a, b) => b.gap - a.gap);
+  }
+
+  // For CBSE/ICSE/State Board — estimate subject grades around overall percentage with variance
+  return profile.subjects.map((subject, idx) => {
+    // Simulate some variance around the overall grade
+    const variance = ((idx % 5) - 2) * 4; // -8 to +8 variance
+    const currentGrade = clamp(profile.grades + variance, 30, 100);
+    const isRequired = requiredSubjectSet.has(normalize(subject));
+    const subjectTarget = isRequired ? Math.max(targetGrades + 5, 85) : targetGrades;
+    const gap = Math.max(0, subjectTarget - currentGrade);
+    return {
+      subject,
+      currentGrade: Math.round(currentGrade),
+      targetGrade: subjectTarget,
+      gap: Math.round(gap),
+      priority: gap > 15 ? 'high' as const : gap > 5 ? 'medium' as const : 'low' as const,
+      suggestion: subjectSuggestions[normalize(subject)] || `Aim to improve ${subject} to ${subjectTarget}%+`,
+    };
+  }).sort((a, b) => b.gap - a.gap);
 }
 
 function filterColleges(profile: StudentProfile, colleges: College[]): College[] {
@@ -322,13 +412,51 @@ function filterColleges(profile: StudentProfile, colleges: College[]): College[]
     preferredCountries.size === 0 ||
     preferredCountries.has(normalize(college.country));
 
+  // Filter by intended major if specified (unless "Unsure / Exploring")
+  const matchesMajor = (college: College) => {
+    if (!profile.intendedMajors || profile.intendedMajors.length === 0) return true;
+    if (profile.intendedMajors.includes('Unsure / Exploring')) return true;
+    // Check if college offers programs related to intended majors
+    const majorToPrograms: Record<string, string[]> = {
+      'Engineering/Technology': ['Engineering', 'Technology'],
+      'Computer Science/IT': ['Computer Science', 'Engineering', 'Technology'],
+      'Medicine/Health Sciences': ['Medicine', 'Health Sciences', 'Medical'],
+      'Business/Commerce': ['Business', 'Commerce', 'Management'],
+      'Law': ['Law'],
+      'Arts/Humanities': ['Arts & Humanities', 'Arts', 'Humanities', 'Liberal Arts'],
+      'Social Sciences': ['Social Sciences', 'Arts & Humanities'],
+      'Natural Sciences': ['Sciences', 'Natural Sciences'],
+      'Design': ['Design'],
+      'Architecture': ['Architecture'],
+      'Media/Communications': ['Media', 'Communications', 'Journalism'],
+      'Education': ['Education'],
+      'Agriculture': ['Agriculture'],
+      'Hospitality': ['Hospitality', 'Hotel Management'],
+    };
+    return profile.intendedMajors.some(major => {
+      const relatedPrograms = majorToPrograms[major] || [];
+      return relatedPrograms.some(prog =>
+        college.programs.some(cp => normalize(cp).includes(normalize(prog)))
+      );
+    });
+  };
+
   const strictMatches = colleges.filter(
-    (college) => matchesCountry(college) && college.feesINR <= maxBudget,
+    (college) => matchesCountry(college) && matchesMajor(college) && college.feesINR <= maxBudget,
   );
   if (strictMatches.length > 0) {
     return strictMatches;
   }
 
+  // Relax budget constraint
+  const countryMajorMatches = colleges.filter(
+    (college) => matchesCountry(college) && matchesMajor(college),
+  );
+  if (countryMajorMatches.length > 0) {
+    return countryMajorMatches;
+  }
+
+  // Relax major constraint
   const countryMatches = colleges.filter(matchesCountry);
   if (countryMatches.length > 0) {
     return countryMatches;
@@ -368,7 +496,7 @@ function createRecommendation(
 
   return {
     college,
-    category: categorizeCollege(matchScore),
+    category: categorizeCollegeWithContext(matchScore, college, profile),
     matchScore,
     requirementsMet: requirementStatuses.filter((status) => status.status === 'met'),
     areasToImprove: requirementStatuses.filter((status) => status.status === 'improve'),
@@ -386,6 +514,35 @@ function calculateStrategicBoost(
   college: College,
 ): number {
   let boost = 0;
+
+  // Boost for major alignment
+  if (profile.intendedMajors && profile.intendedMajors.length > 0 && !profile.intendedMajors.includes('Unsure / Exploring')) {
+    const majorToPrograms: Record<string, string[]> = {
+      'Engineering/Technology': ['Engineering', 'Technology'],
+      'Computer Science/IT': ['Computer Science', 'Engineering', 'Technology'],
+      'Medicine/Health Sciences': ['Medicine', 'Health Sciences'],
+      'Business/Commerce': ['Business', 'Commerce', 'Management'],
+      'Law': ['Law'],
+      'Arts/Humanities': ['Arts & Humanities', 'Arts', 'Humanities'],
+      'Social Sciences': ['Social Sciences'],
+      'Natural Sciences': ['Sciences', 'Natural Sciences'],
+      'Design': ['Design'],
+      'Architecture': ['Architecture'],
+      'Media/Communications': ['Media', 'Communications'],
+      'Education': ['Education'],
+      'Agriculture': ['Agriculture'],
+      'Hospitality': ['Hospitality'],
+    };
+    const matchCount = profile.intendedMajors.filter(major => {
+      const relatedPrograms = majorToPrograms[major] || [];
+      return relatedPrograms.some(prog =>
+        college.programs.some(cp => normalize(cp).includes(normalize(prog)))
+      );
+    }).length;
+    if (matchCount > 0) {
+      boost += Math.min(8, matchCount * 4);
+    }
+  }
 
   if (isIndianEngineeringCollege(college)) {
     const jee = profile.testScores.jee ?? 0;
@@ -866,6 +1023,81 @@ function buildAlternativeSuggestions(
   }
 
   return [...suggestions].slice(0, 3);
+}
+
+function categorizeCollegeWithContext(
+  score: number,
+  college: College,
+  profile: StudentProfile,
+): 'reach' | 'match' | 'safety' {
+  const tier = college.difficultyTier ?? inferDifficultyTier(college);
+  const acceptanceRate = college.acceptanceRate;
+  const gradeGap = profile.grades - college.admissionRequirements.minGrades;
+
+  // Tier 1 colleges (MIT, Stanford, IIT Bombay, AIIMS, etc.) are almost always Reach
+  if (tier === 1) {
+    // Only "match" if student is truly exceptional
+    if (score >= 88 && gradeGap >= 10 && acceptanceRate > 3) return 'match';
+    return 'reach';
+  }
+
+  // Tier 2 colleges are Reach for most, Match for strong students
+  if (tier === 2) {
+    if (score >= 85 && gradeGap >= 8) return 'match';
+    if (score >= 92 && gradeGap >= 15) return 'safety';
+    return 'reach';
+  }
+
+  // Tier 3 colleges: competitive
+  if (tier === 3) {
+    if (score >= 80 && gradeGap >= 5) return 'safety';
+    if (score >= 60 && gradeGap >= 0) return 'match';
+    return 'reach';
+  }
+
+  // Tier 4 colleges: moderate
+  if (tier === 4) {
+    if (score >= 65 && gradeGap >= 0) return 'safety';
+    if (score >= 45) return 'match';
+    return 'reach';
+  }
+
+  // Tier 5 colleges: accessible
+  if (tier === 5) {
+    if (score >= 50) return 'safety';
+    if (score >= 30) return 'match';
+    return 'reach';
+  }
+
+  // Fallback: use acceptance rate as primary signal
+  if (acceptanceRate < 10) {
+    if (score >= 85 && gradeGap >= 10) return 'match';
+    return 'reach';
+  }
+  if (acceptanceRate < 25) {
+    if (score >= 75 && gradeGap >= 5) return 'safety';
+    if (score >= 55) return 'match';
+    return 'reach';
+  }
+  if (acceptanceRate < 50) {
+    if (score >= 60) return 'safety';
+    if (score >= 40) return 'match';
+    return 'reach';
+  }
+  // >50% acceptance
+  if (score >= 45) return 'safety';
+  if (score >= 25) return 'match';
+  return 'reach';
+}
+
+// Infer difficulty tier from acceptance rate for colleges that don't have it set
+function inferDifficultyTier(college: College): 1 | 2 | 3 | 4 | 5 {
+  const rate = college.acceptanceRate;
+  if (rate < 5) return 1;
+  if (rate < 15) return 2;
+  if (rate < 35) return 3;
+  if (rate < 60) return 4;
+  return 5;
 }
 
 function categorizeCollege(score: number): 'reach' | 'match' | 'safety' {

@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import type { StudentProfile, EducationBoard, Grade, BudgetRange } from '@/lib/types';
-import { BUDGET_LABELS } from '@/lib/types';
+import { BUDGET_LABELS, INTENDED_MAJORS } from '@/lib/types';
 import { useAuth } from '@/components/AuthProvider';
 import { saveProfileToSupabase, loadProfileFromSupabase } from '@/lib/db';
 import subjectsData from '@/data/subjects.json';
@@ -25,6 +25,7 @@ const EXTRACURRICULARS = [
 const STEPS = [
   { id: 'basic', title: 'Basic Info', icon: '👤' },
   { id: 'academic', title: 'Academics', icon: '📖' },
+  { id: 'major', title: 'Field of Study', icon: '🎓' },
   { id: 'tests', title: 'Test Scores', icon: '📝' },
   { id: 'goals', title: 'Goals', icon: '🎯' },
   { id: 'activities', title: 'Activities', icon: '🏆' },
@@ -37,6 +38,7 @@ const defaultProfile: StudentProfile = {
   subjects: [],
   grades: 0,
   testScores: {},
+  intendedMajors: [],
   targetColleges: [],
   preferredCountries: [],
   extracurriculars: [],
@@ -121,9 +123,10 @@ export default function StudentForm() {
     switch (step) {
       case 0: return profile.name.trim().length > 0;
       case 1: return profile.subjects.length > 0 && profile.grades > 0;
-      case 2: return true; // tests are optional
-      case 3: return profile.preferredCountries.length > 0;
-      case 4: return true;
+      case 2: return profile.intendedMajors.length > 0;
+      case 3: return true; // tests are optional
+      case 4: return profile.preferredCountries.length > 0;
+      case 5: return true;
       default: return true;
     }
   };
@@ -233,12 +236,16 @@ export default function StudentForm() {
             updateProfile={updateProfile}
             toggleArrayItem={toggleArrayItem}
             subjects={getSubjectsForBoard()}
+            setProfile={setProfile}
           />
         )}
         {step === 2 && (
-          <StepTests profile={profile} setProfile={setProfile} />
+          <StepMajor profile={profile} toggleArrayItem={toggleArrayItem} />
         )}
         {step === 3 && (
+          <StepTests profile={profile} setProfile={setProfile} />
+        )}
+        {step === 4 && (
           <StepGoals
             profile={profile}
             toggleArrayItem={toggleArrayItem}
@@ -248,7 +255,7 @@ export default function StudentForm() {
             updateProfile={updateProfile}
           />
         )}
-        {step === 4 && (
+        {step === 5 && (
           <StepActivities
             profile={profile}
             toggleArrayItem={toggleArrayItem}
@@ -367,12 +374,41 @@ function StepAcademic({
   updateProfile,
   toggleArrayItem,
   subjects,
+  setProfile,
 }: {
   profile: StudentProfile;
   updateProfile: <K extends keyof StudentProfile>(key: K, value: StudentProfile[K]) => void;
   toggleArrayItem: (key: keyof StudentProfile, item: string) => void;
   subjects: string[];
+  setProfile: React.Dispatch<React.SetStateAction<StudentProfile>>;
 }) {
+  const isIB = profile.educationBoard === 'IB';
+  const isCambridge = profile.educationBoard === 'Cambridge';
+
+  // Convert IB score (out of 45) to percentage for internal use
+  const handleIBScoreChange = (score: number) => {
+    setProfile(prev => ({
+      ...prev,
+      ibScore: score,
+      grades: Math.round((score / 45) * 100),
+    }));
+  };
+
+  // Convert Cambridge grade to percentage
+  const cambridgeGradeToPercent = (grades: Record<string, string>): number => {
+    const gradeValues: Record<string, number> = { 'A*': 95, 'A': 88, 'B': 78, 'C': 68, 'D': 58, 'E': 48 };
+    const values = Object.values(grades).map(g => gradeValues[g] || 60);
+    if (values.length === 0) return 0;
+    return Math.round(values.reduce((a, b) => a + b, 0) / values.length);
+  };
+
+  const handleCambridgeGradeChange = (subject: string, grade: string) => {
+    setProfile(prev => {
+      const updated = { ...prev.cambridgeGrades, [subject]: grade };
+      return { ...prev, cambridgeGrades: updated, grades: cambridgeGradeToPercent(updated) };
+    });
+  };
+
   return (
     <div className="space-y-6">
       <h2 className="text-xl font-semibold">Your Academics 📚</h2>
@@ -401,33 +437,152 @@ function StepAcademic({
         )}
       </div>
 
-      <div>
-        <label className="block text-sm font-medium mb-1.5">
-          Current Grades/Marks (Overall Percentage)
-        </label>
-        <p className="text-xs text-muted mb-2">Enter your approximate overall percentage. Convert GPA if needed (e.g., 9.0 CGPA ≈ 85%)</p>
-        <div className="flex items-center gap-3">
-          <input
-            type="range"
-            min="0"
-            max="100"
-            value={profile.grades}
-            onChange={e => updateProfile('grades', Number(e.target.value))}
-            className="flex-1 h-2 rounded-lg appearance-none bg-gray-200 accent-primary"
-          />
-          <div className="flex items-center gap-1">
+      {/* Board-specific grade input */}
+      {isIB ? (
+        <div>
+          <label className="block text-sm font-medium mb-1.5">IB Predicted/Actual Score</label>
+          <p className="text-xs text-muted mb-3">Enter your total IB score out of 45 (including TOK and EE bonus points)</p>
+          <div className="flex items-center gap-4">
             <input
-              type="number"
+              type="range"
+              min="0"
+              max="45"
+              value={profile.ibScore || 0}
+              onChange={e => handleIBScoreChange(Number(e.target.value))}
+              className="flex-1 h-2 rounded-lg appearance-none bg-gray-200 accent-primary"
+            />
+            <div className="flex items-center gap-1">
+              <input
+                type="number"
+                min="0"
+                max="45"
+                value={profile.ibScore || ''}
+                onChange={e => handleIBScoreChange(Math.min(45, Math.max(0, Number(e.target.value))))}
+                className="w-16 rounded-lg border border-card-border px-2 py-1.5 text-center text-sm focus:border-primary focus:outline-none"
+              />
+              <span className="text-sm text-muted">/ 45</span>
+            </div>
+          </div>
+          {profile.ibScore ? (
+            <p className="mt-2 text-xs text-muted">
+              Equivalent to approximately {Math.round((profile.ibScore / 45) * 100)}%
+              {profile.ibScore >= 40 && ' — Excellent! 🌟'}
+              {profile.ibScore >= 35 && profile.ibScore < 40 && ' — Very good!'}
+            </p>
+          ) : null}
+        </div>
+      ) : isCambridge ? (
+        <div>
+          <label className="block text-sm font-medium mb-1.5">A-Level / IGCSE Grades</label>
+          <p className="text-xs text-muted mb-3">
+            Enter your predicted/actual grades for each subject you selected above
+          </p>
+          {profile.subjects.length === 0 ? (
+            <p className="text-xs text-warning">Select your subjects above first</p>
+          ) : (
+            <div className="space-y-2 max-h-56 overflow-y-auto rounded-lg border border-card-border p-3">
+              {profile.subjects.map(subject => (
+                <div key={subject} className="flex items-center justify-between gap-3">
+                  <span className="text-sm truncate flex-1">{subject}</span>
+                  <select
+                    value={profile.cambridgeGrades?.[subject] || ''}
+                    onChange={e => handleCambridgeGradeChange(subject, e.target.value)}
+                    className="rounded-lg border border-card-border px-2 py-1.5 text-sm focus:border-primary focus:outline-none w-20"
+                  >
+                    <option value="">Grade</option>
+                    <option value="A*">A*</option>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                    <option value="D">D</option>
+                    <option value="E">E</option>
+                  </select>
+                </div>
+              ))}
+            </div>
+          )}
+          {profile.grades > 0 && (
+            <p className="mt-2 text-xs text-muted">
+              Equivalent overall: ~{profile.grades}%
+            </p>
+          )}
+        </div>
+      ) : (
+        <div>
+          <label className="block text-sm font-medium mb-1.5">
+            Current Grades/Marks (Overall Percentage)
+          </label>
+          <p className="text-xs text-muted mb-2">Enter your approximate overall percentage. Convert GPA if needed (e.g., 9.0 CGPA ≈ 85%)</p>
+          <div className="flex items-center gap-3">
+            <input
+              type="range"
               min="0"
               max="100"
-              value={profile.grades || ''}
-              onChange={e => updateProfile('grades', Math.min(100, Math.max(0, Number(e.target.value))))}
-              className="w-16 rounded-lg border border-card-border px-2 py-1.5 text-center text-sm focus:border-primary focus:outline-none"
+              value={profile.grades}
+              onChange={e => updateProfile('grades', Number(e.target.value))}
+              className="flex-1 h-2 rounded-lg appearance-none bg-gray-200 accent-primary"
             />
-            <span className="text-sm text-muted">%</span>
+            <div className="flex items-center gap-1">
+              <input
+                type="number"
+                min="0"
+                max="100"
+                value={profile.grades || ''}
+                onChange={e => updateProfile('grades', Math.min(100, Math.max(0, Number(e.target.value))))}
+                className="w-16 rounded-lg border border-card-border px-2 py-1.5 text-center text-sm focus:border-primary focus:outline-none"
+              />
+              <span className="text-sm text-muted">%</span>
+            </div>
           </div>
         </div>
+      )}
+    </div>
+  );
+}
+
+function StepMajor({
+  profile,
+  toggleArrayItem,
+}: {
+  profile: StudentProfile;
+  toggleArrayItem: (key: keyof StudentProfile, item: string) => void;
+}) {
+  return (
+    <div className="space-y-6">
+      <h2 className="text-xl font-semibold">What do you want to study? 🎓</h2>
+      <p className="text-sm text-muted">
+        Select the fields you&apos;re interested in. You can pick multiple if you&apos;re considering different paths.
+      </p>
+
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+        {INTENDED_MAJORS.map(major => (
+          <button
+            key={major}
+            onClick={() => toggleArrayItem('intendedMajors', major)}
+            className={`rounded-lg border px-3 py-2.5 text-sm text-left font-medium transition-colors ${
+              profile.intendedMajors.includes(major)
+                ? major === 'Unsure / Exploring'
+                  ? 'border-secondary bg-secondary/10 text-secondary'
+                  : 'border-primary bg-primary/10 text-primary'
+                : 'border-card-border hover:border-primary/50'
+            }`}
+          >
+            {major}
+          </button>
+        ))}
       </div>
+
+      {profile.intendedMajors.includes('Unsure / Exploring') && (
+        <div className="rounded-lg bg-secondary/5 border border-secondary/20 p-3">
+          <p className="text-xs text-secondary">
+            💡 No worries! We&apos;ll suggest colleges and paths across multiple fields so you can explore your options.
+          </p>
+        </div>
+      )}
+
+      {profile.intendedMajors.length > 0 && !profile.intendedMajors.includes('Unsure / Exploring') && (
+        <p className="text-xs text-muted">{profile.intendedMajors.length} field(s) selected</p>
+      )}
     </div>
   );
 }

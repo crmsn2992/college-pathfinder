@@ -446,6 +446,49 @@ function GapsTab({
         </div>
       )}
 
+      {/* Subject-by-Subject Breakdown */}
+      {gapAnalysis.subjectGaps && gapAnalysis.subjectGaps.length > 0 && (
+        <div className="rounded-xl border border-card-border bg-card-bg p-6">
+          <h3 className="font-semibold mb-4">📋 Subject-by-Subject Analysis</h3>
+          <div className="space-y-3">
+            {gapAnalysis.subjectGaps.map((sg, i) => (
+              <div key={i} className="rounded-lg border border-card-border p-3">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-sm font-medium">{sg.subject}</span>
+                  <span className={`rounded-full px-2 py-0.5 text-[10px] font-bold uppercase ${
+                    sg.priority === 'high' ? 'bg-red-100 text-red-700' :
+                    sg.priority === 'medium' ? 'bg-yellow-100 text-yellow-700' :
+                    'bg-green-100 text-green-700'
+                  }`}>
+                    {sg.priority === 'low' ? '✓ on track' : sg.priority} priority
+                  </span>
+                </div>
+                <div className="flex items-center gap-3 mb-1.5">
+                  <div className="flex-1 h-2 rounded-full bg-gray-100 overflow-hidden relative">
+                    <div
+                      className={`h-full rounded-full absolute left-0 ${
+                        sg.gap > 15 ? 'bg-red-400' : sg.gap > 5 ? 'bg-yellow-400' : 'bg-green-400'
+                      }`}
+                      style={{ width: `${sg.currentGrade}%` }}
+                    />
+                    <div
+                      className="h-full w-0.5 bg-gray-600 absolute top-0"
+                      style={{ left: `${sg.targetGrade}%` }}
+                    />
+                  </div>
+                  <span className="text-xs font-medium whitespace-nowrap">
+                    {sg.currentGrade}% → {sg.targetGrade}%
+                  </span>
+                </div>
+                {sg.gap > 0 && (
+                  <p className="text-xs text-muted mt-1">💡 {sg.suggestion}</p>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* Gaps */}
       <div className="grid gap-4 sm:grid-cols-2">
         {gapAnalysis.missingExams.length > 0 && (

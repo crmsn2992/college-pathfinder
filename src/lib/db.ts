@@ -21,11 +21,11 @@ export async function saveProfileToSupabase(profile: StudentProfile): Promise<{ 
       board: profile.educationBoard,
       current_class: profile.currentGrade,
       subjects: profile.subjects,
-      grades: { percentage: profile.grades },
+      grades: { percentage: profile.grades, ibScore: profile.ibScore, cambridgeGrades: profile.cambridgeGrades },
       test_scores: profile.testScores,
       target_colleges: profile.targetColleges,
       preferred_countries: profile.preferredCountries,
-      extracurriculars: profile.extracurriculars,
+      extracurriculars: [...profile.extracurriculars, ...(profile.intendedMajors || []).map(m => `major:${m}`)],
       extracurricular_details: profile.extracurricularDetails,
       budget_range: profile.budgetRange,
       updated_at: new Date().toISOString(),
@@ -48,16 +48,23 @@ export async function loadProfileFromSupabase(): Promise<{ profile: StudentProfi
 
   if (error || !data) return { profile: null, updatedAt: null, error: error?.message ?? 'No profile found' };
 
+  const allExtras: string[] = data.extracurriculars ?? [];
+  const intendedMajors = allExtras.filter((e: string) => e.startsWith('major:')).map((e: string) => e.replace('major:', ''));
+  const extracurriculars = allExtras.filter((e: string) => !e.startsWith('major:'));
+
   const profile: StudentProfile = {
     name: data.name ?? '',
     educationBoard: data.board ?? 'CBSE',
     currentGrade: data.current_class ?? '11th',
     subjects: data.subjects ?? [],
     grades: data.grades?.percentage ?? 0,
+    ibScore: data.grades?.ibScore,
+    cambridgeGrades: data.grades?.cambridgeGrades,
     testScores: data.test_scores ?? {},
+    intendedMajors: intendedMajors,
     targetColleges: data.target_colleges ?? [],
     preferredCountries: data.preferred_countries ?? [],
-    extracurriculars: data.extracurriculars ?? [],
+    extracurriculars: extracurriculars,
     extracurricularDetails: data.extracurricular_details ?? '',
     budgetRange: data.budget_range ?? '10l-20l',
   };

@@ -2,8 +2,11 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import type { StudentProfile, EducationBoard, Grade, BudgetRange } from '@/lib/types';
 import { BUDGET_LABELS } from '@/lib/types';
+import { useAuth } from '@/components/AuthProvider';
+import { saveProfileToSupabase, loadProfileFromSupabase } from '@/lib/db';
 import subjectsData from '@/data/subjects.json';
 import collegesData from '@/data/colleges.json';
 
@@ -43,23 +46,38 @@ const defaultProfile: StudentProfile = {
 
 export default function StudentForm() {
   const router = useRouter();
+  const { user } = useAuth();
   const [step, setStep] = useState(0);
   const [profile, setProfile] = useState<StudentProfile>(defaultProfile);
   const [collegeSearch, setCollegeSearch] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [lastSaved, setLastSaved] = useState<string | null>(null);
+  const [saveStatus, setSaveStatus] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle');
 
-  // Load from localStorage
+  // Load from Supabase (if logged in) or localStorage
   useEffect(() => {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved) {
-      try {
-        const parsed = JSON.parse(saved);
-        setProfile({ ...defaultProfile, ...parsed });
-      } catch {
-        // ignore parse errors
+    async function loadProfile() {
+      if (user) {
+        const { profile: dbProfile, updatedAt } = await loadProfileFromSupabase();
+        if (dbProfile) {
+          setProfile(dbProfile);
+          setLastSaved(updatedAt);
+          return;
+        }
+      }
+      // Fallback to localStorage
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        try {
+          const parsed = JSON.parse(saved);
+          setProfile({ ...defaultProfile, ...parsed });
+        } catch {
+          // ignore parse errors
+        }
       }
     }
-  }, []);
+    loadProfile();
+  }, [user]);
 
   // Save to localStorage on changes
   useEffect(() => {
@@ -80,12 +98,23 @@ export default function StudentForm() {
     });
   }, []);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     setIsSubmitting(true);
     localStorage.setItem(STORAGE_KEY, JSON.stringify(profile));
-    setTimeout(() => {
-      router.push('/results');
-    }, 500);
+
+    // Save to Supabase if logged in
+    if (user) {
+      setSaveStatus('saving');
+      const { error } = await saveProfileToSupabase(profile);
+      if (!error) {
+        setSaveStatus('saved');
+        setLastSaved(new Date().toISOString());
+      } else {
+        setSaveStatus('error');
+      }
+    }
+
+    router.push('/results');
   };
 
   const canProceed = () => {
@@ -122,6 +151,33 @@ export default function StudentForm() {
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-8">
+      {/* Auth Banner for non-logged-in users */}
+      {!user && step === 0 && (
+        <div className="mb-6 rounded-xl border border-primary/20 bg-primary/5 p-4 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <span className="text-xl">💾</span>
+            <div>
+              <p className="text-sm font-medium">Sign in to save your progress</p>
+              <p className="text-xs text-muted">Your data will be saved securely and accessible from any device</p>
+            </div>
+          </div>
+          <Link href="/login" className="rounded-lg bg-primary px-3 py-1.5 text-xs font-medium text-white hover:bg-primary-dark transition-colors whitespace-nowrap">
+            Sign In
+          </Link>
+        </div>
+      )}
+
+      {/* Save status for logged-in users */}
+      {user && lastSaved && step === 0 && (
+        <div className="mb-6 rounded-xl border border-green-200 bg-green-50 p-3 flex items-center gap-2">
+          <span className="text-sm">✅</span>
+          <p className="text-xs text-green-700">
+            Last saved: {new Date(lastSaved).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })}
+            {saveStatus === 'saving' && ' • Saving...'}
+          </p>
+        </div>
+      )}
+
       {/* Hero Section */}
       {step === 0 && (
         <div className="mb-8 text-center">

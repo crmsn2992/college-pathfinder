@@ -2,32 +2,71 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import type { StudentProfile, College, RecommendationResult } from '@/lib/types';
 import { generateRecommendations } from '@/lib/recommendation';
+import { useAuth } from '@/components/AuthProvider';
+import { loadProfileFromSupabase, saveResultsToSupabase } from '@/lib/db';
 import collegesData from '@/data/colleges.json';
 
 const STORAGE_KEY = 'college-pathfinder-profile';
 
 export default function ResultsPage() {
+  const { user, loading: authLoading } = useAuth();
+  const router = useRouter();
   const [profile, setProfile] = useState<StudentProfile | null>(null);
   const [results, setResults] = useState<RecommendationResult | null>(null);
   const [activeTab, setActiveTab] = useState<'colleges' | 'paths' | 'gaps' | 'timeline'>('colleges');
   const [loading, setLoading] = useState(true);
+  const [savedToCloud, setSavedToCloud] = useState(false);
 
   useEffect(() => {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved) {
-      try {
-        const parsed = JSON.parse(saved) as StudentProfile;
-        setProfile(parsed);
-        const recs = generateRecommendations(parsed, collegesData as unknown as College[]);
-        setResults(recs);
-      } catch {
-        // ignore
+    async function loadData() {
+      let loadedProfile: StudentProfile | null = null;
+
+      // Try loading from Supabase first if logged in
+      if (user) {
+        const { profile: dbProfile } = await loadProfileFromSupabase();
+        if (dbProfile) loadedProfile = dbProfile;
       }
+
+      // Fallback to localStorage
+      if (!loadedProfile) {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          try {
+            loadedProfile = JSON.parse(saved) as StudentProfile;
+          } catch {
+            // ignore
+          }
+        }
+      }
+
+      if (loadedProfile) {
+        setProfile(loadedProfile);
+        const recs = generateRecommendations(loadedProfile, collegesData as unknown as College[]);
+        setResults(recs);
+
+        // Auto-save results to Supabase
+        if (user) {
+          const { error } = await saveResultsToSupabase(loadedProfile, recs);
+          if (!error) setSavedToCloud(true);
+        }
+      }
+      setLoading(false);
     }
-    setLoading(false);
-  }, []);
+
+    if (!authLoading) {
+      loadData();
+    }
+  }, [user, authLoading]);
+
+  // Redirect to login if not authenticated (optional - show reduced experience)
+  if (!authLoading && !user && !loading && !profile) {
+    // Only redirect if there's no localStorage data either
+    router.push('/login');
+    return null;
+  }
 
   if (loading) {
     return (
@@ -74,6 +113,20 @@ export default function ResultsPage() {
         <p className="text-muted">
           Hi {profile.name}! Here&apos;s your personalized college recommendation based on your profile.
         </p>
+        {/* Cloud save status */}
+        {user && savedToCloud && (
+          <p className="mt-2 text-xs text-success flex items-center gap-1">
+            <span>☁️</span> Results saved to your account
+          </p>
+        )}
+        {!user && (
+          <div className="mt-3 rounded-lg border border-primary/20 bg-primary/5 p-3 flex items-center justify-between">
+            <p className="text-xs text-muted">💡 Sign in to save your results and access them later</p>
+            <Link href="/login" className="text-xs font-medium text-primary hover:underline whitespace-nowrap ml-2">
+              Sign In →
+            </Link>
+          </div>
+        )}
       </div>
 
       {/* Quick Stats */}

@@ -322,13 +322,51 @@ function filterColleges(profile: StudentProfile, colleges: College[]): College[]
     preferredCountries.size === 0 ||
     preferredCountries.has(normalize(college.country));
 
+  // Filter by intended major if specified (unless "Unsure / Exploring")
+  const matchesMajor = (college: College) => {
+    if (!profile.intendedMajors || profile.intendedMajors.length === 0) return true;
+    if (profile.intendedMajors.includes('Unsure / Exploring')) return true;
+    // Check if college offers programs related to intended majors
+    const majorToPrograms: Record<string, string[]> = {
+      'Engineering/Technology': ['Engineering', 'Technology'],
+      'Computer Science/IT': ['Computer Science', 'Engineering', 'Technology'],
+      'Medicine/Health Sciences': ['Medicine', 'Health Sciences', 'Medical'],
+      'Business/Commerce': ['Business', 'Commerce', 'Management'],
+      'Law': ['Law'],
+      'Arts/Humanities': ['Arts & Humanities', 'Arts', 'Humanities', 'Liberal Arts'],
+      'Social Sciences': ['Social Sciences', 'Arts & Humanities'],
+      'Natural Sciences': ['Sciences', 'Natural Sciences'],
+      'Design': ['Design'],
+      'Architecture': ['Architecture'],
+      'Media/Communications': ['Media', 'Communications', 'Journalism'],
+      'Education': ['Education'],
+      'Agriculture': ['Agriculture'],
+      'Hospitality': ['Hospitality', 'Hotel Management'],
+    };
+    return profile.intendedMajors.some(major => {
+      const relatedPrograms = majorToPrograms[major] || [];
+      return relatedPrograms.some(prog =>
+        college.programs.some(cp => normalize(cp).includes(normalize(prog)))
+      );
+    });
+  };
+
   const strictMatches = colleges.filter(
-    (college) => matchesCountry(college) && college.feesINR <= maxBudget,
+    (college) => matchesCountry(college) && matchesMajor(college) && college.feesINR <= maxBudget,
   );
   if (strictMatches.length > 0) {
     return strictMatches;
   }
 
+  // Relax budget constraint
+  const countryMajorMatches = colleges.filter(
+    (college) => matchesCountry(college) && matchesMajor(college),
+  );
+  if (countryMajorMatches.length > 0) {
+    return countryMajorMatches;
+  }
+
+  // Relax major constraint
   const countryMatches = colleges.filter(matchesCountry);
   if (countryMatches.length > 0) {
     return countryMatches;
@@ -386,6 +424,35 @@ function calculateStrategicBoost(
   college: College,
 ): number {
   let boost = 0;
+
+  // Boost for major alignment
+  if (profile.intendedMajors && profile.intendedMajors.length > 0 && !profile.intendedMajors.includes('Unsure / Exploring')) {
+    const majorToPrograms: Record<string, string[]> = {
+      'Engineering/Technology': ['Engineering', 'Technology'],
+      'Computer Science/IT': ['Computer Science', 'Engineering', 'Technology'],
+      'Medicine/Health Sciences': ['Medicine', 'Health Sciences'],
+      'Business/Commerce': ['Business', 'Commerce', 'Management'],
+      'Law': ['Law'],
+      'Arts/Humanities': ['Arts & Humanities', 'Arts', 'Humanities'],
+      'Social Sciences': ['Social Sciences'],
+      'Natural Sciences': ['Sciences', 'Natural Sciences'],
+      'Design': ['Design'],
+      'Architecture': ['Architecture'],
+      'Media/Communications': ['Media', 'Communications'],
+      'Education': ['Education'],
+      'Agriculture': ['Agriculture'],
+      'Hospitality': ['Hospitality'],
+    };
+    const matchCount = profile.intendedMajors.filter(major => {
+      const relatedPrograms = majorToPrograms[major] || [];
+      return relatedPrograms.some(prog =>
+        college.programs.some(cp => normalize(cp).includes(normalize(prog)))
+      );
+    }).length;
+    if (matchCount > 0) {
+      boost += Math.min(8, matchCount * 4);
+    }
+  }
 
   if (isIndianEngineeringCollege(college)) {
     const jee = profile.testScores.jee ?? 0;

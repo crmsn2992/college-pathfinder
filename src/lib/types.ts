@@ -86,6 +86,7 @@ export interface College {
   feesUSD?: number; // annual in USD
   scholarships: Scholarship[];
   acceptanceRate: number; // percentage
+  difficultyTier: 1 | 2 | 3 | 4 | 5; // 1=extremely hard, 5=accessible
   deadlines: Deadline[];
   extracurricularPreferences: string[];
   boardNotes: Record<string, string>;
@@ -168,6 +169,16 @@ export interface GapAnalysis {
   missingSubjects: string[];
   extracurricularGaps: string[];
   strengths: string[];
+  subjectGaps: SubjectGap[];
+}
+
+export interface SubjectGap {
+  subject: string;
+  currentGrade: number; // percentage estimate
+  targetGrade: number;
+  gap: number;
+  priority: 'high' | 'medium' | 'low';
+  suggestion: string;
 }
 
 export interface ResourceSuggestion {

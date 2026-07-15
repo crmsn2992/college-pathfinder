@@ -23,7 +23,6 @@ export default function MajorDiscoveryQuiz({ onComplete, profile }: MajorDiscove
     if (currentQuestion < MAJOR_DISCOVERY_QUIZ.length - 1) {
       setCurrentQuestion(currentQuestion + 1);
     } else {
-      // Quiz complete, show results
       setShowResults(true);
     }
   };
@@ -134,7 +133,6 @@ export default function MajorDiscoveryQuiz({ onComplete, profile }: MajorDiscove
             <p className="text-muted">Answer a few questions to find fields that match your interests</p>
           </div>
 
-          {/* Progress bar */}
           <div className="w-full bg-gray-200 rounded-full h-2">
             <div
               className="bg-gradient-to-r from-primary to-secondary h-2 rounded-full transition-all"
@@ -146,7 +144,6 @@ export default function MajorDiscoveryQuiz({ onComplete, profile }: MajorDiscove
           </p>
         </div>
 
-        {/* Question */}
         <div className="bg-card-bg rounded-2xl p-8 border border-card-border mb-6">
           <h2 className="text-2xl font-bold mb-6">{question.question}</h2>
 
@@ -163,7 +160,6 @@ export default function MajorDiscoveryQuiz({ onComplete, profile }: MajorDiscove
           </div>
         </div>
 
-        {/* Skip button for unsure students */}
         <div className="text-center">
           <button
             onClick={() => onComplete(['Unsure / Exploring'])}

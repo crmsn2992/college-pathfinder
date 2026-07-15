@@ -47,11 +47,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, [supabase.auth]);
 
   const signInWithGoogle = useCallback(async () => {
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: 'google',
-      options: { redirectTo: `${window.location.origin}/` },
-    });
-    return { error };
+    try {
+      const redirectUrl = typeof window !== 'undefined' ? `${window.location.origin}/auth/callback` : undefined;
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: { 
+          redirectTo: redirectUrl
+        },
+      });
+      return { error };
+    } catch (err) {
+      return { error: err as AuthError };
+    }
   }, [supabase.auth]);
 
   const signOut = useCallback(async () => {

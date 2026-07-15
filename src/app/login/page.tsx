@@ -27,31 +27,46 @@ export default function LoginPage() {
     setSuccessMessage('');
     setLoading(true);
 
-    if (isSignUp) {
-      const { error } = await signUp(email, password);
-      if (error) {
-        setError(error.message);
+    try {
+      if (isSignUp) {
+        const { error } = await signUp(email, password);
+        if (error) {
+          setError(error.message);
+        } else {
+          setSuccessMessage('Check your email for a confirmation link!');
+          // Clear form after successful signup
+          setTimeout(() => {
+            setEmail('');
+            setPassword('');
+          }, 500);
+        }
       } else {
-        setSuccessMessage('Check your email for a confirmation link!');
-        setEmail('');
-        setPassword('');
+        const { error } = await signIn(email, password);
+        if (error) {
+          setError(error.message);
+        } else {
+          // Clear form and redirect on successful login
+          setEmail('');
+          setPassword('');
+          router.push('/');
+        }
       }
-    } else {
-      const { error } = await signIn(email, password);
-      if (error) {
-        setError(error.message);
-      } else {
-        router.push('/');
-      }
+    } catch (err) {
+      setError('An unexpected error occurred. Please try again.');
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   const handleGoogleSignIn = async () => {
     setError('');
-    const { error } = await signInWithGoogle();
-    if (error) {
-      setError(error.message);
+    try {
+      const { error } = await signInWithGoogle();
+      if (error) {
+        setError(error.message || 'Failed to sign in with Google. Please try again.');
+      }
+    } catch (err) {
+      setError('Failed to sign in with Google. Please check your network and try again.');
     }
   };
 
@@ -74,7 +89,8 @@ export default function LoginPage() {
           {/* Google OAuth */}
           <button
             onClick={handleGoogleSignIn}
-            className="w-full flex items-center justify-center gap-2 rounded-lg border border-card-border px-4 py-2.5 text-sm font-medium hover:bg-gray-50 transition-colors mb-4"
+            disabled={loading}
+            className="w-full flex items-center justify-center gap-2 rounded-lg border border-card-border px-4 py-2.5 text-sm font-medium hover:bg-gray-50 transition-colors mb-4 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <svg className="w-5 h-5" viewBox="0 0 24 24">
               <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -104,7 +120,8 @@ export default function LoginPage() {
                 onChange={e => setEmail(e.target.value)}
                 placeholder="you@example.com"
                 required
-                className="w-full rounded-lg border border-card-border px-4 py-2.5 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                disabled={loading}
+                className="w-full rounded-lg border border-card-border px-4 py-2.5 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 disabled:opacity-50"
               />
             </div>
             <div>
@@ -116,7 +133,8 @@ export default function LoginPage() {
                 placeholder="••••••••"
                 required
                 minLength={6}
-                className="w-full rounded-lg border border-card-border px-4 py-2.5 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                disabled={loading}
+                className="w-full rounded-lg border border-card-border px-4 py-2.5 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 disabled:opacity-50"
               />
             </div>
 
@@ -134,7 +152,7 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full rounded-lg bg-primary px-4 py-2.5 text-sm font-medium text-white hover:bg-primary-dark disabled:opacity-50 transition-colors"
+              className="w-full rounded-lg bg-primary px-4 py-2.5 text-sm font-medium text-white hover:bg-primary-dark disabled:opacity-50 transition-colors disabled:cursor-not-allowed"
             >
               {loading ? '...' : isSignUp ? 'Create Account' : 'Sign In'}
             </button>

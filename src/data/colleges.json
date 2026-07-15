@@ -8041,5 +8041,834 @@
     },
     "ranking": "Respected Indian management institute",
     "website": "https://www.spjimr.org"
+  },
+  {
+    "id": "afmc-pune",
+    "name": "Armed Forces Medical College",
+    "shortName": "AFMC Pune",
+    "location": "Pune, Maharashtra",
+    "country": "India",
+    "type": "public",
+    "programs": [
+      "Medicine"
+    ],
+    "admissionRequirements": {
+      "minGrades": 90,
+      "requiredExams": [
+        "NEET UG",
+        "ToELR",
+        "AFMC Interview"
+      ],
+      "requiredSubjects": [
+        "Physics",
+        "Chemistry",
+        "Biology"
+      ],
+      "preferredSubjects": [
+        "English"
+      ],
+      "minTestScores": {
+        "neet": 99.6
+      },
+      "internationalStudentNotes": "Primarily admits Indian nationals; overseas Indian applicants must still meet AFMC medical fitness and interview requirements."
+    },
+    "feesINR": 50000,
+    "difficultyTier": 2,
+    "scholarships": [
+      {
+        "name": "AFMC Merit Scholarship",
+        "type": "merit",
+        "amount": "Partial tuition support",
+        "description": "Available to cadets with top academic performance and strong service records."
+      }
+    ],
+    "acceptanceRate": 0.3,
+    "deadlines": [
+      {
+        "round": "NEET UG",
+        "month": "May",
+        "description": "Candidates must qualify NEET before AFMC shortlisting."
+      },
+      {
+        "round": "ToELR and Interview",
+        "month": "July",
+        "description": "Shortlisted candidates complete the AFMC screening process after counseling."
+      }
+    ],
+    "extracurricularPreferences": [
+      "service",
+      "leadership",
+      "sports",
+      "discipline"
+    ],
+    "boardNotes": {
+      "CBSE": "CBSE applicants should target very high PCB scores and be ready for the medical fitness assessment.",
+      "IB": "IB students should take Biology and Chemistry at HL and convert scores competitively for PCB equivalence.",
+      "State Board": "State board applicants should ensure PCB marks remain strong because AFMC shortlisting is highly score driven."
+    },
+    "ranking": "Top military medical college in India",
+    "website": "https://afmc.nic.in"
+  },
+  {
+    "id": "madras-medical",
+    "name": "Madras Medical College",
+    "shortName": "MMC Chennai",
+    "location": "Chennai, Tamil Nadu",
+    "country": "India",
+    "type": "public",
+    "programs": [
+      "Medicine",
+      "Nursing",
+      "Public Health"
+    ],
+    "admissionRequirements": {
+      "minGrades": 88,
+      "requiredExams": [
+        "NEET UG",
+        "Tamil Nadu State Counseling"
+      ],
+      "requiredSubjects": [
+        "Physics",
+        "Chemistry",
+        "Biology"
+      ],
+      "preferredSubjects": [
+        "English"
+      ],
+      "minTestScores": {
+        "neet": 99.2
+      },
+      "internationalStudentNotes": "International applicants need equivalent secondary credentials and participate through the state or designated NRI quota where applicable."
+    },
+    "feesINR": 15000,
+    "difficultyTier": 2,
+    "scholarships": [
+      {
+        "name": "Tamil Nadu Government Scholarship",
+        "type": "need",
+        "amount": "Tuition reimbursement for eligible categories",
+        "description": "Supports eligible students from economically weaker and reserved category backgrounds."
+      }
+    ],
+    "acceptanceRate": 1.2,
+    "deadlines": [
+      {
+        "round": "NEET UG",
+        "month": "May",
+        "description": "NEET qualification is mandatory for MBBS admission."
+      },
+      {
+        "round": "State Counseling",
+        "month": "July",
+        "description": "Tamil Nadu counseling manages seat allotment after NEET results."
+      }
+    ],
+    "extracurricularPreferences": [
+      "community service",
+      "healthcare volunteering",
+      "research"
+    ],
+    "boardNotes": {
+      "CBSE": "CBSE applicants should keep PCB and English strong and track Tamil Nadu counseling documentation closely.",
+      "IB": "IB students should present HL Biology and Chemistry for smoother equivalence review.",
+      "State Board": "Tamil Nadu state board students benefit from curriculum familiarity but still need a top NEET score."
+    },
+    "ranking": "Leading government medical college in South India",
+    "website": "https://www.mmc.tn.gov.in"
+  },
+  {
+    "id": "rmlnlu-lucknow",
+    "name": "Dr. Ram Manohar Lohiya National Law University",
+    "shortName": "RMLNLU Lucknow",
+    "location": "Lucknow, Uttar Pradesh",
+    "country": "India",
+    "type": "public",
+    "programs": [
+      "Law",
+      "Legal Studies"
+    ],
+    "admissionRequirements": {
+      "minGrades": 80,
+      "requiredExams": [
+        "CLAT"
+      ],
+      "requiredSubjects": [
+        "English"
+      ],
+      "preferredSubjects": [
+        "Political Science",
+        "History"
+      ],
+      "minTestScores": {},
+      "internationalStudentNotes": "Foreign national and NRI applicants should watch for supernumerary seat notifications and provide equivalent school transcripts."
+    },
+    "feesINR": 180000,
+    "difficultyTier": 3,
+    "scholarships": [
+      {
+        "name": "UP State Scholarship",
+        "type": "need",
+        "amount": "Partial fee support",
+        "description": "Financial assistance is available for eligible students under state and university schemes."
+      }
+    ],
+    "acceptanceRate": 6,
+    "deadlines": [
+      {
+        "round": "CLAT Registration",
+        "month": "October",
+        "description": "Register for CLAT through the Consortium portal."
+      },
+      {
+        "round": "Counseling",
+        "month": "December",
+        "description": "Seat allotment follows CLAT rank release."
+      }
+    ],
+    "extracurricularPreferences": [
+      "debate",
+      "moot court",
+      "public speaking",
+      "policy research"
+    ],
+    "boardNotes": {
+      "CBSE": "Humanities or commerce with strong English and logical reasoning preparation works well for CLAT aspirants.",
+      "IB": "IB students should highlight essay writing, TOK, and humanities coursework that support legal studies.",
+      "Cambridge": "Cambridge applicants should pair strong English-based subjects with focused CLAT aptitude preparation."
+    },
+    "ranking": "Established national law university with strong litigation and policy outcomes",
+    "website": "https://www.rmlnlu.ac.in"
+  },
+  {
+    "id": "jindal-law",
+    "name": "Jindal Global Law School",
+    "shortName": "JGLS",
+    "location": "Sonipat, Haryana",
+    "country": "India",
+    "type": "private",
+    "programs": [
+      "Law",
+      "Legal Studies"
+    ],
+    "admissionRequirements": {
+      "minGrades": 75,
+      "requiredExams": [
+        "LSAT India",
+        "Jindal Admissions Process"
+      ],
+      "requiredSubjects": [
+        "English"
+      ],
+      "preferredSubjects": [
+        "Political Science",
+        "Economics"
+      ],
+      "internationalStudentNotes": "Applicants may apply with LSAT India, SAT, or equivalent qualifying profiles depending on the intake cycle."
+    },
+    "feesINR": 700000,
+    "difficultyTier": 3,
+    "scholarships": [
+      {
+        "name": "OP Jindal Outstanding Merit Scholarship",
+        "type": "merit",
+        "amount": "Up to 75% tuition waiver",
+        "description": "Awarded to high-scoring applicants in LSAT India and board examinations."
+      }
+    ],
+    "acceptanceRate": 18,
+    "deadlines": [
+      {
+        "round": "Early Action",
+        "month": "January",
+        "description": "Early applications receive first consideration for scholarship awards."
+      },
+      {
+        "round": "Regular Round",
+        "month": "April",
+        "description": "Later rounds remain open subject to seat availability."
+      }
+    ],
+    "extracurricularPreferences": [
+      "moot court",
+      "debate",
+      "research",
+      "community engagement"
+    ],
+    "boardNotes": {
+      "CBSE": "Strong English and social science performance helps when combined with a solid LSAT India score.",
+      "IB": "IB essay-based coursework and CAS leadership can strengthen a holistic JGLS application.",
+      "Cambridge": "Cambridge applicants should present strong writing-heavy subjects and law-related activities."
+    },
+    "ranking": "Leading private law school in India",
+    "website": "https://jgu.edu.in/jgls"
+  },
+  {
+    "id": "fergusson-pune",
+    "name": "Fergusson College",
+    "shortName": "Fergusson College",
+    "location": "Pune, Maharashtra",
+    "country": "India",
+    "type": "public",
+    "programs": [
+      "Arts & Humanities",
+      "Natural Sciences",
+      "Commerce"
+    ],
+    "admissionRequirements": {
+      "minGrades": 75,
+      "requiredExams": [
+        "Merit-based Admission"
+      ],
+      "requiredSubjects": [
+        "English"
+      ],
+      "preferredSubjects": [
+        "History",
+        "Economics",
+        "Mathematics"
+      ],
+      "internationalStudentNotes": "International applicants usually apply through Savitribai Phule Pune University processes with equivalent Class XII marks."
+    },
+    "feesINR": 30000,
+    "difficultyTier": 4,
+    "scholarships": [
+      {
+        "name": "Merit Scholarship for UG Students",
+        "type": "merit",
+        "amount": "Partial tuition waiver",
+        "description": "Offered to high-performing students in qualifying examinations."
+      }
+    ],
+    "acceptanceRate": 35,
+    "deadlines": [
+      {
+        "round": "UG Admissions",
+        "month": "June",
+        "description": "Admissions are based mainly on Class XII merit lists."
+      }
+    ],
+    "extracurricularPreferences": [
+      "debate",
+      "performing arts",
+      "student societies",
+      "community service"
+    ],
+    "boardNotes": {
+      "CBSE": "Strong Class XII marks matter most because admissions are largely merit based.",
+      "IB": "IB applicants should submit predicted or final grades early for equivalence processing.",
+      "State Board": "Maharashtra board students should monitor subject-wise cutoffs for popular programs."
+    },
+    "ranking": "Historic liberal arts and science college in Pune",
+    "website": "https://fergusson.edu"
+  },
+  {
+    "id": "loyola-chennai",
+    "name": "Loyola College",
+    "shortName": "Loyola Chennai",
+    "location": "Chennai, Tamil Nadu",
+    "country": "India",
+    "type": "private",
+    "programs": [
+      "Arts & Humanities",
+      "Natural Sciences",
+      "Commerce",
+      "Social Sciences"
+    ],
+    "admissionRequirements": {
+      "minGrades": 78,
+      "requiredExams": [
+        "Merit-based Admission"
+      ],
+      "requiredSubjects": [
+        "English"
+      ],
+      "preferredSubjects": [
+        "Economics",
+        "History",
+        "Mathematics"
+      ],
+      "internationalStudentNotes": "International candidates apply through the international office with equivalent upper-secondary credentials."
+    },
+    "feesINR": 60000,
+    "difficultyTier": 4,
+    "scholarships": [
+      {
+        "name": "Jesuit Merit-cum-Means Aid",
+        "type": "need",
+        "amount": "Partial fee concession",
+        "description": "Supports academically strong students from financially constrained backgrounds."
+      }
+    ],
+    "acceptanceRate": 28,
+    "deadlines": [
+      {
+        "round": "UG Applications",
+        "month": "May",
+        "description": "Merit lists are prepared from board marks and subject eligibility."
+      }
+    ],
+    "extracurricularPreferences": [
+      "social impact",
+      "cultural activities",
+      "leadership",
+      "public speaking"
+    ],
+    "boardNotes": {
+      "CBSE": "English proficiency and consistent Class XII scores are especially important for competitive humanities and commerce seats.",
+      "IB": "IB students can strengthen their application with CAS and writing-intensive subjects.",
+      "State Board": "Tamil Nadu board applicants should apply early because top combinations fill quickly."
+    },
+    "ranking": "Well-known autonomous college for arts, sciences, and commerce",
+    "website": "https://www.loyolacollege.edu"
+  },
+  {
+    "id": "soas-london",
+    "name": "SOAS University of London",
+    "shortName": "SOAS",
+    "location": "London, England",
+    "country": "United Kingdom",
+    "type": "public",
+    "programs": [
+      "Arts & Humanities",
+      "Social Sciences",
+      "Languages",
+      "Law"
+    ],
+    "admissionRequirements": {
+      "minGrades": 85,
+      "requiredExams": [
+        "School-leaving qualification"
+      ],
+      "requiredSubjects": [
+        "English"
+      ],
+      "preferredSubjects": [
+        "History",
+        "Politics",
+        "Languages"
+      ],
+      "internationalStudentNotes": "Indian applicants are typically assessed on Class XII or IB/Cambridge credentials and may need proof of English proficiency."
+    },
+    "feesINR": 2600000,
+    "feesUSD": 31100,
+    "difficultyTier": 3,
+    "scholarships": [
+      {
+        "name": "SOAS International Excellence Scholarship",
+        "type": "merit",
+        "amount": "Partial tuition award",
+        "description": "Competitive scholarship for international students with exceptional academic records."
+      }
+    ],
+    "acceptanceRate": 24,
+    "deadlines": [
+      {
+        "round": "UCAS Equal Consideration",
+        "month": "January",
+        "description": "Submit the UCAS application by the main deadline for first-round review."
+      },
+      {
+        "round": "Scholarship Deadline",
+        "month": "April",
+        "description": "Most international scholarships require a separate application by spring."
+      }
+    ],
+    "extracurricularPreferences": [
+      "languages",
+      "global affairs",
+      "research",
+      "community engagement"
+    ],
+    "boardNotes": {
+      "CBSE": "Strong Class XII English and humanities scores are helpful for SOAS essay-based courses.",
+      "IB": "IB students should emphasize HL essay subjects and international-minded coursework.",
+      "Cambridge": "Cambridge applicants with humanities, social sciences, or language subjects are well aligned."
+    },
+    "ranking": "Globally respected for Asia, Africa, and Middle East studies",
+    "website": "https://www.soas.ac.uk"
+  },
+  {
+    "id": "pearl-academy",
+    "name": "Pearl Academy",
+    "shortName": "Pearl Academy",
+    "location": "New Delhi, Delhi",
+    "country": "India",
+    "type": "private",
+    "programs": [
+      "Fashion Design",
+      "Design",
+      "Media & Communications"
+    ],
+    "admissionRequirements": {
+      "minGrades": 60,
+      "requiredExams": [
+        "Pearl Academy Entrance Exam",
+        "Personal Interview"
+      ],
+      "requiredSubjects": [
+        "English"
+      ],
+      "preferredSubjects": [
+        "Fine Arts",
+        "Design"
+      ],
+      "internationalStudentNotes": "Applicants should prepare a basic portfolio or creative work samples for interview discussions where relevant."
+    },
+    "feesINR": 400000,
+    "difficultyTier": 4,
+    "scholarships": [
+      {
+        "name": "Who is Next Scholarship",
+        "type": "merit",
+        "amount": "Up to 50% tuition waiver",
+        "description": "Awarded to high-performing creative applicants based on the entrance process."
+      }
+    ],
+    "acceptanceRate": 45,
+    "deadlines": [
+      {
+        "round": "Cycle 1",
+        "month": "January",
+        "description": "Early design aptitude test and interview round."
+      },
+      {
+        "round": "Cycle 2",
+        "month": "April",
+        "description": "Later cycle for remaining seats across campuses."
+      }
+    ],
+    "extracurricularPreferences": [
+      "portfolio",
+      "creative projects",
+      "fashion shows",
+      "media production"
+    ],
+    "boardNotes": {
+      "CBSE": "A polished creative portfolio can matter as much as marks for many design-led programs.",
+      "IB": "IB Visual Arts, design projects, and CAS experiences strengthen the profile.",
+      "Cambridge": "Cambridge Art and Design coursework maps well to Pearl entrance expectations."
+    },
+    "ranking": "Popular private design and fashion institute in India",
+    "website": "https://pearlacademy.com"
+  },
+  {
+    "id": "st-xaviers-kolkata",
+    "name": "St. Xavier's College, Kolkata",
+    "shortName": "St. Xavier's Kolkata",
+    "location": "Kolkata, West Bengal",
+    "country": "India",
+    "type": "private",
+    "programs": [
+      "Arts & Humanities",
+      "Natural Sciences",
+      "Commerce",
+      "Business"
+    ],
+    "admissionRequirements": {
+      "minGrades": 82,
+      "requiredExams": [
+        "Entrance Test or Merit-based Admission"
+      ],
+      "requiredSubjects": [
+        "English"
+      ],
+      "preferredSubjects": [
+        "Economics",
+        "Mathematics",
+        "History"
+      ],
+      "internationalStudentNotes": "Admission criteria vary by department, so international applicants should confirm whether their chosen course uses an entrance test or board merit."
+    },
+    "feesINR": 85000,
+    "difficultyTier": 3,
+    "scholarships": [
+      {
+        "name": "Fr. Depelchin Scholarship",
+        "type": "need",
+        "amount": "Partial tuition support",
+        "description": "Offered to deserving students with strong academic records and demonstrated financial need."
+      }
+    ],
+    "acceptanceRate": 18,
+    "deadlines": [
+      {
+        "round": "UG Applications",
+        "month": "May",
+        "description": "Course-wise forms open after board examinations and may include aptitude screening."
+      }
+    ],
+    "extracurricularPreferences": [
+      "leadership",
+      "debate",
+      "cultural activities",
+      "student clubs"
+    ],
+    "boardNotes": {
+      "CBSE": "High English and subject-specific marks are important for selective commerce and humanities majors.",
+      "IB": "IB applicants should be ready to submit detailed transcripts because course cutoffs can be tight.",
+      "State Board": "State board candidates should verify the department-specific aggregate calculation before applying."
+    },
+    "ranking": "Prestigious autonomous college for commerce and liberal studies",
+    "website": "https://www.sxccal.edu"
+  },
+  {
+    "id": "hec-paris",
+    "name": "HEC Paris",
+    "shortName": "HEC Paris",
+    "location": "Jouy-en-Josas, France",
+    "country": "France",
+    "type": "private",
+    "programs": [
+      "Business",
+      "Management",
+      "Finance"
+    ],
+    "admissionRequirements": {
+      "minGrades": 90,
+      "requiredExams": [
+        "School-leaving qualification",
+        "Interview"
+      ],
+      "requiredSubjects": [
+        "Mathematics",
+        "English"
+      ],
+      "preferredSubjects": [
+        "Economics",
+        "Business Studies"
+      ],
+      "internationalStudentNotes": "Applicants should present excellent academics, strong English proficiency, and a profile suited to selective business admissions; French is useful but not always mandatory depending on program."
+    },
+    "feesINR": 3500000,
+    "feesUSD": 41900,
+    "difficultyTier": 2,
+    "scholarships": [
+      {
+        "name": "HEC Paris Excellence Scholarship",
+        "type": "merit",
+        "amount": "Partial tuition award",
+        "description": "Merit scholarships are available for outstanding international candidates in competitive business programs."
+      }
+    ],
+    "acceptanceRate": 8,
+    "deadlines": [
+      {
+        "round": "Application Round 1",
+        "month": "January",
+        "description": "Early round for selective international business admissions."
+      },
+      {
+        "round": "Application Round 2",
+        "month": "March",
+        "description": "Later round with interview decisions following file review."
+      }
+    ],
+    "extracurricularPreferences": [
+      "leadership",
+      "entrepreneurship",
+      "finance competitions",
+      "international exposure"
+    ],
+    "boardNotes": {
+      "CBSE": "Math-heavy performance and evidence of leadership or enterprise are especially useful.",
+      "IB": "IB Math and Economics, plus strong extracurricular leadership, fit HEC's profile well.",
+      "Cambridge": "Cambridge applicants should pair quantitative subjects with strong communication and leadership evidence."
+    },
+    "ranking": "Top European business school",
+    "website": "https://www.hec.edu"
+  },
+  {
+    "id": "tiss-mumbai",
+    "name": "Tata Institute of Social Sciences",
+    "shortName": "TISS Mumbai",
+    "location": "Mumbai, Maharashtra",
+    "country": "India",
+    "type": "public",
+    "programs": [
+      "Social Sciences",
+      "Education",
+      "Public Health",
+      "Management"
+    ],
+    "admissionRequirements": {
+      "minGrades": 75,
+      "requiredExams": [
+        "TISS Entrance or CUET-PG/Institute Process"
+      ],
+      "requiredSubjects": [
+        "English"
+      ],
+      "preferredSubjects": [
+        "Sociology",
+        "Psychology",
+        "Economics"
+      ],
+      "internationalStudentNotes": "Program-level requirements vary, and international applicants should confirm whether their intended course accepts direct applications or centralized testing."
+    },
+    "feesINR": 80000,
+    "difficultyTier": 2,
+    "scholarships": [
+      {
+        "name": "TISS Student Aid Fund",
+        "type": "need",
+        "amount": "Need-based fee assistance",
+        "description": "Provides financial support to students from lower-income households."
+      }
+    ],
+    "acceptanceRate": 12,
+    "deadlines": [
+      {
+        "round": "Application Window",
+        "month": "January",
+        "description": "Applicants submit forms and test details according to the current admission cycle."
+      },
+      {
+        "round": "Assessment and Interviews",
+        "month": "March",
+        "description": "Shortlisted candidates may face program-specific assessments or interviews."
+      }
+    ],
+    "extracurricularPreferences": [
+      "social impact",
+      "fieldwork",
+      "volunteering",
+      "research"
+    ],
+    "boardNotes": {
+      "CBSE": "Applicants should demonstrate sustained social engagement beyond academics.",
+      "IB": "IB CAS and service learning can strongly support a TISS-style profile.",
+      "Cambridge": "Cambridge applicants benefit from evidence of research, writing, and community engagement."
+    },
+    "ranking": "Premier institute for social sciences and public policy in India",
+    "website": "https://www.tiss.edu"
+  },
+  {
+    "id": "azim-premji",
+    "name": "Azim Premji University",
+    "shortName": "Azim Premji University",
+    "location": "Bengaluru, Karnataka",
+    "country": "India",
+    "type": "private",
+    "programs": [
+      "Education",
+      "Social Sciences",
+      "Liberal Arts"
+    ],
+    "admissionRequirements": {
+      "minGrades": 70,
+      "requiredExams": [
+        "Azim Premji University Entrance Test",
+        "Interview"
+      ],
+      "requiredSubjects": [
+        "English"
+      ],
+      "preferredSubjects": [
+        "Economics",
+        "History",
+        "Sociology"
+      ],
+      "internationalStudentNotes": "Applicants are assessed holistically, with writing ability and social commitment carrying significant weight."
+    },
+    "feesINR": 300000,
+    "difficultyTier": 3,
+    "scholarships": [
+      {
+        "name": "Need-based Financial Assistance",
+        "type": "need",
+        "amount": "Up to major fee waiver",
+        "description": "A large share of students receive aid based on family income and need assessment."
+      }
+    ],
+    "acceptanceRate": 20,
+    "deadlines": [
+      {
+        "round": "Application Deadline",
+        "month": "February",
+        "description": "Submit the application form, written responses, and supporting documents."
+      },
+      {
+        "round": "Interviews",
+        "month": "March",
+        "description": "Shortlisted candidates are invited for online or in-person interviews."
+      }
+    ],
+    "extracurricularPreferences": [
+      "community service",
+      "education initiatives",
+      "writing",
+      "research"
+    ],
+    "boardNotes": {
+      "CBSE": "Reflective writing and evidence of social commitment can differentiate strong applicants.",
+      "IB": "IB CAS, ESS, and humanities coursework fit well with Azim Premji's mission-driven admissions.",
+      "Cambridge": "Cambridge essay subjects plus sustained volunteering help build a strong profile."
+    },
+    "ranking": "Mission-driven university known for education and development studies",
+    "website": "https://azimpremjiuniversity.edu.in"
+  },
+  {
+    "id": "dse-delhi",
+    "name": "Delhi School of Economics",
+    "shortName": "DSE",
+    "location": "New Delhi, Delhi",
+    "country": "India",
+    "type": "public",
+    "programs": [
+      "Economics",
+      "Social Sciences",
+      "Statistics"
+    ],
+    "admissionRequirements": {
+      "minGrades": 85,
+      "requiredExams": [
+        "Entrance Exam or University Process"
+      ],
+      "requiredSubjects": [
+        "Mathematics",
+        "English"
+      ],
+      "preferredSubjects": [
+        "Economics",
+        "Statistics"
+      ],
+      "internationalStudentNotes": "Applicants should confirm the current department-wise admission route because many economics pathways are highly quantitative and competitive."
+    },
+    "feesINR": 20000,
+    "difficultyTier": 2,
+    "scholarships": [
+      {
+        "name": "University of Delhi Merit Scholarship",
+        "type": "merit",
+        "amount": "Partial fee support",
+        "description": "Merit-based assistance is available for top-performing students through university schemes."
+      }
+    ],
+    "acceptanceRate": 10,
+    "deadlines": [
+      {
+        "round": "Application Window",
+        "month": "April",
+        "description": "Departmental admissions open after the annual notification."
+      },
+      {
+        "round": "Entrance Test / Merit List",
+        "month": "June",
+        "description": "Shortlisting and admission decisions follow the notified process."
+      }
+    ],
+    "extracurricularPreferences": [
+      "economics research",
+      "quizzing",
+      "data analysis",
+      "policy debates"
+    ],
+    "boardNotes": {
+      "CBSE": "Strong mathematics preparation is essential for economics and statistics-oriented pathways.",
+      "IB": "IB Math AA and Economics HL are strong preparation for DSE-aligned quantitative study.",
+      "Cambridge": "Cambridge Mathematics and Economics provide a solid base for competitive economics admissions."
+    },
+    "ranking": "Highly regarded for economics and quantitative social science in India",
+    "website": "https://econdse.org"
   }
 ]

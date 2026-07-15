@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { useAuth } from '@/components/AuthProvider';
 
 export default function LoginPage() {
-  const { signIn, signUp, signInWithGoogle, user } = useAuth();
+  const { signIn, signUp, signInWithGoogle, user, loading: authLoading } = useAuth();
   const router = useRouter();
   const [isSignUp, setIsSignUp] = useState(false);
   const [email, setEmail] = useState('');
@@ -16,30 +16,48 @@ export default function LoginPage() {
   const [successMessage, setSuccessMessage] = useState('');
 
   // Redirect if already logged in
-  if (user) {
+  if (!authLoading && user) {
     router.push('/');
     return null;
   }
+
+  // Map Supabase error messages to user-friendly versions
+  const formatError = (msg: string): string => {
+    if (msg.includes('User already registered')) return 'This email is already registered. Try signing in instead.';
+    if (msg.includes('Invalid login credentials')) return 'Incorrect email or password. Please try again.';
+    if (msg.includes('Email not confirmed')) return 'Please check your email and click the confirmation link first.';
+    if (msg.includes('Password should be at least')) return 'Password must be at least 6 characters long.';
+    if (msg.includes('Unable to validate email')) return 'Please enter a valid email address.';
+    if (msg.includes('Email rate limit exceeded')) return 'Too many attempts. Please wait a few minutes and try again.';
+    if (msg.includes('Signup is disabled')) return 'Sign up is currently disabled. Please contact support.';
+    return msg;
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
     setSuccessMessage('');
+
+    // Client-side validation
+    if (!email.trim()) { setError('Please enter your email address.'); return; }
+    if (!password) { setError('Please enter a password.'); return; }
+    if (isSignUp && password.length < 6) { setError('Password must be at least 6 characters long.'); return; }
+
     setLoading(true);
 
     if (isSignUp) {
       const { error } = await signUp(email, password);
       if (error) {
-        setError(error.message);
+        setError(formatError(error.message));
       } else {
-        setSuccessMessage('Check your email for a confirmation link!');
+        setSuccessMessage('✅ Account created! Check your email for a confirmation link. You may need to check your spam folder.');
         setEmail('');
         setPassword('');
       }
     } else {
       const { error } = await signIn(email, password);
       if (error) {
-        setError(error.message);
+        setError(formatError(error.message));
       } else {
         router.push('/');
       }
@@ -49,10 +67,12 @@ export default function LoginPage() {
 
   const handleGoogleSignIn = async () => {
     setError('');
+    setLoading(true);
     const { error } = await signInWithGoogle();
     if (error) {
-      setError(error.message);
+      setError(formatError(error.message));
     }
+    setLoading(false);
   };
 
   return (

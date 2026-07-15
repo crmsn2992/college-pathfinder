@@ -573,10 +573,16 @@ function StepMajor({
       </div>
 
       {profile.intendedMajors.includes('Unsure / Exploring') && (
-        <div className="rounded-lg bg-secondary/5 border border-secondary/20 p-3">
-          <p className="text-xs text-secondary">
-            💡 No worries! We&apos;ll suggest colleges and paths across multiple fields so you can explore your options.
+        <div className="rounded-lg bg-secondary/5 border border-secondary/20 p-4">
+          <p className="text-sm font-medium text-secondary mb-1">
+            🧭 Not sure what to study?
           </p>
+          <p className="text-xs text-muted mb-3">
+            Take our quick Career Explorer quiz to discover fields that match your interests and personality.
+          </p>
+          <Link href="/explore" className="inline-block rounded-lg bg-secondary px-4 py-2 text-xs font-medium text-white hover:bg-secondary/90 transition-colors">
+            Try Career Explorer →
+          </Link>
         </div>
       )}
 

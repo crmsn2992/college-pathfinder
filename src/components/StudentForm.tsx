@@ -7,6 +7,7 @@ import type { StudentProfile, EducationBoard, Grade, BudgetRange } from '@/lib/t
 import { BUDGET_LABELS, INTENDED_MAJORS } from '@/lib/types';
 import { useAuth } from '@/components/AuthProvider';
 import { saveProfileToSupabase, loadProfileFromSupabase } from '@/lib/db';
+import MajorDiscoveryQuiz from '@/components/MajorDiscoveryQuiz';
 import subjectsData from '@/data/subjects.json';
 import collegesData from '@/data/colleges.json';
 
@@ -55,6 +56,7 @@ export default function StudentForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [lastSaved, setLastSaved] = useState<string | null>(null);
   const [saveStatus, setSaveStatus] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle');
+  const [showQuiz, setShowQuiz] = useState(false);
 
   // Load from Supabase (if logged in) or localStorage
   useEffect(() => {
@@ -152,6 +154,21 @@ export default function StudentForm() {
     c.name.toLowerCase().includes(collegeSearch.toLowerCase())
   );
 
+  // Show quiz if student selected "Unsure / Exploring"
+  if (showQuiz && profile.intendedMajors.includes('Unsure / Exploring')) {
+    return (
+      <MajorDiscoveryQuiz
+        profile={profile}
+        onComplete={(selectedMajors) => {
+          // Replace "Unsure / Exploring" with the recommended majors
+          const newMajors = selectedMajors.filter(m => m !== 'Unsure / Exploring');
+          updateProfile('intendedMajors', newMajors.length > 0 ? newMajors : selectedMajors);
+          setShowQuiz(false);
+        }}
+      />
+    );
+  }
+
   return (
     <div className="mx-auto max-w-3xl px-4 py-8">
       {/* Auth Banner for non-logged-in users */}
@@ -240,7 +257,11 @@ export default function StudentForm() {
           />
         )}
         {step === 2 && (
-          <StepMajor profile={profile} toggleArrayItem={toggleArrayItem} />
+          <StepMajor 
+            profile={profile} 
+            toggleArrayItem={toggleArrayItem}
+            onUnsureClick={() => setShowQuiz(true)}
+          />
         )}
         {step === 3 && (
           <StepTests profile={profile} setProfile={setProfile} />
@@ -543,9 +564,11 @@ function StepAcademic({
 function StepMajor({
   profile,
   toggleArrayItem,
+  onUnsureClick,
 }: {
   profile: StudentProfile;
   toggleArrayItem: (key: keyof StudentProfile, item: string) => void;
+  onUnsureClick: () => void;
 }) {
   return (
     <div className="space-y-6">
@@ -558,7 +581,13 @@ function StepMajor({
         {INTENDED_MAJORS.map(major => (
           <button
             key={major}
-            onClick={() => toggleArrayItem('intendedMajors', major)}
+            onClick={() => {
+              if (major === 'Unsure / Exploring') {
+                onUnsureClick();
+              } else {
+                toggleArrayItem('intendedMajors', major);
+              }
+            }}
             className={`rounded-lg border px-3 py-2.5 text-sm text-left font-medium transition-colors ${
               profile.intendedMajors.includes(major)
                 ? major === 'Unsure / Exploring'
@@ -575,7 +604,7 @@ function StepMajor({
       {profile.intendedMajors.includes('Unsure / Exploring') && (
         <div className="rounded-lg bg-secondary/5 border border-secondary/20 p-3">
           <p className="text-xs text-secondary">
-            💡 No worries! We&apos;ll suggest colleges and paths across multiple fields so you can explore your options.
+            💡 Great! We&apos;ll suggest colleges and paths across multiple fields so you can explore your options.
           </p>
         </div>
       )}

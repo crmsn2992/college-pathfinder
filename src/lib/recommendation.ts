@@ -448,7 +448,7 @@ function filterColleges(profile: StudentProfile, colleges: College[]): College[]
     return strictMatches;
   }
 
-  // Relax budget constraint
+  // Relax budget constraint but KEEP major filter
   const countryMajorMatches = colleges.filter(
     (college) => matchesCountry(college) && matchesMajor(college),
   );
@@ -456,7 +456,13 @@ function filterColleges(profile: StudentProfile, colleges: College[]): College[]
     return countryMajorMatches;
   }
 
-  // Relax major constraint
+  // Relax country but KEEP major filter
+  const majorMatches = colleges.filter(matchesMajor);
+  if (majorMatches.length > 0) {
+    return majorMatches;
+  }
+
+  // Last resort: relax everything (shouldn't normally reach here)
   const countryMatches = colleges.filter(matchesCountry);
   if (countryMatches.length > 0) {
     return countryMatches;

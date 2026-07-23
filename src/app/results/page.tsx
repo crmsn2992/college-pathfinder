@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import type { StudentProfile, College, RecommendationResult } from '@/lib/types';
 import { generateRecommendations } from '@/lib/recommendation';
 import { useAuth } from '@/components/AuthProvider';
-import { loadProfileFromSupabase, saveResultsToSupabase } from '@/lib/db';
+import { loadProfile, saveResults } from '@/lib/db';
 import collegesData from '@/data/colleges.json';
 
 const STORAGE_KEY = 'college-pathfinder-profile';
@@ -24,9 +24,9 @@ export default function ResultsPage() {
     async function loadData() {
       let loadedProfile: StudentProfile | null = null;
 
-      // Try loading from Supabase first if logged in
+      // Try loading from Firebase first if logged in
       if (user) {
-        const { profile: dbProfile } = await loadProfileFromSupabase();
+        const { profile: dbProfile } = await loadProfile(user.uid);
         if (dbProfile) loadedProfile = dbProfile;
       }
 
@@ -47,9 +47,9 @@ export default function ResultsPage() {
         const recs = generateRecommendations(loadedProfile, collegesData as unknown as College[]);
         setResults(recs);
 
-        // Auto-save results to Supabase
+        // Auto-save results to Firebase
         if (user) {
-          const { error } = await saveResultsToSupabase(loadedProfile, recs);
+          const { error } = await saveResults(loadedProfile, recs, user.uid);
           if (!error) setSavedToCloud(true);
         }
       }

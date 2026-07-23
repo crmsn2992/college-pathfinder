@@ -6,7 +6,7 @@ import Link from 'next/link';
 import type { StudentProfile, EducationBoard, Grade, BudgetRange } from '@/lib/types';
 import { BUDGET_LABELS, INTENDED_MAJORS } from '@/lib/types';
 import { useAuth } from '@/components/AuthProvider';
-import { saveProfileToSupabase, loadProfileFromSupabase } from '@/lib/db';
+import { saveProfile as saveProfileToDb, loadProfile as loadProfileFromDb } from '@/lib/db';
 import subjectsData from '@/data/subjects.json';
 import collegesData from '@/data/colleges.json';
 
@@ -56,11 +56,11 @@ export default function StudentForm() {
   const [lastSaved, setLastSaved] = useState<string | null>(null);
   const [saveStatus, setSaveStatus] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle');
 
-  // Load from Supabase (if logged in) or localStorage
+  // Load from Firebase (if logged in) or localStorage
   useEffect(() => {
     async function loadProfile() {
       if (user) {
-        const { profile: dbProfile, updatedAt } = await loadProfileFromSupabase();
+        const { profile: dbProfile, updatedAt } = await loadProfileFromDb(user.uid);
         if (dbProfile) {
           setProfile(dbProfile);
           setLastSaved(updatedAt);
@@ -104,10 +104,10 @@ export default function StudentForm() {
     setIsSubmitting(true);
     localStorage.setItem(STORAGE_KEY, JSON.stringify(profile));
 
-    // Save to Supabase if logged in
+    // Save to Firebase if logged in
     if (user) {
       setSaveStatus('saving');
-      const { error } = await saveProfileToSupabase(profile);
+      const { error } = await saveProfileToDb(profile, user.uid);
       if (!error) {
         setSaveStatus('saved');
         setLastSaved(new Date().toISOString());

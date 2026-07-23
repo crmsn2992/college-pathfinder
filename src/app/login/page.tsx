@@ -21,15 +21,16 @@ export default function LoginPage() {
     return null;
   }
 
-  // Map Supabase error messages to user-friendly versions
+  // Map Firebase error messages to user-friendly versions
   const formatError = (msg: string): string => {
-    if (msg.includes('User already registered')) return 'This email is already registered. Try signing in instead.';
-    if (msg.includes('Invalid login credentials')) return 'Incorrect email or password. Please try again.';
-    if (msg.includes('Email not confirmed')) return 'Please check your email and click the confirmation link first.';
-    if (msg.includes('Password should be at least')) return 'Password must be at least 6 characters long.';
-    if (msg.includes('Unable to validate email')) return 'Please enter a valid email address.';
-    if (msg.includes('Email rate limit exceeded')) return 'Too many attempts. Please wait a few minutes and try again.';
-    if (msg.includes('Signup is disabled')) return 'Sign up is currently disabled. Please contact support.';
+    if (msg.includes('auth/email-already-in-use')) return 'This email is already registered. Try signing in instead.';
+    if (msg.includes('auth/invalid-credential') || msg.includes('auth/wrong-password') || msg.includes('auth/user-not-found')) return 'Incorrect email or password. Please try again.';
+    if (msg.includes('auth/invalid-email')) return 'Please enter a valid email address.';
+    if (msg.includes('auth/weak-password')) return 'Password must be at least 6 characters long.';
+    if (msg.includes('auth/too-many-requests')) return 'Too many attempts. Please wait a few minutes and try again.';
+    if (msg.includes('auth/popup-closed-by-user')) return 'Google sign-in was cancelled. Please try again.';
+    if (msg.includes('auth/network-request-failed')) return 'Network error. Please check your internet connection.';
+    if (msg.includes('auth/operation-not-allowed')) return 'This sign-in method is not enabled. Please contact support.';
     return msg;
   };
 
@@ -50,9 +51,8 @@ export default function LoginPage() {
       if (error) {
         setError(formatError(error.message));
       } else {
-        setSuccessMessage('✅ Account created! Check your email for a confirmation link. You may need to check your spam folder.');
-        setEmail('');
-        setPassword('');
+        setSuccessMessage('✅ Account created! You are now signed in.');
+        setTimeout(() => router.push('/'), 1500);
       }
     } else {
       const { error } = await signIn(email, password);

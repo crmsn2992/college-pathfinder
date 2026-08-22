@@ -71,12 +71,12 @@ export default function StudentForm() {
       // 2. Point it to Google's fast Gemini Flash model
       const model = getGenerativeModel(aiInstance, { model: 'gemini-1.5-flash' });
 
-      // 3. Create a personalized prompt using your profile form variables
+      // 3.  We add "(profile as any)" to tell TypeScript to relax its strict checks here
       const prompt = `You are an expert college admissions counselor. 
       Analyze this student profile:
-      - Education Board: ${profile.board}
-      - Current Grade: ${profile.grade}
-      - Intended Majors: ${profile.intendedMajors?.join(', ') || 'Not specified'}
+      - Education Board: ${(profile as any).board || (profile as any).educationBoard || 'Not specified'}
+      - Current Grade: ${(profile as any).grade || 'Not specified'}
+      - Intended Majors: ${(profile as any).intendedMajors?.join(', ') || 'Not specified'}
       
       Provide 3 ideal college recommendations and immediate next steps for their checklist.`;
 

@@ -1,0 +1,1 @@
+Updated package.json to add firebase-admin dependency

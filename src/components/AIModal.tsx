@@ -1,8 +1,12 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function AIModal() {
+  const [input, setInput] = useState('');
+  const [output, setOutput] = useState('');
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     const escHandler = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
@@ -17,6 +21,36 @@ export default function AIModal() {
   const close = () => {
     const modal = document.getElementById('ai-modal');
     if (modal) modal.classList.add('hidden');
+  };
+
+  const send = async () => {
+    if (!input.trim()) return;
+    setLoading(true);
+    setOutput('');
+    try {
+      const res = await fetch('/api/ai/recommend', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prompt: input }),
+      });
+
+      if (!res.ok) {
+        // fallback to demo response
+        const demo = `Demo answer: I couldn't reach the AI service. Here's a sample suggestion based on your question: Be specific about extracurriculars, align your essays with your intended major, and target a mix of reach/match/safety schools.`;
+        setOutput(demo);
+        setLoading(false);
+        return;
+      }
+
+      const data = await res.json();
+      const text = data?.recommendation ?? data?.analysis ?? data?.answer ?? JSON.stringify(data);
+      setOutput(typeof text === 'string' ? text : JSON.stringify(text));
+    } catch (err) {
+      console.error('AI request error', err);
+      setOutput('Demo answer: AI service unavailable. Please try again later.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -37,18 +71,41 @@ export default function AIModal() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-3">
-          <button className="px-3 py-2 rounded bg-primary text-white">Review Essay</button>
-          <button className="px-3 py-2 rounded border">Compare Profile</button>
-          <button className="px-3 py-2 rounded border">Generate Checklist</button>
+          <button
+            className="px-3 py-2 rounded bg-primary text-white"
+            onClick={() => setInput('Please review my essay for clarity, structure, and fit for my target colleges.')}
+          >
+            Review Essay
+          </button>
+          <button
+            className="px-3 py-2 rounded border"
+            onClick={() => setInput('Compare my profile to a typical applicant for my target college and provide strengths/gaps.')}
+          >
+            Compare Profile
+          </button>
+          <button
+            className="px-3 py-2 rounded border"
+            onClick={() => setInput('Generate an admissions checklist for applying to international universities.')}
+          >
+            Generate Checklist
+          </button>
         </div>
 
         <div className="border-t pt-3">
           <label className="block text-sm text-muted mb-2">Ask the assistant</label>
           <div className="flex gap-2">
-            <input id="ai-input" placeholder="Ask something like: 'How can I strengthen my profile for CS?'" className="flex-1 rounded border px-3 py-2" />
-            <button id="ai-send" className="px-3 py-2 bg-primary text-white rounded">Send</button>
+            <input
+              id="ai-input"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder="Ask something like: 'How can I strengthen my profile for CS?'"
+              className="flex-1 rounded border px-3 py-2"
+            />
+            <button id="ai-send" onClick={send} disabled={loading} className="px-3 py-2 bg-primary text-white rounded">
+              {loading ? 'Thinking…' : 'Send'}
+            </button>
           </div>
-          <div id="ai-output" className="mt-4 text-sm text-muted" aria-live="polite"></div>
+          <div id="ai-output" className="mt-4 text-sm text-muted" aria-live="polite">{output}</div>
         </div>
       </div>
     </div>

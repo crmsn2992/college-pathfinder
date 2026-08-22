@@ -9,6 +9,7 @@ import { useAuth } from '@/components/AuthProvider';
 import { saveProfile as saveProfileToDb, loadProfile as loadProfileFromDb } from '@/lib/db';
 import subjectsData from '@/data/subjects.json';
 import collegesData from '@/data/colleges.json';
+import { getAI, getGenerativeModel } from 'firebase/ai';
 
 const STORAGE_KEY = 'college-pathfinder-profile';
 
@@ -55,6 +56,42 @@ export default function StudentForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [lastSaved, setLastSaved] = useState<string | null>(null);
   const [saveStatus, setSaveStatus] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle');
+ 
+  // AI State Variables to hold the answers and loading status
+  const [aiRecommendation, setAiRecommendation] = useState<string | null>(null);
+  const [isAiLoading, setIsAiLoading] = useState<boolean>(false);
+
+  // The function that triggers Google's Gemini Model
+  async function generateCollegeRecommendations() {
+    setIsAiLoading(true);
+    try {
+      // 1. Initialize the modern Firebase AI Logic service 
+      const aiInstance = getAI(); 
+      
+      // 2. Point it to Google's fast Gemini Flash model
+      const model = getGenerativeModel(aiInstance, { model: 'gemini-1.5-flash' });
+
+      // 3. Create a personalized prompt using your profile form variables
+      const prompt = `You are an expert college admissions counselor. 
+      Analyze this student profile:
+      - Education Board: ${profile.board}
+      - Current Grade: ${profile.grade}
+      - Intended Majors: ${profile.intendedMajors?.join(', ') || 'Not specified'}
+      
+      Provide 3 ideal college recommendations and immediate next steps for their checklist.`;
+
+      // 4. Request the text generation from Gemini
+      const result = await model.generateContent(prompt);
+      const textResponse = result.response.text();
+      
+      // 5. Store the answer to show on the webpage
+      setAiRecommendation(textResponse);
+    } catch (error) {
+      console.error("AI Generation Error:", error);
+    } finally {
+      setIsAiLoading(false);
+    }
+  }
 
   // Load from Firebase (if logged in) or localStorage
   useEffect(() => {
@@ -788,6 +825,27 @@ function StepActivities({
           ))}
         </div>
       </div>
+<div className="mt-8 flex flex-col gap-4 border-t pt-6">
+  {/* The AI Action Button */}
+  <button
+    type="button"
+    onClick={generateCollegeRecommendations}
+    disabled={isAiLoading}
+    className="w-full px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 disabled:bg-gray-400 transition"
+  >
+    {isAiLoading ? '🤖 AI Advisor is thinking...' : '✨ Get AI Recommendations'}
+  </button>
+
+  {/* Display the AI Answer if it exists */}
+  {aiRecommendation && (
+    <div className="mt-4 p-6 bg-slate-50 border border-slate-200 rounded-xl whitespace-pre-line text-slate-800 shadow-sm">
+      <h3 className="font-bold text-xl mb-3 text-indigo-900 flex items-center gap-2">
+        <span>🎓</span> Your Personalized AI Roadmap:
+      </h3>
+      <p className="leading-relaxed">{aiRecommendation}</p>
+    </div>
+  )}
+</div>
 
       <div>
         <label className="block text-sm font-medium mb-1.5">

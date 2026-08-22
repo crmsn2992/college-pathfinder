@@ -156,6 +156,31 @@ export default function StudentForm() {
     c.name.toLowerCase().includes(collegeSearch.toLowerCase())
   );
 
+  // Call the demo AI server endpoint
+  const requestAiRecommendation = async () => {
+    setIsAiLoading(true);
+    try {
+      const res = await fetch('/api/ai/recommend', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ profile }),
+      });
+      const data = await res.json();
+      const text = data?.recommendation ?? 'No recommendation available.';
+      setAiRecommendation(text);
+
+      // save to Firestore if logged in
+      if (user) {
+        await saveResults(profile, { recommendations: [text], paths: [], gapAnalysis: { currentGrades: profile.grades, targetGrades: profile.grades, gradeGap: 0, missingExams: [], missingSubjects: [], extracurricularGaps: [], strengths: [] }, resourceSuggestions: [] }, user.uid);
+      }
+    } catch (err) {
+      console.error('AI request failed', err);
+      setAiRecommendation('Failed to generate recommendation.');
+    } finally {
+      setIsAiLoading(false);
+    }
+  };
+
   return (
     <div className="mx-auto max-w-3xl px-4 py-8">
       {/* Auth Banner for non-logged-in users */}
@@ -264,6 +289,9 @@ export default function StudentForm() {
             profile={profile}
             toggleArrayItem={toggleArrayItem}
             updateProfile={updateProfile}
+            requestAiRecommendation={requestAiRecommendation}
+            isAiLoading={isAiLoading}
+            aiRecommendation={aiRecommendation}
           />
         )}
 
@@ -373,4 +401,472 @@ function StepBasicInfo({
   );
 }
 
-// (rest of Step components unchanged)
+function StepAcademic({
+  profile,
+  updateProfile,
+  toggleArrayItem,
+  subjects,
+  setProfile,
+}: {
+  profile: StudentProfile;
+  updateProfile: <K extends keyof StudentProfile>(key: K, value: StudentProfile[K]) => void;
+  toggleArrayItem: (key: keyof StudentProfile, item: string) => void;
+  subjects: string[];
+  setProfile: React.Dispatch<React.SetStateAction<StudentProfile>>;
+}) {
+  const isIB = profile.educationBoard === 'IB';
+  const isCambridge = profile.educationBoard === 'Cambridge';
+
+  // Convert IB score (out of 45) to percentage for internal use
+  const handleIBScoreChange = (score: number) => {
+    setProfile(prev => ({
+      ...prev,
+      ibScore: score,
+      grades: Math.round((score / 45) * 100),
+    }));
+  };
+
+  // Convert Cambridge grade to percentage
+  const cambridgeGradeToPercent = (grades: Record<string, string>): number => {
+    const gradeValues: Record<string, number> = { 'A*': 95, 'A': 88, 'B': 78, 'C': 68, 'D': 58, 'E': 48 };
+    const values = Object.values(grades).map(g => gradeValues[g] || 60);
+    if (values.length === 0) return 0;
+    return Math.round(values.reduce((a, b) => a + b, 0) / values.length);
+  };
+
+  const handleCambridgeGradeChange = (subject: string, grade: string) => {
+    setProfile(prev => {
+      const updated = { ...prev.cambridgeGrades, [subject]: grade };
+      return { ...prev, cambridgeGrades: updated, grades: cambridgeGradeToPercent(updated) };
+    });
+  };
+
+  return (
+    <div className="space-y-6">
+      <h2 className="text-xl font-semibold">Your Academics 📚</h2>
+
+      <div>
+        <label className="block text-sm font-medium mb-1.5">
+          Subjects (select all you&apos;re studying)
+        </label>
+        <div className="max-h-48 overflow-y-auto rounded-lg border border-card-border p-3">
+          <div className="grid grid-cols-2 gap-2">
+            {subjects.map(subject => (
+              <label key={subject} className="flex items-center gap-2 text-sm cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={profile.subjects.includes(subject)}
+                  onChange={() => toggleArrayItem('subjects', subject)}
+                  className="rounded border-gray-300 text-primary focus:ring-primary"
+                />
+                {subject}
+              </label>
+            ))}
+          </div>
+        </div>
+        {profile.subjects.length > 0 && (
+          <p className="mt-1 text-xs text-muted">{profile.subjects.length} subjects selected</p>
+        )}
+      </div>
+
+      {/* Board-specific grade input */}
+      {isIB ? (
+        <div>
+          <label className="block text-sm font-medium mb-1.5">IB Predicted/Actual Score</label>
+          <p className="text-xs text-muted mb-3">Enter your total IB score out of 45 (including TOK and EE bonus points)</p>
+          <div className="flex items-center gap-4">
+            <input
+              type="range"
+              min="0"
+              max="45"
+              value={profile.ibScore || 0}
+              onChange={e => handleIBScoreChange(Number(e.target.value))}
+              className="flex-1 h-2 rounded-lg appearance-none bg-gray-200 accent-primary"
+            />
+            <div className="flex items-center gap-1">
+              <input
+                type="number"
+                min="0"
+                max="45"
+                value={profile.ibScore || ''}
+                onChange={e => handleIBScoreChange(Math.min(45, Math.max(0, Number(e.target.value))))}
+                className="w-16 rounded-lg border border-card-border px-2 py-1.5 text-center text-sm focus:border-primary focus:outline-none"
+              />
+              <span className="text-sm text-muted">/ 45</span>
+            </div>
+          </div>
+          {profile.ibScore ? (
+            <p className="mt-2 text-xs text-muted">
+              Equivalent to approximately {Math.round((profile.ibScore / 45) * 100)}%
+              {profile.ibScore >= 40 && ' — Excellent! 🌟'}
+              {profile.ibScore >= 35 && profile.ibScore < 40 && ' — Very good!'}
+            </p>
+          ) : null}
+        </div>
+      ) : isCambridge ? (
+        <div>
+          <label className="block text-sm font-medium mb-1.5">A-Level / IGCSE Grades</label>
+          <p className="text-xs text-muted mb-3">
+            Enter your predicted/actual grades for each subject you selected above
+          </p>
+          {profile.subjects.length === 0 ? (
+            <p className="text-xs text-warning">Select your subjects above first</p>
+          ) : (
+            <div className="space-y-2 max-h-56 overflow-y-auto rounded-lg border border-card-border p-3">
+              {profile.subjects.map(subject => (
+                <div key={subject} className="flex items-center justify-between gap-3">
+                  <span className="text-sm truncate flex-1">{subject}</span>
+                  <select
+                    value={profile.cambridgeGrades?.[subject] || ''}
+                    onChange={e => handleCambridgeGradeChange(subject, e.target.value)}
+                    className="rounded-lg border border-card-border px-2 py-1.5 text-sm focus:border-primary focus:outline-none w-20"
+                  >
+                    <option value="">Grade</option>
+                    <option value="A*">A*</option>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                    <option value="D">D</option>
+                    <option value="E">E</option>
+                  </select>
+                </div>
+              ))}
+            </div>
+          )}
+          {profile.grades > 0 && (
+            <p className="mt-2 text-xs text-muted">
+              Equivalent overall: ~{profile.grades}%
+            </p>
+          )}
+        </div>
+      ) : (
+        <div>
+          <label className="block text-sm font-medium mb-1.5">
+            Current Grades/Marks (Overall Percentage)
+          </label>
+          <p className="text-xs text-muted mb-2">Enter your approximate overall percentage. Convert GPA if needed (e.g., 9.0 CGPA ≈ 85%)</p>
+          <div className="flex items-center gap-3">
+            <input
+              type="range"
+              min="0"
+              max="100"
+              value={profile.grades}
+              onChange={e => updateProfile('grades', Number(e.target.value))}
+              className="flex-1 h-2 rounded-lg appearance-none bg-gray-200 accent-primary"
+            />
+            <div className="flex items-center gap-1">
+              <input
+                type="number"
+                min="0"
+                max="100"
+                value={profile.grades || ''}
+                onChange={e => updateProfile('grades', Math.min(100, Math.max(0, Number(e.target.value))))}
+                className="w-16 rounded-lg border border-card-border px-2 py-1.5 text-center text-sm focus:border-primary focus:outline-none"
+              />
+              <span className="text-sm text-muted">%</span>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function StepMajor({
+  profile,
+  toggleArrayItem,
+}: {
+  profile: StudentProfile;
+  toggleArrayItem: (key: keyof StudentProfile, item: string) => void;
+}) {
+  return (
+    <div className="space-y-6">
+      <h2 className="text-xl font-semibold">What do you want to study? 🎓</h2>
+      <p className="text-sm text-muted">
+        Select the fields you&apos;re interested in. You can pick multiple if you&apos;re considering different paths.
+      </p>
+
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+        {INTENDED_MAJORS.map(major => (
+          <button
+            key={major}
+            onClick={() => toggleArrayItem('intendedMajors', major)}
+            className={`rounded-lg border px-3 py-2.5 text-sm text-left font-medium transition-colors ${
+              profile.intendedMajors.includes(major)
+                ? major === 'Unsure / Exploring'
+                  ? 'border-secondary bg-secondary/10 text-secondary'
+                  : 'border-primary bg-primary/10 text-primary'
+                : 'border-card-border hover:border-primary/50'
+            }`}
+          >
+            {major}
+          </button>
+        ))}
+      </div>
+
+      {profile.intendedMajors.includes('Unsure / Exploring') && (
+        <div className="rounded-lg bg-secondary/5 border border-secondary/20 p-4">
+          <p className="text-sm font-medium text-secondary mb-1">
+            🧭 Not sure what to study?
+          </p>
+          <p className="text-xs text-muted mb-3">
+            Take our quick Career Explorer quiz to discover fields that match your interests and personality.
+          </p>
+          <Link href="/explore" className="inline-block rounded-lg bg-secondary px-4 py-2 text-xs font-medium text-white hover:bg-secondary/90 transition-colors">
+            Try Career Explorer →
+          </Link>
+        </div>
+      )}
+
+      {profile.intendedMajors.length > 0 && !profile.intendedMajors.includes('Unsure / Exploring') && (
+        <p className="text-xs text-muted">{profile.intendedMajors.length} field(s) selected</p>
+      )}
+    </div>
+  );
+}
+
+function StepTests({
+  profile,
+  setProfile,
+}: {
+  profile: StudentProfile;
+  setProfile: React.Dispatch<React.SetStateAction<StudentProfile>>;
+}) {
+  const updateScore = (key: string, value: string) => {
+    setProfile(prev => ({
+      ...prev,
+      testScores: {
+        ...prev.testScores,
+        [key]: value ? Number(value) : undefined,
+      },
+    }));
+  };
+
+  const tests = [
+    { key: 'sat', label: 'SAT', max: 1600, placeholder: 'Score (400-1600)', hint: 'Required for most US universities' },
+    { key: 'act', label: 'ACT', max: 36, placeholder: 'Score (1-36)', hint: 'Alternative to SAT for US colleges' },
+    { key: 'jee', label: 'JEE Main/Advanced', max: 100, placeholder: 'Percentile (0-100)', hint: 'Required for IITs, NITs' },
+    { key: 'neet', label: 'NEET', max: 720, placeholder: 'Score (0-720)', hint: 'Required for medical colleges' },
+    { key: 'cuet', label: 'CUET', max: 100, placeholder: 'Percentile (0-100)', hint: 'Required for Delhi University, central universities' },
+    { key: 'ap', label: 'AP Exams', max: 10, placeholder: 'Number with score 4+', hint: 'Helps with US/international applications' },
+  ];
+
+  return (
+    <div className="space-y-6">
+      <h2 className="text-xl font-semibold">Standardized Tests 📝</h2>
+      <p className="text-sm text-muted">
+        Fill in only the tests you&apos;ve taken or plan to take. All fields are optional.
+      </p>
+
+      <div className="space-y-4">
+        {tests.map(test => (
+          <div key={test.key} className="rounded-lg border border-card-border p-4">
+            <div className="flex items-center justify-between mb-1">
+              <label className="text-sm font-medium">{test.label}</label>
+              <span className="text-xs text-muted">{test.hint}</span>
+            </div>
+            <input
+              type="number"
+              min="0"
+              max={test.max}
+              value={profile.testScores[test.key as keyof typeof profile.testScores] || ''}
+              onChange={e => updateScore(test.key, e.target.value)}
+              placeholder={test.placeholder}
+              className="w-full rounded-lg border border-card-border px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function StepGoals({
+  profile,
+  toggleArrayItem,
+  collegeSearch,
+  setCollegeSearch,
+  filteredColleges,
+  updateProfile,
+}: {
+  profile: StudentProfile;
+  toggleArrayItem: (key: keyof StudentProfile, item: string) => void;
+  collegeSearch: string;
+  setCollegeSearch: (s: string) => void;
+  filteredColleges: { id: string; name: string }[];
+  updateProfile: <K extends keyof StudentProfile>(key: K, value: StudentProfile[K]) => void;
+}) {
+  return (
+    <div className="space-y-6">
+      <h2 className="text-xl font-semibold">Your Goals 🎯</h2>
+
+      <div>
+        <label className="block text-sm font-medium mb-1.5">Preferred Countries</label>
+        <p className="text-xs text-muted mb-2">Select countries where you&apos;d like to study</p>
+        <div className="flex flex-wrap gap-2">
+          {COUNTRIES.map(country => (
+            <button
+              key={country}
+              onClick={() => toggleArrayItem('preferredCountries', country)}
+              className={`rounded-full px-3 py-1.5 text-sm font-medium transition-colors ${
+                profile.preferredCountries.includes(country)
+                  ? 'bg-primary text-white'
+                  : 'bg-gray-100 text-muted hover:bg-gray-200'
+              }`}
+            >
+              {country}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium mb-1.5">Target Colleges (optional)</label>
+        <p className="text-xs text-muted mb-2">Search and select specific colleges you&apos;re interested in</p>
+        <input
+          type="text"
+          value={collegeSearch}
+          onChange={e => setCollegeSearch(e.target.value)}
+          placeholder="🔍 Search colleges..."
+          className="w-full rounded-lg border border-card-border px-4 py-2.5 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 mb-2"
+        />
+        {collegeSearch && (
+          <div className="max-h-36 overflow-y-auto rounded-lg border border-card-border">
+            {filteredColleges.slice(0, 10).map(college => (
+              <button
+                key={college.id}
+                onClick={() => {
+                  toggleArrayItem('targetColleges', college.id);
+                  setCollegeSearch('');
+                }}
+                className={`w-full px-3 py-2 text-left text-sm hover:bg-gray-50 ${
+                  profile.targetColleges.includes(college.id) ? 'bg-primary/5 text-primary' : ''
+                }`}
+              >
+                {profile.targetColleges.includes(college.id) ? '✓ ' : ''}{college.name}
+              </button>
+            ))}
+          </div>
+        )}
+        {profile.targetColleges.length > 0 && (
+          <div className="mt-2 flex flex-wrap gap-1.5">
+            {profile.targetColleges.map(id => {
+              const college = (collegesData as { id: string; name: string }[]).find(c => c.id === id);
+              return (
+                <span key={id} className="inline-flex items-center gap-1 rounded-full bg-primary/10 px-2.5 py-1 text-xs font-medium text-primary">
+                  {college?.name || id}
+                  <button onClick={() => toggleArrayItem('targetColleges', id)} className="hover:text-danger">×</button>
+                </span>
+              );
+            })}
+          </div>
+        )}
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium mb-1.5">Annual Budget Range</label>
+        <p className="text-xs text-muted mb-2">This helps us filter colleges within your budget</p>
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+          {(Object.entries(BUDGET_LABELS) as [BudgetRange, string][]).map(([key, label]) => (
+            <button
+              key={key}
+              onClick={() => updateProfile('budgetRange', key)}
+              className={`rounded-lg border px-3 py-2 text-xs font-medium transition-colors ${
+                profile.budgetRange === key
+                  ? 'border-primary bg-primary/10 text-primary'
+                  : 'border-card-border hover:border-primary/50'
+              }`}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function StepActivities({
+  profile,
+  toggleArrayItem,
+  updateProfile,
+  requestAiRecommendation,
+  isAiLoading,
+  aiRecommendation,
+}: {
+  profile: StudentProfile;
+  toggleArrayItem: (key: keyof StudentProfile, item: string) => void;
+  updateProfile: <K extends keyof StudentProfile>(key: K, value: StudentProfile[K]) => void;
+  requestAiRecommendation?: () => Promise<void>;
+  isAiLoading?: boolean;
+  aiRecommendation?: string | null;
+}) {
+  return (
+    <div className="space-y-6">
+      <h2 className="text-xl font-semibold">Extracurriculars & Activities 🏆</h2>
+      <p className="text-sm text-muted">
+        Colleges value well-rounded students. Select your activities and achievements.
+      </p>
+
+      <div>
+        <label className="block text-sm font-medium mb-2">Select your activities</label>
+        <div className="flex flex-wrap gap-2">
+          {EXTRACURRICULARS.map(activity => (
+            <button
+              key={activity}
+              onClick={() => toggleArrayItem('extracurriculars', activity)}
+              className={`rounded-full px-3 py-1.5 text-sm transition-colors ${
+                profile.extracurriculars.includes(activity)
+                  ? 'bg-secondary text-white'
+                  : 'bg-gray-100 text-muted hover:bg-gray-200'
+              }`}
+            >
+              {activity}
+            </button>
+          ))}
+        </div>
+      </div>
+
+<div className="mt-8 flex flex-col gap-4 border-t pt-6">
+  {/* The AI Action Button */}
+   <button
+    type="button"
+    disabled={isAiLoading}
+    onClick={async () => {
+      if (requestAiRecommendation) await requestAiRecommendation();
+    }}
+    className="w-full px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 disabled:bg-gray-400 transition"
+  >
+    {isAiLoading ? '🤖 AI Advisor is thinking...' : '✨ Get AI Recommendations'}
+  </button>
+
+
+  {/* Display the AI Answer if it exists */}
+  {aiRecommendation && (
+    <div className="mt-4 p-6 bg-slate-50 border border-slate-200 rounded-xl whitespace-pre-line text-slate-800 shadow-sm">
+      <h3 className="font-bold text-xl mb-3 text-indigo-900 flex items-center gap-2">
+        <span>🎓</span> Your Personalized AI Roadmap:
+      </h3>
+      <p className="leading-relaxed">{aiRecommendation}</p>
+    </div>
+  )}
+</div>
+
+      <div>
+        <label className="block text-sm font-medium mb-1.5">
+          Tell us more (optional)
+        </label>
+        <p className="text-xs text-muted mb-2">
+          Describe any achievements, leadership roles, or special projects
+        </p>
+        <textarea
+          value={profile.extracurricularDetails}
+          onChange={e => updateProfile('extracurricularDetails', e.target.value)}
+          placeholder="e.g., Captain of school cricket team, won state-level debate competition, built a mobile app with 1000+ downloads..."
+          rows={4}
+          className="w-full rounded-lg border border-card-border px-4 py-2.5 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 resize-none"
+        />
+      </div>
+    </div>
+  );
+}

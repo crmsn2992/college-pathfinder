@@ -5,6 +5,8 @@ import { Navigation } from "@/components/Navigation";
 import { PWARegister } from "@/components/PWARegister";
 import { AuthProvider } from "@/components/AuthProvider";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { AIButton } from "@/components/AIButton";
+import AIModal from "@/components/AIModal";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -55,6 +57,8 @@ export default function RootLayout({
             </footer>
           </AuthProvider>
           <PWARegister />
+          <AIButton />
+          <AIModal />
         </ThemeProvider>
       </body>
     </html>

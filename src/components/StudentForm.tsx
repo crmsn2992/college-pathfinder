@@ -58,41 +58,7 @@ export default function StudentForm() {
   const [saveStatus, setSaveStatus] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle');
  
   // AI State Variables to hold the answers and loading status
-  const [aiRecommendation, setAiRecommendation] = useState<string | null>(null);
-  const [isAiLoading, setIsAiLoading] = useState<boolean>(false);
-
-  // The function that triggers Google's Gemini Model
-  async function generateCollegeRecommendations() {
-    setIsAiLoading(true);
-    try {
-      // 1. Initialize the modern Firebase AI Logic service 
-      const aiInstance = getAI(); 
-      
-      // 2. Point it to Google's fast Gemini Flash model
-      const model = getGenerativeModel(aiInstance, { model: 'gemini-1.5-flash' });
-
-      // 3.  We add "(profile as any)" to tell TypeScript to relax its strict checks here
-      const prompt = `You are an expert college admissions counselor. 
-      Analyze this student profile:
-      - Education Board: ${(profile as any).board || (profile as any).educationBoard || 'Not specified'}
-      - Current Grade: ${(profile as any).grade || 'Not specified'}
-      - Intended Majors: ${(profile as any).intendedMajors?.join(', ') || 'Not specified'}
-      
-      Provide 3 ideal college recommendations and immediate next steps for their checklist.`;
-
-      // 4. Request the text generation from Gemini
-      const result = await model.generateContent(prompt);
-      const textResponse = result.response.text();
-      
-      // 5. Store the answer to show on the webpage
-      setAiRecommendation(textResponse);
-    } catch (error) {
-      console.error("AI Generation Error:", error);
-    } finally {
-      setIsAiLoading(false);
-    }
-  }
-
+ 
   // Load from Firebase (if logged in) or localStorage
   useEffect(() => {
     async function loadProfile() {
@@ -188,6 +154,34 @@ export default function StudentForm() {
   const filteredColleges = (collegesData as { id: string; name: string }[]).filter(c =>
     c.name.toLowerCase().includes(collegeSearch.toLowerCase())
   );
+  // PASTE THIS DIRECTLY ABOVE THE "return (" LINE:
+  const [aiRecommendation, setAiRecommendation] = useState<string | null>(null);
+  const [isAiLoading, setIsAiLoading] = useState<boolean>(false);
+
+  async function generateCollegeRecommendations() {
+    setIsAiLoading(true);
+    try {
+      const aiInstance = getAI(); 
+      const model = getGenerativeModel(aiInstance, { model: 'gemini-1.5-flash' });
+
+      const prompt = `You are an expert college admissions counselor. 
+      Analyze this student profile:
+      - Education Board: ${(profile as any).board || (profile as any).educationBoard || 'Not specified'}
+      - Current Grade: ${(profile as any).grade || 'Not specified'}
+      - Intended Majors: ${(profile as any).intendedMajors?.join(', ') || 'Not specified'}
+      
+      Provide 3 ideal college recommendations and immediate next steps for their checklist.`;
+
+      const result = await model.generateContent(prompt);
+      const textResponse = result.response.text();
+      setAiRecommendation(textResponse);
+    } catch (error) {
+      console.error("AI Generation Error:", error);
+    } finally {
+      setIsAiLoading(false);
+    }
+  }
+
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-8">

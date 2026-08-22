@@ -3,10 +3,12 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useAuth } from '@/components/AuthProvider';
+import { useTheme } from '@/components/ThemeProvider';
 
 export function Navigation() {
   const pathname = usePathname();
   const { user, signOut, loading } = useAuth();
+  const { theme, toggleTheme } = useTheme();
 
   const links = [
     { href: '/', label: 'Home', icon: '🏠' },
@@ -37,6 +39,15 @@ export function Navigation() {
               <span className="hidden sm:inline">{link.label}</span>
             </Link>
           ))}
+
+          {/* Theme toggle */}
+          <button
+            onClick={() => toggleTheme()}
+            title={`Toggle theme (current: ${theme})`}
+            className="ml-2 rounded-lg px-2.5 py-1.5 text-xs font-medium text-muted hover:bg-gray-100 hover:text-foreground transition-colors"
+          >
+            🎨
+          </button>
 
           {/* Auth section */}
           {!loading && (

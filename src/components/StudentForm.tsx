@@ -1,13 +1,4 @@
-  // Call the demo AI server endpoint
-  const simpleHash = (s: string) => {
-    let h = 0;
-    for (let i = 0; i < s.length; i++) {
-      h = ((h << 5) - h) + s.charCodeAt(i);
-      h |= 0;
-    }
-    return h.toString(36);
-  };
-
+  // Call the demo AI server endpoint with local cache + background refresh
   const requestAiRecommendation = async () => {
     const profileStr = JSON.stringify(profile);
     const cacheKey = `ai:rec:${simpleHash(profileStr)}`;
@@ -31,8 +22,30 @@
               setAiRecommendation(text);
               try { localStorage.setItem(cacheKey, text); } catch {}
               if (user) {
-                // fire-and-forget save to avoid blocking UI
-                saveResults(profile, { recommendations: [text], paths: [], gapAnalysis: { currentGrades: profile.grades, targetGrades: profile.grades, gradeGap: 0, missingExams: [], missingSubjects: [], extracurricularGaps: [], strengths: [], subjectGaps: [] }, resourceSuggestions: [] }, user.uid).catch(() => {});
+                // fire-and-forget save to server
+                fetch('/api/results/save', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({
+                    profile,
+                    results: {
+                      recommendations: [text],
+                      paths: [],
+                      gapAnalysis: {
+                        currentGrades: profile.grades,
+                        targetGrades: profile.grades,
+                        gradeGap: 0,
+                        missingExams: [],
+                        missingSubjects: [],
+                        extracurricularGaps: [],
+                        strengths: [],
+                        subjectGaps: [],
+                      },
+                      resourceSuggestions: [],
+                    },
+                    userId: user.uid,
+                  }),
+                }).catch(() => {});
               }
             }
           } catch (e) {
@@ -60,9 +73,31 @@
 
       try { localStorage.setItem(cacheKey, text); } catch {}
 
-      // save to Firestore if logged in (do not await to keep UI snappy)
+      // save to server if logged in (do not await to keep UI snappy)
       if (user) {
-        saveResults(profile, { recommendations: [text], paths: [], gapAnalysis: { currentGrades: profile.grades, targetGrades: profile.grades, gradeGap: 0, missingExams: [], missingSubjects: [], extracurricularGaps: [], strengths: [], subjectGaps: [] }, resourceSuggestions: [] }, user.uid).catch(err => console.error('saveResults failed', err));
+        fetch('/api/results/save', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            profile,
+            results: {
+              recommendations: [text],
+              paths: [],
+              gapAnalysis: {
+                currentGrades: profile.grades,
+                targetGrades: profile.grades,
+                gradeGap: 0,
+                missingExams: [],
+                missingSubjects: [],
+                extracurricularGaps: [],
+                strengths: [],
+                subjectGaps: [],
+              },
+              resourceSuggestions: [],
+            },
+            userId: user?.uid,
+          }),
+        }).catch(err => console.error('saveResults failed', err));
       }
     } catch (err) {
       console.error('AI request failed', err);

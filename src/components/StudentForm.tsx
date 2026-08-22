@@ -58,7 +58,9 @@ export default function StudentForm() {
   const [saveStatus, setSaveStatus] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle');
  
   // AI State Variables to hold the answers and loading status
- 
+   const [aiRecommendation, setAiRecommendation] = useState<string | null>(null);
+  const [isAiLoading, setIsAiLoading] = useState<boolean>(false);
+
   // Load from Firebase (if logged in) or localStorage
   useEffect(() => {
     async function loadProfile() {

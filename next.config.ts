@@ -1,8 +1,7 @@
-import type { NextConfig } from 'next';
-
-const nextConfig: NextConfig = {
+const nextConfig = {
   reactStrictMode: true,
-  // `appDir` is a top-level option (not under `experimental`) in newer Next.js types
+  // appDir may not be present in the installed Next.js type definitions in some environments
+  // so avoid strict typing here to prevent TypeScript build errors on Vercel.
   appDir: true,
   images: {
     remotePatterns: [

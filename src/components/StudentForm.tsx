@@ -158,29 +158,7 @@ export default function StudentForm() {
   const [aiRecommendation, setAiRecommendation] = useState<string | null>(null);
   const [isAiLoading, setIsAiLoading] = useState<boolean>(false);
 
-  async function generateCollegeRecommendations() {
-    setIsAiLoading(true);
-    try {
-      const aiInstance = getAI(); 
-      const model = getGenerativeModel(aiInstance, { model: 'gemini-1.5-flash' });
-
-      const prompt = `You are an expert college admissions counselor. 
-      Analyze this student profile:
-      - Education Board: ${(profile as any).board || (profile as any).educationBoard || 'Not specified'}
-      - Current Grade: ${(profile as any).grade || 'Not specified'}
-      - Intended Majors: ${(profile as any).intendedMajors?.join(', ') || 'Not specified'}
-      
-      Provide 3 ideal college recommendations and immediate next steps for their checklist.`;
-
-      const result = await model.generateContent(prompt);
-      const textResponse = result.response.text();
-      setAiRecommendation(textResponse);
-    } catch (error) {
-      console.error("AI Generation Error:", error);
-    } finally {
-      setIsAiLoading(false);
-    }
-  }
+ 
 
 
   return (
@@ -821,14 +799,37 @@ function StepActivities({
       </div>
 <div className="mt-8 flex flex-col gap-4 border-t pt-6">
   {/* The AI Action Button */}
-  <button
+   <button
     type="button"
-    onClick={generateCollegeRecommendations}
     disabled={isAiLoading}
+    onClick={async () => {
+      setIsAiLoading(true);
+      try {
+        const aiInstance = getAI(); 
+        const model = getGenerativeModel(aiInstance, { model: 'gemini-1.5-flash' });
+
+        const prompt = `You are an expert college admissions counselor. 
+        Analyze this student profile:
+        - Education Board: ${(profile as any).board || (profile as any).educationBoard || 'Not specified'}
+        - Current Grade: ${(profile as any).grade || 'Not specified'}
+        - Intended Majors: ${(profile as any).intendedMajors?.join(', ') || 'Not specified'}
+        
+        Provide 3 ideal college recommendations and immediate next steps for their checklist.`;
+
+        const result = await model.generateContent(prompt);
+        const textResponse = result.response.text();
+        setAiRecommendation(textResponse);
+      } catch (error) {
+        console.error("AI Generation Error:", error);
+      } finally {
+        setIsAiLoading(false);
+      }
+    }}
     className="w-full px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 disabled:bg-gray-400 transition"
   >
     {isAiLoading ? '🤖 AI Advisor is thinking...' : '✨ Get AI Recommendations'}
   </button>
+
 
   {/* Display the AI Answer if it exists */}
   {aiRecommendation && (

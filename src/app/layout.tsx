@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import "./login-fixes.css";
 import { Navigation } from "@/components/Navigation";
 import { PWARegister } from "@/components/PWARegister";
 import { AuthProvider } from "@/components/AuthProvider";

@@ -1,148 +1,73 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { GoogleAuth } from 'google-auth-library';
-import { getAdmin } from '@/lib/admin';
 
-const MODEL = process.env.AI_MODEL || 'gemini-1.5-flash';
-const CACHE_TTL_MS = Number(process.env.AI_CACHE_TTL_MS) || 5 * 60 * 1000; // 5 minutes default
-const RATE_LIMIT_WINDOW_MS = Number(process.env.AI_RATE_LIMIT_WINDOW_MS) || 60 * 1000; // 1 minute
-const RATE_LIMIT_COUNT = Number(process.env.AI_RATE_LIMIT_COUNT) || 5; // 5 requests per window
+const MODEL_URL = 'https://generativelanguage.googleapis.com/v1beta2/models/text-bison-001:generateText';
 
-type CacheEntry = { text: string; expires: number };
-const cache = new Map<string, CacheEntry>();
-
-type RateInfo = { count: number; windowStart: number };
-const rateMap = new Map<string, RateInfo>();
-
-function profileHash(profile: unknown) {
+export async function POST(req: NextRequest) {
   try {
-    const s = JSON.stringify(profile);
-    let h = 0;
-    for (let i = 0; i < s.length; i++) {
-      h = ((h << 5) - h) + s.charCodeAt(i);
-      h |= 0;
+    const body = await req.json();
+    const prompt: string = body?.prompt ?? '';
+    const profile = body?.profile ?? null;
+
+    if (!prompt) {
+      return NextResponse.json({ error: 'Missing prompt' }, { status: 400 });
     }
-    return h.toString(36);
-  } catch (e) {
-    return 'nohash';
-  }
-}
 
-async function callGenerativeModel(prompt: string) {
-  // Use google-auth-library to obtain an access token from service account
-  try {
-    const sa = process.env.FIREBASE_SERVICE_ACCOUNT;
-    if (!sa) throw new Error('no_service_account');
+    // Build a focused system prompt including a compact profile summary
+    const profileSummary = profile
+      ? `Student profile:\nName: ${profile.name ?? 'N/A'}\nGrades: ${profile.grades ?? 'N/A'}%\nBoard: ${profile.educationBoard ?? 'N/A'}\nCurrent grade: ${profile.currentGrade ?? 'N/A'}\nIntended majors: ${(profile.intendedMajors || []).join(', ') || 'N/A'}\nTest scores: ${JSON.stringify(profile.testScores || {})}\nExtracurriculars: ${(profile.extracurriculars || []).join(', ') || 'N/A'}\nBudgetRange: ${profile.budgetRange ?? 'N/A'}\nPreferred countries: ${(profile.preferredCountries || []).join(', ') || 'N/A'}`
+      : 'No profile provided.';
 
-    const auth = new GoogleAuth({
-      credentials: JSON.parse(sa),
-      scopes: ['https://www.googleapis.com/auth/cloud-platform'],
-    });
-    const client = await auth.getClient();
-    const accessToken = await client.getAccessToken();
-    const token = typeof accessToken === 'string' ? accessToken : accessToken?.token;
-    if (!token) throw new Error('no_token');
+    const systemPrompt = `You are an expert college admissions advisor for high-school students. Use the student profile below to craft a tailored, actionable response. Be specific: include strengths, weaknesses, prioritized next steps, which tests to take (with target score ranges where possible), and suggest a shortlist of 6 colleges (2 reach, 2 match, 2 safety) appropriate to the student's budget and preferred countries. Keep the answer concise (bullet points + 3 short paragraphs) and reference the student's key profile fields.\n\n${profileSummary}\n\nUser question: ${prompt}`;
 
-    const url = `https://generativelanguage.googleapis.com/v1beta2/models/${MODEL}:generateText`;
-    const body = {
-      prompt: { text: prompt },
+    // Prepare request payload for the Generative API
+    const requestBody = {
+      prompt: { text: systemPrompt },
       temperature: 0.2,
-      maxOutputTokens: 512,
+      maxOutputTokens: 800,
     };
 
-    const res = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(body),
-    });
+    let response;
 
-    if (!res.ok) {
-      const txt = await res.text();
-      throw new Error(`ai_error:${res.status} ${txt}`);
-    }
-
-    const data = await res.json();
-    // Expect candidates or output field depending on API
-    // Try multiple shapes
-    let text = '';
-    if (data.candidates && data.candidates.length > 0) {
-      text = data.candidates.map((c: any) => c.output ?? c.content ?? c.text ?? '').join('\n');
-    } else if (data.output) {
-      text = data.output?.[0]?.content ?? data.output?.content ?? '';
-    } else if (data.completion) {
-      text = data.completion?.[0]?.content ?? data.completion?.content ?? '';
-    } else if (typeof data === 'string') {
-      text = data;
+    // Prefer API key if provided, otherwise attempt service-account authentication
+    if (process.env.GOOGLE_API_KEY) {
+      const url = `${MODEL_URL}?key=${process.env.GOOGLE_API_KEY}`;
+      response = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(requestBody),
+      });
     } else {
-      // Fallback: inspect keys
-      text = JSON.stringify(data).slice(0, 2000);
+      // Use google-auth-library to acquire an access token from the environment's credentials
+      const auth = new GoogleAuth({ scopes: 'https://www.googleapis.com/auth/cloud-platform' });
+      const client = await auth.getClient();
+      const accessToken = (await client.getAccessToken())?.token;
+      if (!accessToken) {
+        return NextResponse.json({ error: 'No Google credentials available for Generative API' }, { status: 503 });
+      }
+
+      response = await fetch(MODEL_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify(requestBody),
+      });
     }
 
-    return text;
-  } catch (err) {
-    // bubble up
-    throw err;
-  }
-}
-
-function demoRecommendation(profile: any) {
-  const name = profile?.name ? `${profile.name}, ` : '';
-  const majors = (profile?.intendedMajors || []).slice(0, 3).join(', ') || 'your chosen fields';
-  return `${name}Based on your profile, here are quick recommendations for ${majors}:
-
-1) Focus on improving core grades to be competitive (current: ${profile?.grades ?? 'N/A'}%).
-2) Prioritize relevant standardized tests for your target countries (SAT/ACT for USA, CUET for India, etc.).
-3) Add 1-2 demonstrable extracurriculars aligned with ${majors} (projects, internships, competitions).
-
-Suggested next steps:
-- Shortlist 6 colleges across reach/match/safety based on your budget and preferred countries.
-- Prepare a timeline to complete tests and applications.
-
-(This is a demo recommendation. Enable live AI to get a tailored roadmap.)`;
-}
-
-export async function POST(request: Request) {
-  try {
-    const { profile, userId } = await request.json();
-    const key = profileHash(profile);
-
-    // Rate limiting by userId or by key
-    const rateKey = userId || (request.headers.get('x-forwarded-for') ?? 'anon');
-    const now = Date.now();
-    const ri = rateMap.get(rateKey) ?? { count: 0, windowStart: now };
-    if (now - ri.windowStart > RATE_LIMIT_WINDOW_MS) {
-      ri.count = 0;
-      ri.windowStart = now;
-    }
-    ri.count += 1;
-    rateMap.set(rateKey, ri);
-    if (ri.count > RATE_LIMIT_COUNT) {
-      return NextResponse.json({ error: 'rate_limited' }, { status: 429 });
+    if (!response.ok) {
+      const text = await response.text();
+      return NextResponse.json({ error: 'Generative API request failed', details: text }, { status: 502 });
     }
 
-    // Check cache
-    const existing = cache.get(key);
-    if (existing && existing.expires > now) {
-      return NextResponse.json({ recommendation: existing.text });
-    }
+    const data = await response.json();
 
-    // Try calling AI
-    try {
-      const prompt = `Create a concise actionable college roadmap for the following student profile:\n${JSON.stringify(profile, null, 2)}\n\nBe specific about tests, timeline, strengths, and gaps.`;
-      const text = await callGenerativeModel(prompt);
-      const expires = Date.now() + CACHE_TTL_MS;
-      cache.set(key, { text, expires });
-      return NextResponse.json({ recommendation: text });
-    } catch (err) {
-      console.error('AI call failed, falling back to demo', err);
-      const demo = demoRecommendation(profile);
-      cache.set(key, { text: demo, expires: Date.now() + CACHE_TTL_MS });
-      return NextResponse.json({ recommendation: demo });
-    }
-  } catch (err) {
-    console.error('Bad request to /api/ai/recommend', err);
-    return NextResponse.json({ error: 'invalid_request' }, { status: 400 });
+    // Google generative responses often include 'candidates' with 'content'
+    const recommendation = data?.candidates?.[0]?.content ?? data?.output?.[0]?.content ?? JSON.stringify(data);
+
+    return NextResponse.json({ recommendation, raw: data });
+  } catch (err: any) {
+    return NextResponse.json({ error: String(err?.message ?? err) }, { status: 500 });
   }
 }

@@ -75,7 +75,7 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-[80vh] flex items-center justify-center px-4 text-gray-900">
-      <div className="w-full max-w-md">
+      <div className="w-full max-w-md login-card-fix">
         <div className="text-center mb-8">
           <div className="text-5xl mb-3">🎓</div>
           <h1 className="text-2xl font-bold mb-2 text-gray-900">

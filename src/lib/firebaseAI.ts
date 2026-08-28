@@ -1,4 +1,5 @@
 import { initializeApp, getApp, getApps } from 'firebase/app';
+import { initializeAppCheck, ReCaptchaV3Provider } from 'firebase/app-check';
 import { getAI, getGenerativeModel, GoogleAIBackend } from 'firebase/ai';
 
 let initialized = false;
@@ -36,6 +37,30 @@ export async function initFirebaseAI() {
     app = getApp();
   } catch (e) {
     app = initializeApp(cfg as any);
+  }
+
+  // Initialize App Check if site key is present (reCAPTCHA v3)
+  try {
+    const siteKey = process.env.NEXT_PUBLIC_APP_CHECK_SITE_KEY;
+    if (siteKey) {
+      // initializeAppCheck is safe to call multiple times; guard so it doesn't re-init in HMR
+      try {
+        initializeAppCheck(app, {
+          provider: new ReCaptchaV3Provider(siteKey),
+          isTokenAutoRefreshEnabled: true,
+        });
+        // console.info('Firebase App Check initialized');
+      } catch (err) {
+        // If App Check was already initialized by HMR, ignore
+        // console.warn('App Check init warning', err);
+      }
+    } else {
+      // App Check not configured; recommend enabling for production
+      // console.warn('NEXT_PUBLIC_APP_CHECK_SITE_KEY not found — App Check not initialized.');
+    }
+  } catch (err) {
+    // ignore App Check init errors in client environments
+    // console.warn('App Check initialization failed', err);
   }
 
   const ai = getAI(app, { backend: new GoogleAIBackend() });

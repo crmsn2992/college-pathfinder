@@ -1,0 +1,1 @@
+feat: initialize Firebase App Check (reCAPTCHA) using NEXT_PUBLIC_APP_CHECK_SITE_KEY

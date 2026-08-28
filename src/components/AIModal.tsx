@@ -47,6 +47,27 @@ export default function AIModal() {
       // ignore parse errors
     }
 
+    // First try direct Firebase / client-side Generative call (if Firebase config is present)
+    try {
+      // dynamic import so build doesn't fail where firebase isn't desired
+      const fb = await import('@/lib/firebaseAI');
+      if (fb?.getCollegeAdvice) {
+        const profilePart = profile ? `Profile summary:\nName: ${profile.name || 'N/A'}\nGrades: ${profile.grades || 'N/A'}%\nIntended majors: ${(profile.intendedMajors || []).join(', ')}` : '';
+        const promptWithProfile = profilePart ? `${profilePart}\n\nQuestion: ${input}` : input;
+        try {
+          const ans = await fb.getCollegeAdvice(promptWithProfile);
+          setOutput(typeof ans === 'string' ? ans : JSON.stringify(ans, null, 2));
+          setLoading(false);
+          return;
+        } catch (err) {
+          console.warn('Firebase AI failed, falling back to server route', err);
+        }
+      }
+    } catch (err) {
+      // ignore import errors and fall back
+    }
+
+    // Fallback to server-side API route
     try {
       const res = await fetch('/api/ai/recommend', {
         method: 'POST',
@@ -55,7 +76,6 @@ export default function AIModal() {
       });
 
       if (!res.ok) {
-        // show details when available
         let detail = '';
         try { detail = await res.text(); } catch {}
         setOutput(`Demo answer: I couldn't reach the AI service. (${res.status}) ${detail}`);

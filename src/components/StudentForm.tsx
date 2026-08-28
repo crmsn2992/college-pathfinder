@@ -156,10 +156,7 @@ export default function StudentForm() {
   const filteredColleges = (collegesData as { id: string; name: string }[]).filter(c =>
     c.name.toLowerCase().includes(collegeSearch.toLowerCase())
   );
-  // PASTE THIS DIRECTLY ABOVE THE "return (" LINE:
-  const [aiRecommendation, setAiRecommendation] = useState<string | null>(null);
-  const [isAiLoading, setIsAiLoading] = useState<boolean>(false);
-
+  
  
 
 

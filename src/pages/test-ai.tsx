@@ -3,7 +3,11 @@
 import { useEffect, useState } from "react";
 import { getAI, getGenerativeModel, GoogleAIBackend } from "firebase/ai";
 import { getIdToken, signInAnonymously } from "firebase/auth";
-import { auth, getFirebaseApp, initAppCheck } from "@/lib/firebaseClient";
+import {
+  getFirebaseApp,
+  getFirebaseAuth,
+  initAppCheck,
+} from "@/lib/firebaseClient";
 
 export default function TestAIPage() {
   const [status, setStatus] = useState(
@@ -25,7 +29,7 @@ export default function TestAIPage() {
     setStatus("Signing in anonymously and calling Firebase AI...");
 
     try {
-      const credential = await signInAnonymously(auth);
+      const credential = await signInAnonymously(getFirebaseAuth());
       await getIdToken(credential.user, true);
 
       const ai = getAI(getFirebaseApp(), {

@@ -30,7 +30,9 @@ export function getFirebaseApp() {
   return app;
 }
 
-export const auth = getAuth(getFirebaseApp());
+export function getFirebaseAuth() {
+  return getAuth(getFirebaseApp());
+}
 
 export function initAppCheck() {
   const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;

@@ -11,6 +11,7 @@ import {
   type User,
 } from 'firebase/auth';
 import { auth } from '@/lib/firebase';
+import { initAppCheck } from '@/lib/firebaseClient';
 
 interface AuthError {
   message: string;
@@ -34,6 +35,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    initAppCheck();
     const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
       setUser(firebaseUser);
       setLoading(false);

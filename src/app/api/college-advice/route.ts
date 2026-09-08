@@ -18,14 +18,19 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
-// 1. Initialize Firebase and AI
-const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
-const ai = getAI(app, { backend: new GoogleAIBackend() });
-const model = getGenerativeModel(ai, { model: "gemini-3.6-flash" });
-
-// 2. Export ONLY the POST route handler (Next.js requirement)
 export async function POST(request: Request) {
   try {
+    const apiKey = process.env.NEXT_PUBLIC_FIREBASE_API_KEY;
+    if (!apiKey) {
+      return NextResponse.json(
+        { error: "Firebase API key is not configured" },
+        { status: 500 },
+      );
+    }
+
+    const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
+    const ai = getAI(app, { backend: new GoogleAIBackend() });
+    const model = getGenerativeModel(ai, { model: "gemini-3.6-flash" });
     const { studentQuery } = await request.json();
     
     const prompt = `You are a helpful college pathfinder assistant. Answer this student's query: ${studentQuery}`;

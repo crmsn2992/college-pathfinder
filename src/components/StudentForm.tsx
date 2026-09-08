@@ -9,7 +9,8 @@ import { useAuth } from '@/components/AuthProvider';
 import { saveProfile as saveProfileToDb, loadProfile as loadProfileFromDb } from '@/lib/db';
 import subjectsData from '@/data/subjects.json';
 import collegesData from '@/data/colleges.json';
-import { getAI, getGenerativeModel } from 'firebase/ai';
+import { getAI, getGenerativeModel, GoogleAIBackend } from 'firebase/ai';
+import { getFirebaseApp } from '@/lib/firebaseClient';
 
 const STORAGE_KEY = 'college-pathfinder-profile';
 
@@ -769,6 +770,7 @@ function StepActivities({
 }) {
   const [aiRecommendation, setAiRecommendation] = useState<string | null>(null);
   const [isAiLoading, setIsAiLoading] = useState(false);
+  const [aiError, setAiError] = useState<string | null>(null);
 
   return (
     <div className="space-y-6">
@@ -795,50 +797,67 @@ function StepActivities({
           ))}
         </div>
       </div>
-<div className="mt-8 flex flex-col gap-4 border-t pt-6">
-  {/* The AI Action Button */}
-   <button
-    type="button"
-    disabled={isAiLoading}
-    onClick={async () => {
-      setIsAiLoading(true);
-      try {
-        const aiInstance = getAI(); 
-        const model = getGenerativeModel(aiInstance, { model: 'gemini-1.5-flash' });
+     <div className="mt-8 flex flex-col gap-4 border-t pt-6">
+       <div>
+         <h3 className="text-lg font-semibold text-indigo-900">✨ Personalized AI Advisor</h3>
+         <p className="mt-1 text-sm text-muted">
+           Get recommendations based on the profile you entered in this form.
+         </p>
+       </div>
+       <button
+         type="button"
+         disabled={isAiLoading}
+         onClick={async () => {
+           setIsAiLoading(true);
+           setAiError(null);
+           try {
+             const ai = getAI(getFirebaseApp(), {
+               backend: new GoogleAIBackend(),
+             });
+             const model = getGenerativeModel(ai, { model: 'gemini-3.6-flash' });
+             const prompt = `You are an expert college admissions counselor.
+Analyze this student profile:
+- Name: ${profile.name || 'Not specified'}
+- Education Board: ${profile.educationBoard || 'Not specified'}
+- Current Grade: ${profile.currentGrade || 'Not specified'}
+- Subjects: ${profile.subjects.join(', ') || 'Not specified'}
+- Intended Majors: ${profile.intendedMajors.join(', ') || 'Not specified'}
+- Target Colleges: ${profile.targetColleges.join(', ') || 'Not specified'}
+- Preferred Countries: ${profile.preferredCountries.join(', ') || 'Not specified'}
+- Extracurriculars: ${profile.extracurriculars.join(', ') || 'Not specified'}
+- Budget Range: ${profile.budgetRange || 'Not specified'}
+- Additional Details: ${profile.extracurricularDetails || 'Not specified'}
 
-        const prompt = `You are an expert college admissions counselor. 
-        Analyze this student profile:
-        - Education Board: ${(profile as any).board || (profile as any).educationBoard || 'Not specified'}
-        - Current Grade: ${(profile as any).grade || 'Not specified'}
-        - Intended Majors: ${(profile as any).intendedMajors?.join(', ') || 'Not specified'}
-        
-        Provide 3 ideal college recommendations and immediate next steps for their checklist.`;
+Provide three suitable college or major directions and concrete next steps for this student. Be specific and explain why each recommendation fits the profile.`;
 
-        const result = await model.generateContent(prompt);
-        const textResponse = result.response.text();
-        setAiRecommendation(textResponse);
-      } catch (error) {
-        console.error("AI Generation Error:", error);
-      } finally {
-        setIsAiLoading(false);
-      }
-    }}
-    className="w-full px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 disabled:bg-gray-400 transition"
-  >
-    {isAiLoading ? '🤖 AI Advisor is thinking...' : '✨ Get AI Recommendations'}
-  </button>
-
-
-  {/* Display the AI Answer if it exists */}
-  {aiRecommendation && (
-    <div className="mt-4 p-6 bg-slate-50 border border-slate-200 rounded-xl whitespace-pre-line text-slate-800 shadow-sm">
-      <h3 className="font-bold text-xl mb-3 text-indigo-900 flex items-center gap-2">
-        <span>🎓</span> Your Personalized AI Roadmap:
-      </h3>
-      <p className="leading-relaxed">{aiRecommendation}</p>
-    </div>
-  )}
-</div>
+             const result = await model.generateContent(prompt);
+             setAiRecommendation(result.response.text());
+           } catch (error) {
+             const message = error instanceof Error ? error.message : 'AI recommendations failed.';
+             console.error('AI Generation Error:', error);
+             setAiError(message);
+           } finally {
+             setIsAiLoading(false);
+           }
+         }}
+         className="w-full rounded-lg bg-indigo-600 px-6 py-3 font-semibold text-white transition hover:bg-indigo-700 disabled:bg-gray-400"
+       >
+         {isAiLoading ? '🤖 AI Advisor is thinking...' : '✨ Get AI Recommendations'}
+       </button>
+       {aiError && (
+         <p role="alert" className="rounded-lg bg-red-50 p-4 text-sm text-red-700">
+           {aiError}
+         </p>
+       )}
+       {aiRecommendation && (
+         <div className="rounded-xl border border-slate-200 bg-slate-50 p-6 text-slate-800 shadow-sm">
+           <h3 className="mb-3 flex items-center gap-2 text-xl font-bold text-indigo-900">
+             <span>🎓</span> Your Personalized AI Roadmap
+           </h3>
+           <p className="whitespace-pre-line leading-relaxed">{aiRecommendation}</p>
+         </div>
+       )}
+     </div>
 
       <div>
         <label className="block text-sm font-medium mb-1.5">

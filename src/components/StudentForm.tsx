@@ -771,6 +771,7 @@ function StepActivities({
   const [aiRecommendation, setAiRecommendation] = useState<string | null>(null);
   const [isAiLoading, setIsAiLoading] = useState(false);
   const [aiError, setAiError] = useState<string | null>(null);
+  const [aiPrompt, setAiPrompt] = useState('');
 
   return (
     <div className="space-y-6">
@@ -804,6 +805,16 @@ function StepActivities({
            Get recommendations based on the profile you entered in this form.
          </p>
        </div>
+       <label className="flex flex-col gap-2">
+         <span className="text-sm font-medium">Ask a follow-up question (optional)</span>
+         <textarea
+           value={aiPrompt}
+           onChange={(event) => setAiPrompt(event.target.value)}
+           rows={4}
+           placeholder="e.g. Which affordable biology programs should I explore first?"
+           className="w-full rounded-lg border border-card-border bg-background p-3 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+         />
+       </label>
        <button
          type="button"
          disabled={isAiLoading}
@@ -827,8 +838,9 @@ Analyze this student profile:
 - Extracurriculars: ${profile.extracurriculars.join(', ') || 'Not specified'}
 - Budget Range: ${profile.budgetRange || 'Not specified'}
 - Additional Details: ${profile.extracurricularDetails || 'Not specified'}
+- Student's Specific Question: ${aiPrompt || 'No additional question'}
 
-Provide three suitable college or major directions and concrete next steps for this student. Be specific and explain why each recommendation fits the profile.`;
+Provide three suitable college or major directions and concrete next steps for this student. Answer the student's specific question if provided. Be specific and explain why each recommendation fits the profile.`;
 
              const result = await model.generateContent(prompt);
              setAiRecommendation(result.response.text());

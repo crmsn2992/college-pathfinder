@@ -9,6 +9,7 @@ const PROFILE_KEY = 'college-pathfinder-profile';
 
 export default function ComparePage() {
   const [selected, setSelected] = useState<string[]>([]);
+  const [query, setQuery] = useState('');
   const [profile] = useState<StudentProfile | null>(() => {
     if (typeof window === 'undefined') return null;
     const saved = localStorage.getItem(PROFILE_KEY);
@@ -18,7 +19,13 @@ export default function ComparePage() {
     () => selected.map(id => colleges.find(college => college.id === id)).filter((college): college is College => Boolean(college)),
     [selected],
   );
-  const suggestions = colleges.filter(college => !selected.includes(college.id)).slice(0, 8);
+  const suggestions = colleges
+    .filter(college => !selected.includes(college.id))
+    .filter(college => {
+      const search = query.trim().toLowerCase();
+      return !search || `${college.name} ${college.shortName || ''} ${college.location} ${college.country}`.toLowerCase().includes(search);
+    })
+    .slice(0, 12);
 
   function toggleCollege(id: string) {
     setSelected(current => current.includes(id)
@@ -35,6 +42,15 @@ export default function ComparePage() {
           Personalized for {profile.name || 'your profile'} — programs and costs are shown against your interests and budget.
         </p>
       )}
+      <label className="mt-6 block">
+        <span className="mb-2 block text-sm font-medium">Search colleges to compare</span>
+        <input
+          value={query}
+          onChange={(event) => setQuery(event.target.value)}
+          placeholder="Search by college, city, or country..."
+          className="w-full rounded-lg border border-card-border px-4 py-3 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+        />
+      </label>
       <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         {suggestions.map(college => (
           <button key={college.id} type="button" onClick={() => toggleCollege(college.id)}

@@ -69,17 +69,18 @@ export function generateRecommendations(
   const recommendations = eligibleColleges
     .map((college) => createRecommendation(profile, college))
     .sort((left, right) => right.matchScore - left.matchScore);
+  const balancedRecommendations = ensureRecommendationMix(recommendations);
 
-  const paths = generatePaths(profile, recommendations);
-  const gapAnalysis = generateGapAnalysis(profile, recommendations);
+  const paths = generatePaths(profile, balancedRecommendations);
+  const gapAnalysis = generateGapAnalysis(profile, balancedRecommendations);
   const resourceSuggestions = generateResourceSuggestions(
     profile,
-    recommendations,
+    balancedRecommendations,
     gapAnalysis,
   );
 
   return {
-    recommendations,
+    recommendations: balancedRecommendations,
     paths,
     gapAnalysis,
     resourceSuggestions,
@@ -471,6 +472,36 @@ function filterColleges(profile: StudentProfile, colleges: College[]): College[]
   return colleges.filter((college) => college.feesINR <= maxBudget);
 }
 
+function ensureRecommendationMix(
+  recommendations: CollegeRecommendation[],
+): CollegeRecommendation[] {
+  if (recommendations.length < 3) return recommendations;
+
+  const result = [...recommendations];
+  const categories: CollegeRecommendation['category'][] = ['safety', 'match', 'reach'];
+  for (const category of categories) {
+    if (result.some((recommendation) => recommendation.category === category)) continue;
+    const replacement = [...result]
+      .filter((recommendation) => result.filter((item) => item.category === recommendation.category).length > 1)
+      .sort((left, right) =>
+        categoryDistance(left.college, category) - categoryDistance(right.college, category) ||
+        right.matchScore - left.matchScore,
+      )[0];
+    if (replacement) replacement.category = category;
+  }
+  return result;
+}
+
+function categoryDistance(
+  college: College,
+  target: CollegeRecommendation['category'],
+): number {
+  const tier = college.difficultyTier;
+  if (target === 'reach') return Math.abs(tier - 1);
+  if (target === 'match') return Math.abs(tier - 3);
+  return Math.abs(tier - 5);
+}
+
 function createRecommendation(
   profile: StudentProfile,
   college: College,
@@ -550,19 +581,12 @@ function calculateStrategicBoost(
     }
   }
 
-  if (isIndianEngineeringCollege(college)) {
+  const hasEngineeringInterest = profile.intendedMajors.some((major) =>
+    ['Engineering/Technology', 'Computer Science/IT'].includes(major),
+  );
+  if (hasEngineeringInterest && isIndianEngineeringCollege(college)) {
     const jee = profile.testScores.jee ?? 0;
-    if (jee >= 99) {
-      boost += 14;
-    } else if (jee >= 97) {
-      boost += 10;
-    } else if (jee >= 95) {
-      boost += 7;
-    }
-
-    if (profile.grades >= 90) {
-      boost += 3;
-    }
+    boost += jee >= 99 ? 14 : jee >= 97 ? 10 : jee >= 95 ? 7 : 0;
   }
 
   if (isTopInternationalCollege(college)) {

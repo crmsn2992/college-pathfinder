@@ -1,19 +1,25 @@
 // src/app/api/college-advice/route.ts
 import { NextResponse } from "next/server";
-import { initializeApp } from "firebase/app";
+import { getApp, getApps, initializeApp } from "firebase/app";
 import { getAI, getGenerativeModel, GoogleAIBackend } from "firebase/ai";
 
 const firebaseConfig = {
-  apiKey: process.env.FIREBASE_API_KEY, 
-  authDomain: "://firebaseapp.com",
-  projectId: "college-pathfinder-566ec",
-  storageBucket: "college-pathfinder-566ec.firebasestorage.app",
-  messagingSenderId: "933596174185",
-  appId: process.env.FIREBASE_APP_ID
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain:
+    process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN ||
+    "college-pathfinder-566ec.firebaseapp.com",
+  projectId:
+    process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID || "college-pathfinder-566ec",
+  storageBucket:
+    process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET ||
+    "college-pathfinder-566ec.firebasestorage.app",
+  messagingSenderId:
+    process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID || "933596174185",
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
 // 1. Initialize Firebase and AI
-const app = initializeApp(firebaseConfig);
+const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
 const ai = getAI(app, { backend: new GoogleAIBackend() });
 const model = getGenerativeModel(ai, { model: "gemini-3.6-flash" });
 
@@ -32,4 +38,3 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Failed to fetch advice" }, { status: 500 });
   }
 }
-

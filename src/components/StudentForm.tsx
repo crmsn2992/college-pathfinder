@@ -57,10 +57,6 @@ export default function StudentForm() {
   const [lastSaved, setLastSaved] = useState<string | null>(null);
   const [saveStatus, setSaveStatus] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle');
  
-  // AI State Variables to hold the answers and loading status
-   const [aiRecommendation, setAiRecommendation] = useState<string | null>(null);
-  const [isAiLoading, setIsAiLoading] = useState<boolean>(false);
-
   // Load from Firebase (if logged in) or localStorage
   useEffect(() => {
     async function loadProfile() {
@@ -771,6 +767,9 @@ function StepActivities({
   toggleArrayItem: (key: keyof StudentProfile, item: string) => void;
   updateProfile: <K extends keyof StudentProfile>(key: K, value: StudentProfile[K]) => void;
 }) {
+  const [aiRecommendation, setAiRecommendation] = useState<string | null>(null);
+  const [isAiLoading, setIsAiLoading] = useState(false);
+
   return (
     <div className="space-y-6">
       <h2 className="text-xl font-semibold">Extracurriculars & Activities 🏆</h2>

@@ -8870,5 +8870,79 @@
     },
     "ranking": "Highly regarded for economics and quantitative social science in India",
     "website": "https://econdse.org"
+  },
+  {
+    "id": "ashoka-university",
+    "name": "Ashoka University",
+    "shortName": "Ashoka",
+    "location": "Sonipat, Haryana",
+    "country": "India",
+    "type": "private",
+    "programs": ["Arts/Humanities", "Social Sciences", "Natural Sciences", "Business/Commerce"],
+    "admissionRequirements": {
+      "minGrades": 75,
+      "requiredExams": ["Ashoka Aptitude Test", "Interview"],
+      "requiredSubjects": ["English"],
+      "preferredSubjects": ["Mathematics", "Social Sciences"]
+    },
+    "feesINR": 1000000,
+    "scholarships": [{"name": "Need-based Financial Aid", "type": "need", "amount": "Up to 100% tuition", "description": "Financial aid based on demonstrated family need."}],
+    "acceptanceRate": 12,
+    "difficultyTier": 2,
+    "deadlines": [{"round": "Regular", "month": "January", "description": "Check the current admissions cycle."}],
+    "extracurricularPreferences": ["writing", "research", "debate", "community service"],
+    "boardNotes": {"CBSE": "Strong academic performance and thoughtful essays are valued.", "IB": "Holistic review considers predicted grades and extended projects."},
+    "ranking": "Leading liberal arts university in India",
+    "website": "https://www.ashoka.edu.in"
+  },
+  {
+    "id": "manipal-institute-of-technology",
+    "name": "Manipal Institute of Technology",
+    "shortName": "MIT Manipal",
+    "location": "Manipal, Karnataka",
+    "country": "India",
+    "type": "private",
+    "programs": ["Engineering/Technology", "Computer Science/IT", "Design"],
+    "admissionRequirements": {
+      "minGrades": 75,
+      "requiredExams": ["MET"],
+      "requiredSubjects": ["Mathematics", "Physics"],
+      "preferredSubjects": ["Chemistry", "Computer Science"]
+    },
+    "feesINR": 550000,
+    "scholarships": [{"name": "Merit Scholarship", "type": "merit", "amount": "Partial tuition waiver", "description": "Awarded to high-performing admitted students."}],
+    "acceptanceRate": 18,
+    "difficultyTier": 3,
+    "deadlines": [{"round": "MET", "month": "April", "description": "Entrance test and counselling timeline varies annually."}],
+    "extracurricularPreferences": ["robotics", "coding", "entrepreneurship", "sports"],
+    "boardNotes": {"CBSE": "Mathematics and Physics preparation supports engineering applications.", "State Board": "Review MET subject coverage alongside board preparation."},
+    "ranking": "Well-known private engineering institute in India",
+    "website": "https://manipal.edu/mit.html"
+  },
+  {
+    "id": "university-of-melbourne",
+    "name": "The University of Melbourne",
+    "shortName": "Melbourne",
+    "location": "Melbourne, Victoria",
+    "country": "Australia",
+    "type": "public",
+    "programs": ["Natural Sciences", "Business/Commerce", "Arts/Humanities", "Computer Science/IT"],
+    "admissionRequirements": {
+      "minGrades": 85,
+      "requiredExams": ["English proficiency"],
+      "requiredSubjects": ["English"],
+      "preferredSubjects": ["Mathematics", "Sciences"],
+      "internationalStudentNotes": "Requirements vary by curriculum and course."
+    },
+    "feesINR": 3200000,
+    "feesUSD": 38500,
+    "scholarships": [{"name": "International Undergraduate Scholarship", "type": "merit", "amount": "Up to AUD 10000", "description": "Merit awards for high-achieving international students."}],
+    "acceptanceRate": 70,
+    "difficultyTier": 3,
+    "deadlines": [{"round": "Semester 1", "month": "October", "description": "Confirm course-specific deadlines."}],
+    "extracurricularPreferences": ["research", "leadership", "community service"],
+    "boardNotes": {"IB": "Subject prerequisites depend on the chosen undergraduate major.", "Cambridge": "A-level subjects are assessed against course prerequisites."},
+    "ranking": "Research-intensive Australian university",
+    "website": "https://www.unimelb.edu.au"
   }
 ]

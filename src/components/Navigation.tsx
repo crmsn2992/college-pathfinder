@@ -12,6 +12,8 @@ export function Navigation() {
     { href: '/', label: 'Home', icon: '🏠' },
     { href: '/explore', label: 'Explore', icon: '🧭' },
     { href: '/results', label: 'Results', icon: '📊' },
+    { href: '/compare', label: 'Compare', icon: '⚖️' },
+    { href: '/checklist', label: 'Checklist', icon: '✅' },
     { href: '/resources', label: 'Resources', icon: '📚' },
   ];
 

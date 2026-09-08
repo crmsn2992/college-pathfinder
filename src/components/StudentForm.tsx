@@ -11,6 +11,7 @@ import subjectsData from '@/data/subjects.json';
 import collegesData from '@/data/colleges.json';
 import { getAI, getGenerativeModel, GoogleAIBackend } from 'firebase/ai';
 import { getFirebaseApp } from '@/lib/firebaseClient';
+import SubjectDiscoveryQuiz from '@/components/SubjectDiscoveryQuiz';
 
 const STORAGE_KEY = 'college-pathfinder-profile';
 
@@ -389,6 +390,9 @@ function StepAcademic({
 }) {
   const isIB = profile.educationBoard === 'IB';
   const isCambridge = profile.educationBoard === 'Cambridge';
+  const applySuggestedSubjects = (suggested: string[]) => {
+    setProfile(prev => ({ ...prev, subjects: suggested }));
+  };
 
   // Convert IB score (out of 45) to percentage for internal use
   const handleIBScoreChange = (score: number) => {
@@ -441,6 +445,8 @@ function StepAcademic({
           <p className="mt-1 text-xs text-muted">{profile.subjects.length} subjects selected</p>
         )}
       </div>
+
+      <SubjectDiscoveryQuiz subjects={subjects} onComplete={applySuggestedSubjects} />
 
       {/* Board-specific grade input */}
       {isIB ? (
@@ -552,6 +558,22 @@ function StepMajor({
   profile: StudentProfile;
   toggleArrayItem: (key: keyof StudentProfile, item: string) => void;
 }) {
+  const normalizedSubjects = profile.subjects.map(subject => subject.toLowerCase());
+  const majorRequirements: Record<string, { subjects: string[]; reason: string }> = {
+    'Engineering/Technology': { subjects: ['mathematics', 'physics'], reason: 'Most engineering programs require Mathematics and Physics.' },
+    'Computer Science/IT': { subjects: ['mathematics'], reason: 'Most CS programs require Mathematics.' },
+    'Medicine/Health Sciences': { subjects: ['biology', 'chemistry'], reason: 'Medicine generally requires Biology and Chemistry.' },
+    'Natural Sciences': { subjects: ['chemistry'], reason: 'Science programs typically require a relevant laboratory science.' },
+    Architecture: { subjects: ['mathematics'], reason: 'Many architecture programs require Mathematics.' },
+    Agriculture: { subjects: ['biology'], reason: 'Agriculture programs commonly require Biology or another life science.' },
+  };
+  const isMajorAvailable = (major: string) => {
+    const requirement = majorRequirements[major];
+    if (!requirement || normalizedSubjects.length === 0) return true;
+    return requirement.subjects.every(required =>
+      normalizedSubjects.some(subject => subject.includes(required)),
+    );
+  };
   return (
     <div className="space-y-6">
       <h2 className="text-xl font-semibold">What do you want to study? 🎓</h2>
@@ -563,8 +585,13 @@ function StepMajor({
         {INTENDED_MAJORS.map(major => (
           <button
             key={major}
-            onClick={() => toggleArrayItem('intendedMajors', major)}
+            disabled={!isMajorAvailable(major)}
+            onClick={() => { if (isMajorAvailable(major)) toggleArrayItem('intendedMajors', major); }}
+            title={isMajorAvailable(major) ? undefined : majorRequirements[major]?.reason}
             className={`rounded-lg border px-3 py-2.5 text-sm text-left font-medium transition-colors ${
+              !isMajorAvailable(major)
+                ? 'cursor-not-allowed border-gray-200 bg-gray-100 text-gray-400'
+                :
               profile.intendedMajors.includes(major)
                 ? major === 'Unsure / Exploring'
                   ? 'border-secondary bg-secondary/10 text-secondary'
@@ -593,6 +620,11 @@ function StepMajor({
 
       {profile.intendedMajors.length > 0 && !profile.intendedMajors.includes('Unsure / Exploring') && (
         <p className="text-xs text-muted">{profile.intendedMajors.length} field(s) selected</p>
+      )}
+      {profile.subjects.length > 0 && (
+        <p className="text-xs text-muted">
+          Greyed-out fields need subjects you have not selected. You can still choose “Unsure / Exploring” while you decide.
+        </p>
       )}
     </div>
   );

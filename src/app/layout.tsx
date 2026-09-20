@@ -27,7 +27,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#6366f1",
+  themeColor: "#080405",
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,
@@ -47,7 +47,7 @@ export default function RootLayout({
         <AuthProvider>
           <Navigation />
           <main className="flex-1">{children}</main>
-          <footer className="border-t border-card-border bg-card-bg py-6 text-center text-sm text-muted">
+          <footer className="border-t border-card-border bg-card-bg/95 py-6 text-center text-sm text-muted">
             <p>🎓 College Pathfinder — Your guide to the right college</p>
             <p className="mt-1 text-xs">Built for students, by students. Data is approximate and for guidance only.</p>
           </footer>

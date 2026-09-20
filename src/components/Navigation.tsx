@@ -18,7 +18,7 @@ export function Navigation() {
   ];
 
   return (
-    <nav className="sticky top-0 z-50 border-b border-card-border bg-white/80 backdrop-blur-md">
+    <nav className="sticky top-0 z-50 border-b border-card-border bg-background/85 backdrop-blur-md">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
         <Link href="/" className="flex items-center gap-2 font-bold text-lg">
           <span className="text-2xl">🎓</span>
@@ -32,7 +32,7 @@ export function Navigation() {
               className={`flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
                 pathname === link.href
                   ? 'bg-primary/10 text-primary'
-                  : 'text-muted hover:bg-gray-100 hover:text-foreground'
+                  : 'text-muted hover:bg-primary/15 hover:text-foreground'
               }`}
             >
               <span>{link.icon}</span>
@@ -50,7 +50,7 @@ export function Navigation() {
                   </span>
                   <button
                     onClick={() => signOut()}
-                    className="rounded-lg px-2.5 py-1.5 text-xs font-medium text-muted hover:bg-gray-100 hover:text-foreground transition-colors"
+                    className="rounded-lg px-2.5 py-1.5 text-xs font-medium text-muted hover:bg-primary/15 hover:text-foreground transition-colors"
                   >
                     Sign Out
                   </button>

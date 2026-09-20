@@ -48,7 +48,7 @@ export default function RootLayout({
           <Navigation />
           <main className="flex-1">{children}</main>
           <footer className="border-t border-card-border bg-card-bg py-6 text-center text-sm text-muted">
-            <p>🎓 College Pathfinder — Your guide to the right college</p>
+            <p>College Pathfinder — Your guide to the right college</p>
             <p className="mt-1 text-xs">Built for students, by students. Data is approximate and for guidance only.</p>
           </footer>
         </AuthProvider>

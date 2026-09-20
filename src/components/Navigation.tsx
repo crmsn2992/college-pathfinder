@@ -9,33 +9,31 @@ export function Navigation() {
   const { user, signOut, loading } = useAuth();
 
   const links = [
-    { href: '/', label: 'Home', icon: '🏠' },
-    { href: '/explore', label: 'Explore', icon: '🧭' },
-    { href: '/results', label: 'Results', icon: '📊' },
-    { href: '/compare', label: 'Compare', icon: '⚖️' },
-    { href: '/checklist', label: 'Checklist', icon: '✅' },
-    { href: '/resources', label: 'Resources', icon: '📚' },
+    { href: '/', label: 'Home' },
+    { href: '/explore', label: 'Explore' },
+    { href: '/results', label: 'Results' },
+    { href: '/compare', label: 'Compare' },
+    { href: '/checklist', label: 'Checklist' },
+    { href: '/resources', label: 'Resources' },
   ];
 
   return (
     <nav className="sticky top-0 z-50 border-b border-card-border bg-white/80 backdrop-blur-md">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
         <Link href="/" className="flex items-center gap-2 font-bold text-lg">
-          <span className="text-2xl">🎓</span>
-          <span className="gradient-text hidden sm:inline">College Pathfinder</span>
+          <span className="hidden sm:inline">College Pathfinder</span>
         </Link>
         <div className="flex items-center gap-1">
           {links.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className={`flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
+              className={`rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
                 pathname === link.href
                   ? 'bg-primary/10 text-primary'
                   : 'text-muted hover:bg-gray-100 hover:text-foreground'
               }`}
             >
-              <span>{link.icon}</span>
               <span className="hidden sm:inline">{link.label}</span>
             </Link>
           ))}

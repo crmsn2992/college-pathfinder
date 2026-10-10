@@ -9,12 +9,12 @@ export function Navigation() {
   const { user, signOut, loading } = useAuth();
 
   const links = [
-    { href: '/', label: 'Home' },
-    { href: '/explore', label: 'Explore' },
-    { href: '/results', label: 'Results' },
-    { href: '/compare', label: 'Compare' },
-    { href: '/checklist', label: 'Checklist' },
-    { href: '/resources', label: 'Resources' },
+    { href: '/', label: 'Home', icon: '🏠' },
+    { href: '/explore', label: 'Explore', icon: '🧭' },
+    { href: '/results', label: 'Results', icon: '📊' },
+    { href: '/compare', label: 'Compare', icon: '⚖️' },
+    { href: '/checklist', label: 'Checklist', icon: '✅' },
+    { href: '/resources', label: 'Resources', icon: '📚' },
   ];
 
   return (
@@ -34,6 +34,7 @@ export function Navigation() {
                   : 'text-muted hover:bg-primary/15 hover:text-foreground'
               }`}
             >
+              <span aria-hidden="true">{link.icon}</span>
               <span className="hidden sm:inline">{link.label}</span>
             </Link>
           ))}

@@ -26,12 +26,12 @@ const EXTRACURRICULARS = [
 ];
 
 const STEPS = [
-  { id: 'basic', title: 'Basic Info' },
-  { id: 'academic', title: 'Academics' },
-  { id: 'major', title: 'Field of Study' },
-  { id: 'tests', title: 'Test Scores' },
-  { id: 'goals', title: 'Goals' },
-  { id: 'activities', title: 'Activities' },
+  { id: 'basic', title: 'Basic Info', icon: '👤' },
+  { id: 'academic', title: 'Academics', icon: '📖' },
+  { id: 'major', title: 'Field of Study', icon: '🎓' },
+  { id: 'tests', title: 'Test Scores', icon: '📝' },
+  { id: 'goals', title: 'Goals', icon: '🎯' },
+  { id: 'activities', title: 'Activities', icon: '🏆' },
 ];
 
 const defaultProfile: StudentProfile = {
@@ -212,7 +212,7 @@ export default function StudentForm() {
                   ? 'bg-primary/20 text-primary border-2 border-primary'
                   : 'bg-gray-100 text-muted'
               }`}>
-                {i < step ? '✓' : s.title.charAt(0)}
+                {i < step ? '✓' : s.icon}
               </span>
               <span className="hidden sm:block">{s.title}</span>
             </button>

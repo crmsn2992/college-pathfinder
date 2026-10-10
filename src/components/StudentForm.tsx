@@ -26,12 +26,12 @@ const EXTRACURRICULARS = [
 ];
 
 const STEPS = [
-  { id: 'basic', title: 'Basic Info', icon: '👤' },
-  { id: 'academic', title: 'Academics', icon: '📖' },
-  { id: 'major', title: 'Field of Study', icon: '🎓' },
-  { id: 'tests', title: 'Test Scores', icon: '📝' },
-  { id: 'goals', title: 'Goals', icon: '🎯' },
-  { id: 'activities', title: 'Activities', icon: '🏆' },
+  { id: 'basic', title: 'Basic Info' },
+  { id: 'academic', title: 'Academics' },
+  { id: 'major', title: 'Field of Study' },
+  { id: 'tests', title: 'Test Scores' },
+  { id: 'goals', title: 'Goals' },
+  { id: 'activities', title: 'Activities' },
 ];
 
 const defaultProfile: StudentProfile = {
@@ -58,7 +58,7 @@ export default function StudentForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [lastSaved, setLastSaved] = useState<string | null>(null);
   const [saveStatus, setSaveStatus] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle');
- 
+  
   // Load from Firebase (if logged in) or localStorage
   useEffect(() => {
     async function loadProfile() {
@@ -154,9 +154,6 @@ export default function StudentForm() {
   const filteredColleges = (collegesData as { id: string; name: string }[]).filter(c =>
     c.name.toLowerCase().includes(collegeSearch.toLowerCase())
   );
-  
- 
-
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-8">
@@ -164,7 +161,6 @@ export default function StudentForm() {
       {!user && step === 0 && (
         <div className="mb-6 rounded-xl border border-primary/20 bg-primary/5 p-4 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <span className="text-xl">💾</span>
             <div>
               <p className="text-sm font-medium">Sign in to save your progress</p>
               <p className="text-xs text-muted">Your data will be saved securely and accessible from any device</p>
@@ -179,7 +175,6 @@ export default function StudentForm() {
       {/* Save status for logged-in users */}
       {user && lastSaved && step === 0 && (
         <div className="mb-6 rounded-xl border border-green-200 bg-green-50 p-3 flex items-center gap-2">
-          <span className="text-sm">✅</span>
           <p className="text-xs text-green-700">
             Last saved: {new Date(lastSaved).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })}
             {saveStatus === 'saving' && ' • Saving...'}
@@ -191,7 +186,7 @@ export default function StudentForm() {
       {step === 0 && (
         <div className="mb-8 text-center">
           <h1 className="text-4xl font-bold gradient-text mb-3">
-            Find Your Perfect College 🎓
+            Find Your Perfect College
           </h1>
           <p className="text-muted text-lg">
             Tell us about yourself and we&apos;ll create a personalized plan for your dream college
@@ -217,7 +212,7 @@ export default function StudentForm() {
                   ? 'bg-primary/20 text-primary border-2 border-primary'
                   : 'bg-gray-100 text-muted'
               }`}>
-                {i < step ? '✓' : s.icon}
+                {i < step ? '✓' : s.title.charAt(0)}
               </span>
               <span className="hidden sm:block">{s.title}</span>
             </button>
@@ -297,7 +292,7 @@ export default function StudentForm() {
                   <span className="animate-spin">⏳</span> Analyzing...
                 </span>
               ) : (
-                '🚀 Get My Results'
+                'Get My Results'
               )}
             </button>
           )}
@@ -317,7 +312,7 @@ function StepBasicInfo({
 }) {
   return (
     <div className="space-y-6">
-      <h2 className="text-xl font-semibold">Let&apos;s get to know you 👋</h2>
+      <h2 className="text-xl font-semibold">Let&apos;s get to know you</h2>
 
       <div>
         <label className="block text-sm font-medium mb-1.5">Your Name</label>
@@ -420,7 +415,7 @@ function StepAcademic({
 
   return (
     <div className="space-y-6">
-      <h2 className="text-xl font-semibold">Your Academics 📚</h2>
+      <h2 className="text-xl font-semibold">Your Academics</h2>
 
       <div>
         <label className="block text-sm font-medium mb-1.5">
@@ -477,7 +472,7 @@ function StepAcademic({
           {profile.ibScore ? (
             <p className="mt-2 text-xs text-muted">
               Equivalent to approximately {Math.round((profile.ibScore / 45) * 100)}%
-              {profile.ibScore >= 40 && ' — Excellent! 🌟'}
+              {profile.ibScore >= 40 && ' — Excellent!'}
               {profile.ibScore >= 35 && profile.ibScore < 40 && ' — Very good!'}
             </p>
           ) : null}
@@ -576,7 +571,7 @@ function StepMajor({
   };
   return (
     <div className="space-y-6">
-      <h2 className="text-xl font-semibold">What do you want to study? 🎓</h2>
+      <h2 className="text-xl font-semibold">What do you want to study?</h2>
       <p className="text-sm text-muted">
         Select the fields you&apos;re interested in. You can pick multiple if you&apos;re considering different paths.
       </p>
@@ -607,7 +602,7 @@ function StepMajor({
       {profile.intendedMajors.includes('Unsure / Exploring') && (
         <div className="rounded-lg bg-secondary/5 border border-secondary/20 p-4">
           <p className="text-sm font-medium text-secondary mb-1">
-            🧭 Not sure what to study?
+            Not sure what to study?
           </p>
           <p className="text-xs text-muted mb-3">
             Take our quick Career Explorer quiz to discover fields that match your interests and personality.
@@ -658,7 +653,7 @@ function StepTests({
 
   return (
     <div className="space-y-6">
-      <h2 className="text-xl font-semibold">Standardized Tests 📝</h2>
+      <h2 className="text-xl font-semibold">Standardized Tests</h2>
       <p className="text-sm text-muted">
         Fill in only the tests you&apos;ve taken or plan to take. All fields are optional.
       </p>
@@ -703,7 +698,7 @@ function StepGoals({
 }) {
   return (
     <div className="space-y-6">
-      <h2 className="text-xl font-semibold">Your Goals 🎯</h2>
+      <h2 className="text-xl font-semibold">Your Goals</h2>
 
       <div>
         <label className="block text-sm font-medium mb-1.5">Preferred Countries</label>
@@ -732,7 +727,7 @@ function StepGoals({
           type="text"
           value={collegeSearch}
           onChange={e => setCollegeSearch(e.target.value)}
-          placeholder="🔍 Search colleges..."
+          placeholder="Search colleges..."
           className="w-full rounded-lg border border-card-border px-4 py-2.5 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 mb-2"
         />
         {collegeSearch && (
@@ -807,7 +802,7 @@ function StepActivities({
 
   return (
     <div className="space-y-6">
-      <h2 className="text-xl font-semibold">Extracurriculars & Activities 🏆</h2>
+      <h2 className="text-xl font-semibold">Extracurriculars & Activities</h2>
       <p className="text-sm text-muted">
         Colleges value well-rounded students. Select your activities and achievements.
       </p>
@@ -832,7 +827,7 @@ function StepActivities({
       </div>
      <div className="mt-8 flex flex-col gap-4 border-t pt-6">
        <div>
-         <h3 className="text-lg font-semibold text-indigo-900">✨ Personalized AI Advisor</h3>
+         <h3 className="text-lg font-semibold text-indigo-900">Personalized AI Advisor</h3>
          <p className="mt-1 text-sm text-muted">
            Get recommendations based on the profile you entered in this form.
          </p>
@@ -872,7 +867,7 @@ Analyze this student profile:
 - Additional Details: ${profile.extracurricularDetails || 'Not specified'}
 - Student's Specific Question: ${aiPrompt || 'No additional question'}
 
-Provide three suitable college or major directions and concrete next steps for this student. Answer the student's specific question if provided. Be specific and explain why each recommendation fits the profile.`;
+Provide three suitable college or major directions and concrete next steps for this student. Answer the student's specific question if provided. Be specific and explain why each recommendation fits their profile.`;
 
              const result = await model.generateContent(prompt);
              setAiRecommendation(result.response.text());
@@ -886,7 +881,7 @@ Provide three suitable college or major directions and concrete next steps for t
          }}
          className="w-full rounded-lg bg-indigo-600 px-6 py-3 font-semibold text-white transition hover:bg-indigo-700 disabled:bg-gray-400"
        >
-         {isAiLoading ? '🤖 AI Advisor is thinking...' : '✨ Get AI Recommendations'}
+         {isAiLoading ? 'AI Advisor is thinking...' : 'Get AI Recommendations'}
        </button>
        {aiError && (
          <p role="alert" className="rounded-lg bg-red-50 p-4 text-sm text-red-700">
@@ -896,7 +891,7 @@ Provide three suitable college or major directions and concrete next steps for t
        {aiRecommendation && (
          <div className="rounded-xl border border-slate-200 bg-slate-50 p-6 text-slate-800 shadow-sm">
            <h3 className="mb-3 flex items-center gap-2 text-xl font-bold text-indigo-900">
-             <span>🎓</span> Your Personalized AI Roadmap
+             Your Personalized AI Roadmap
            </h3>
            <p className="whitespace-pre-line leading-relaxed">{aiRecommendation}</p>
          </div>

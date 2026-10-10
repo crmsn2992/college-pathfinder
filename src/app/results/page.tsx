@@ -21,24 +21,17 @@ export default function ResultsPage() {
   const [savedToCloud, setSavedToCloud] = useState(false);
 
   useEffect(() => {
+    let cancelled = false;
+
     async function loadData() {
       let loadedProfile: StudentProfile | null = null;
 
-      // Try loading from Firebase first if logged in
-      if (user) {
-        const { profile: dbProfile } = await loadProfile(user.uid);
-        if (dbProfile) loadedProfile = dbProfile;
-      }
-
-      // Fallback to localStorage
-      if (!loadedProfile) {
-        const saved = localStorage.getItem(STORAGE_KEY);
-        if (saved) {
-          try {
-            loadedProfile = JSON.parse(saved) as StudentProfile;
-          } catch {
-            // ignore
-          }
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        try {
+          loadedProfile = JSON.parse(saved) as StudentProfile;
+        } catch {
+          // ignore
         }
       }
 
@@ -46,19 +39,39 @@ export default function ResultsPage() {
         setProfile(loadedProfile);
         const recs = generateRecommendations(loadedProfile, collegesData as unknown as College[]);
         setResults(recs);
-
-        // Auto-save results to Firebase
-        if (user) {
-          const { error } = await saveResults(loadedProfile, recs, user.uid);
-          if (!error) setSavedToCloud(true);
-        }
+        setLoading(false);
       }
-      setLoading(false);
+
+      // Sync with Firebase in the background so cached results render immediately.
+      if (user) {
+        const { profile: dbProfile } = await loadProfile(user.uid);
+        if (dbProfile) {
+          loadedProfile = dbProfile;
+          const recs = generateRecommendations(dbProfile, collegesData as unknown as College[]);
+          if (!cancelled) {
+            setProfile(dbProfile);
+            setResults(recs);
+            setLoading(false);
+          }
+        }
+
+        if (loadedProfile) {
+          const recs = generateRecommendations(loadedProfile, collegesData as unknown as College[]);
+          const { error } = await saveResults(loadedProfile, recs, user.uid);
+          if (!error && !cancelled) setSavedToCloud(true);
+        }
+      } else if (!loadedProfile && !cancelled) {
+        setLoading(false);
+      }
     }
 
     if (!authLoading) {
       loadData();
     }
+
+    return () => {
+      cancelled = true;
+    };
   }, [user, authLoading]);
 
   // Redirect to login if not authenticated (optional - show reduced experience)

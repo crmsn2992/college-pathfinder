@@ -7,6 +7,7 @@ export interface StudentProfile {
   ibScore?: number; // IB score out of 45
   cambridgeGrades?: Record<string, string>; // subject -> grade (A*, A, B, etc.)
   testScores: TestScores;
+  competitiveExams?: string[];
   intendedMajors: string[];
   targetColleges: string[];
   preferredCountries: string[];
@@ -72,6 +73,17 @@ export interface TestScores {
   cuet?: number; // percentile
   ap?: number; // number of AP exams with 4+
 }
+
+export const INDIA_COMPETITIVE_EXAMS = [
+  { id: 'jee', label: 'JEE Main / Advanced', description: 'IITs, NITs, IIITs and other JEE colleges' },
+  { id: 'bitsat', label: 'BITSAT', description: 'BITS Pilani, Goa and Hyderabad' },
+  { id: 'ugee', label: 'UGEE', description: 'IIIT Hyderabad dual-degree programmes' },
+  { id: 'viteee', label: 'VITEEE', description: 'VIT engineering programmes' },
+  { id: 'met', label: 'MET', description: 'Manipal Institute of Technology and related programmes' },
+  { id: 'srmjeee', label: 'SRMJEEE', description: 'SRM engineering programmes' },
+  { id: 'neet', label: 'NEET-UG', description: 'Medical and health-sciences admissions' },
+  { id: 'cuet', label: 'CUET-UG', description: 'Central universities and selected programmes' },
+] as const;
 
 export interface College {
   id: string;

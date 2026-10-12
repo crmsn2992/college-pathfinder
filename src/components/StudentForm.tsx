@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import type { StudentProfile, EducationBoard, Grade, BudgetRange } from '@/lib/types';
-import { BUDGET_LABELS, INTENDED_MAJORS } from '@/lib/types';
+import { BUDGET_LABELS, INDIA_COMPETITIVE_EXAMS, INTENDED_MAJORS } from '@/lib/types';
 import { useAuth } from '@/components/AuthProvider';
 import { saveProfile as saveProfileToDb, loadProfile as loadProfileFromDb } from '@/lib/db';
 import subjectsData from '@/data/subjects.json';
@@ -41,6 +41,7 @@ const defaultProfile: StudentProfile = {
   subjects: [],
   grades: 0,
   testScores: {},
+  competitiveExams: [],
   intendedMajors: [],
   targetColleges: [],
   preferredCountries: [],
@@ -720,6 +721,47 @@ function StepGoals({
         </div>
       </div>
 
+      {profile.preferredCountries.includes('India') &&
+        profile.intendedMajors.some((major) =>
+          ['Engineering/Technology', 'Computer Science/IT', 'Medicine/Health Sciences'].includes(major),
+        ) && (
+          <div className="rounded-xl border border-primary/30 bg-primary/10 p-4">
+            <label className="block text-sm font-medium">Which Indian entrance exams are you targeting?</label>
+            <p className="mt-1 mb-3 text-xs text-muted">
+              Select all that apply. We&apos;ll prioritize relevant colleges, exam preparation, and deadlines.
+            </p>
+            <div className="grid gap-2 sm:grid-cols-2">
+              {INDIA_COMPETITIVE_EXAMS.map((exam) => {
+                const selected = profile.competitiveExams?.includes(exam.id) ?? false;
+                return (
+                  <button
+                    key={exam.id}
+                    type="button"
+                    onClick={() =>
+                      updateProfile(
+                        'competitiveExams',
+                        selected
+                          ? (profile.competitiveExams ?? []).filter((item) => item !== exam.id)
+                          : [...(profile.competitiveExams ?? []), exam.id],
+                      )
+                    }
+                    className={`rounded-lg border px-3 py-2 text-left transition-colors ${
+                      selected
+                        ? 'border-primary bg-primary text-white'
+                        : 'border-card-border bg-card-bg hover:border-primary/60'
+                    }`}
+                  >
+                    <span className="block text-sm font-medium">{exam.label}</span>
+                    <span className={`block text-xs ${selected ? 'text-white/80' : 'text-muted'}`}>
+                      {exam.description}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
       <div>
         <label className="block text-sm font-medium mb-1.5">Target Colleges (optional)</label>
         <p className="text-xs text-muted mb-2">Search and select specific colleges you&apos;re interested in</p>
@@ -860,6 +902,7 @@ Analyze this student profile:
 - Current Grade: ${profile.currentGrade || 'Not specified'}
 - Subjects: ${profile.subjects.join(', ') || 'Not specified'}
 - Intended Majors: ${profile.intendedMajors.join(', ') || 'Not specified'}
+- Targeted Indian Entrance Exams: ${profile.competitiveExams?.join(', ') || 'Not applicable'}
 - Target Colleges: ${profile.targetColleges.join(', ') || 'Not specified'}
 - Preferred Countries: ${profile.preferredCountries.join(', ') || 'Not specified'}
 - Extracurriculars: ${profile.extracurriculars.join(', ') || 'Not specified'}

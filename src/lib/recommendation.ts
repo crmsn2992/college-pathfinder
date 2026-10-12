@@ -13,6 +13,7 @@ import type {
   TimelineItem,
 } from '@/lib/types';
 import { BUDGET_MAX_INR } from '@/lib/types';
+import { INDIA_COMPETITIVE_EXAMS } from '@/lib/types';
 
 type ExamKey = keyof TestScores;
 type PathKind =
@@ -616,7 +617,54 @@ function calculateStrategicBoost(
     boost += 3;
   }
 
+  if (isIndiaCompetitiveExamProfile(profile) && isIndianCollege(college)) {
+    const matchingTargetExams = college.admissionRequirements.requiredExams.filter((exam) =>
+      profile.competitiveExams?.some((targetExam) => matchesCompetitiveExam(targetExam, exam)),
+    );
+    boost += Math.min(10, matchingTargetExams.length * 5);
+  }
+
   return Math.min(boost, 18);
+}
+
+function isIndiaCompetitiveExamProfile(profile: StudentProfile): boolean {
+  return (
+    profile.preferredCountries.some((country) => normalize(country) === 'india') &&
+    profile.competitiveExams !== undefined &&
+    profile.competitiveExams.length > 0 &&
+    profile.intendedMajors.some((major) =>
+      ['Engineering/Technology', 'Computer Science/IT', 'Medicine/Health Sciences'].includes(major),
+    )
+  );
+}
+
+function isIndianCollege(college: College): boolean {
+  return normalize(college.country) === 'india';
+}
+
+function matchesCompetitiveExam(targetExam: string, requirement: string): boolean {
+  const target = normalize(targetExam);
+  const required = normalize(requirement);
+  const aliases: Record<string, string[]> = {
+    jee: ['jee'],
+    bitsat: ['bitsat'],
+    ugee: ['ugee'],
+    viteee: ['viteee', 'vit engineering'],
+    met: ['met'],
+    srmjeee: ['srmjeee'],
+    neet: ['neet'],
+    cuet: ['cuet'],
+  };
+  return (aliases[target] ?? [target]).some((alias) => required.includes(alias));
+}
+
+function selectedCompetitiveExamLabels(profile: StudentProfile): string[] {
+  const labels: string[] = [];
+  for (const id of profile.competitiveExams ?? []) {
+    const exam = INDIA_COMPETITIVE_EXAMS.find((item) => item.id === id);
+    if (exam) labels.push(exam.label);
+  }
+  return labels;
 }
 
 function buildRequirementStatuses(
@@ -1232,7 +1280,13 @@ function buildPath(
           'Keep both Indian and international pathways alive until scores, budgets, and outcomes make the strongest option clear.',
         icon: '⚖️',
         timeline,
-        examsToPrep: ['JEE Main', 'SAT', 'Board Exams'],
+        examsToPrep: [
+          ...(selectedCompetitiveExamLabels(profile).length > 0
+            ? selectedCompetitiveExamLabels(profile)
+            : ['JEE Main']),
+          'SAT',
+          'Board Exams',
+        ],
         extracurricularsToAdd: ['technical project', 'service initiative', 'leadership responsibility'],
         gradeTarget: Math.max(90, deriveGradeTarget(recommendations, 'all')),
         colleges: selectCollegeIds(recommendations, () => true),
@@ -1275,7 +1329,13 @@ function buildPath(
           'Use the next application cycle months to close score gaps, deepen profile evidence, and convert reaches into matches.',
         icon: '📈',
         timeline,
-        examsToPrep: ['Primary target exam', 'Board Exams', 'Mock tests'],
+        examsToPrep: [
+          ...(selectedCompetitiveExamLabels(profile).length > 0
+            ? selectedCompetitiveExamLabels(profile)
+            : ['Primary target exam']),
+          'Board Exams',
+          'Mock tests',
+        ],
         extracurricularsToAdd: EXTRACURRICULAR_IDEAS.slice(0, 3),
         gradeTarget: Math.max(profile.grades + 3, deriveGradeTarget(recommendations, 'all')),
         colleges: selectCollegeIds(recommendations, () => true),

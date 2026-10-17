@@ -26,6 +26,8 @@ export const INTENDED_MAJORS = [
   'Business/Commerce',
   'Law',
   'Arts/Humanities',
+  'Fine Arts',
+  'Music/Performing Arts',
   'Social Sciences',
   'Natural Sciences',
   'Design',

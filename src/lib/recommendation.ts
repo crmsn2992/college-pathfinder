@@ -423,9 +423,11 @@ function filterColleges(profile: StudentProfile, colleges: College[]): College[]
       'Engineering/Technology': ['Engineering', 'Technology'],
       'Computer Science/IT': ['Computer Science', 'Engineering', 'Technology'],
       'Medicine/Health Sciences': ['Medicine', 'Health Sciences', 'Medical'],
-      'Business/Commerce': ['Business', 'Commerce', 'Management'],
+      'Business/Commerce': ['Business', 'Commerce', 'BBA', 'Economics', 'Finance', 'Accounting'],
       'Law': ['Law'],
       'Arts/Humanities': ['Arts & Humanities', 'Arts', 'Humanities', 'Liberal Arts'],
+      'Fine Arts': ['Fine Arts', 'Visual Arts', 'Art'],
+      'Music/Performing Arts': ['Music', 'Performance', 'Dance', 'Drama', 'Theater'],
       'Social Sciences': ['Social Sciences', 'Arts & Humanities'],
       'Natural Sciences': ['Sciences', 'Natural Sciences'],
       'Design': ['Design'],
@@ -437,9 +439,16 @@ function filterColleges(profile: StudentProfile, colleges: College[]): College[]
     };
     return profile.intendedMajors.some(major => {
       const relatedPrograms = majorToPrograms[major] || [];
-      return relatedPrograms.some(prog =>
+      const programMatch = relatedPrograms.some(prog =>
         college.programs.some(cp => normalize(cp).includes(normalize(prog)))
       );
+      if (major === 'Business/Commerce' && programMatch) {
+        return college.programs.some((program) =>
+          ['business', 'commerce', 'bba', 'economics', 'finance', 'accounting']
+            .some((keyword) => normalize(program).includes(keyword)),
+        );
+      }
+      return programMatch;
     });
   };
 
@@ -562,6 +571,8 @@ function calculateStrategicBoost(
       'Business/Commerce': ['Business', 'Commerce', 'Management'],
       'Law': ['Law'],
       'Arts/Humanities': ['Arts & Humanities', 'Arts', 'Humanities'],
+      'Fine Arts': ['Fine Arts', 'Visual Arts', 'Art', 'Design'],
+      'Music/Performing Arts': ['Music', 'Performance', 'Dance', 'Drama', 'Theater'],
       'Social Sciences': ['Social Sciences'],
       'Natural Sciences': ['Sciences', 'Natural Sciences'],
       'Design': ['Design'],

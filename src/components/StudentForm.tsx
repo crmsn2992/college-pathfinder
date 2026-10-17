@@ -107,6 +107,7 @@ export default function StudentForm() {
   const handleSubmit = async () => {
     setIsSubmitting(true);
     localStorage.setItem(STORAGE_KEY, JSON.stringify(profile));
+    router.push('/results');
 
     // Save to Firebase if logged in
     if (user) {
@@ -119,8 +120,6 @@ export default function StudentForm() {
         setSaveStatus('error');
       }
     }
-
-    router.push('/results');
   };
 
   const canProceed = () => {

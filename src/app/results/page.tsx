@@ -25,6 +25,7 @@ export default function ResultsPage() {
 
     async function loadData() {
       let loadedProfile: StudentProfile | null = null;
+      let loadedResults: RecommendationResult | null = null;
 
       const saved = localStorage.getItem(STORAGE_KEY);
       if (saved) {
@@ -37,8 +38,8 @@ export default function ResultsPage() {
 
       if (loadedProfile) {
         setProfile(loadedProfile);
-        const recs = generateRecommendations(loadedProfile, collegesData as unknown as College[]);
-        setResults(recs);
+        loadedResults = generateRecommendations(loadedProfile, collegesData as unknown as College[]);
+        setResults(loadedResults);
         setLoading(false);
       }
 
@@ -53,11 +54,11 @@ export default function ResultsPage() {
             setResults(recs);
             setLoading(false);
           }
-        }
 
-        if (loadedProfile) {
-          const recs = generateRecommendations(loadedProfile, collegesData as unknown as College[]);
-          const { error } = await saveResults(loadedProfile, recs, user.uid);
+          const { error } = await saveResults(dbProfile, recs, user.uid);
+          if (!error && !cancelled) setSavedToCloud(true);
+        } else if (loadedProfile && loadedResults) {
+          const { error } = await saveResults(loadedProfile, loadedResults, user.uid);
           if (!error && !cancelled) setSavedToCloud(true);
         }
       } else if (!loadedProfile && !cancelled) {

@@ -43,8 +43,9 @@ export default function ResultsPage() {
         setLoading(false);
       }
 
-      // Sync with Firebase in the background so cached results render immediately.
-      if (user) {
+      // Sync with Firebase in the background. A newly submitted local profile
+      // is authoritative so an older cloud profile cannot replace its results.
+      if (user && !loadedProfile) {
         const { profile: dbProfile } = await loadProfile(user.uid);
         if (dbProfile) {
           loadedProfile = dbProfile;
@@ -57,10 +58,10 @@ export default function ResultsPage() {
 
           const { error } = await saveResults(dbProfile, recs, user.uid);
           if (!error && !cancelled) setSavedToCloud(true);
-        } else if (loadedProfile && loadedResults) {
-          const { error } = await saveResults(loadedProfile, loadedResults, user.uid);
-          if (!error && !cancelled) setSavedToCloud(true);
         }
+      } else if (user && loadedProfile && loadedResults) {
+        const { error } = await saveResults(loadedProfile, loadedResults, user.uid);
+        if (!error && !cancelled) setSavedToCloud(true);
       } else if (!loadedProfile && !cancelled) {
         setLoading(false);
       }

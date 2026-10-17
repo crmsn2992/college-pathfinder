@@ -405,10 +405,10 @@ function generateSubjectGaps(
 }
 
 function filterColleges(profile: StudentProfile, colleges: College[]): College[] {
+  const maxBudget = BUDGET_MAX_INR[profile.budgetRange];
   const preferredCountries = new Set(
     profile.preferredCountries.map(normalize).filter(Boolean),
   );
-  const maxBudget = BUDGET_MAX_INR[profile.budgetRange];
 
   const matchesCountry = (college: College) =>
     preferredCountries.size === 0 ||
@@ -452,34 +452,64 @@ function filterColleges(profile: StudentProfile, colleges: College[]): College[]
     });
   };
 
-  const strictMatches = colleges.filter(
-    (college) => matchesCountry(college) && matchesMajor(college) && college.feesINR <= maxBudget,
-  );
-  if (strictMatches.length > 0) {
-    return strictMatches;
-  }
-
-  // Relax budget constraint but KEEP major filter
+  // Keep every country/major match and let the budget score rank affordability.
+  // Filtering by price here would silently remove international options because
+  // their converted INR tuition is often higher than Indian tuition.
   const countryMajorMatches = colleges.filter(
     (college) => matchesCountry(college) && matchesMajor(college),
   );
   if (countryMajorMatches.length > 0) {
-    return countryMajorMatches;
+    return countryMajorMatches.filter((college) => isRealisticEliteOption(profile, college));
   }
 
   // Relax country but KEEP major filter
   const majorMatches = colleges.filter(matchesMajor);
   if (majorMatches.length > 0) {
-    return majorMatches;
+    return majorMatches.filter((college) => isRealisticEliteOption(profile, college));
   }
 
   // Last resort: relax everything (shouldn't normally reach here)
   const countryMatches = colleges.filter(matchesCountry);
   if (countryMatches.length > 0) {
-    return countryMatches;
+    return countryMatches.filter((college) => isRealisticEliteOption(profile, college));
   }
 
-  return colleges.filter((college) => college.feesINR <= maxBudget);
+  return colleges
+    .filter((college) => college.feesINR <= maxBudget)
+    .filter((college) => isRealisticEliteOption(profile, college));
+}
+
+function isRealisticEliteOption(profile: StudentProfile, college: College): boolean {
+  if (targetsCollege(profile, college)) {
+    return true;
+  }
+
+  const grade = profile.grades;
+  const sat = profile.testScores.sat ?? 0;
+  const isEliteInternational =
+    isInternationalCollege(college) &&
+    (college.acceptanceRate <= 20 || /top|ivy|global/i.test(college.ranking ?? ''));
+
+  if (isEliteInternational) {
+    // A 70% average and a very low SAT should not produce MIT/Berkeley/
+    // Princeton-style options merely because they are technically a reach.
+    return grade >= 85 && sat >= 1400;
+  }
+
+  const isNationalEliteIndianInstitute =
+    normalize(college.name).includes('indian institute of technology') ||
+    normalize(college.name).includes('indian institute of science') ||
+    /^iit\b|^iisc\b/i.test(college.shortName ?? '');
+  if (isNationalEliteIndianInstitute) {
+    const jee = profile.testScores.jee;
+    return (
+      grade >= 85 &&
+      jee !== undefined &&
+      jee >= 98.5
+    );
+  }
+
+  return true;
 }
 
 function ensureRecommendationMix(
@@ -593,10 +623,12 @@ function calculateStrategicBoost(
     }
   }
 
-  const hasEngineeringInterest = profile.intendedMajors.some((major) =>
-    ['Engineering/Technology', 'Computer Science/IT'].includes(major),
-  );
-  if (hasEngineeringInterest && isIndianEngineeringCollege(college)) {
+  const hasIndianTechTarget =
+    profile.preferredCountries.some((country) => normalize(country) === 'india') &&
+    profile.intendedMajors.some((major) =>
+      ['Engineering/Technology', 'Computer Science/IT'].includes(major),
+    );
+  if (hasIndianTechTarget && isIndianEngineeringCollege(college)) {
     const jee = profile.testScores.jee ?? 0;
     boost += jee >= 99 ? 14 : jee >= 97 ? 10 : jee >= 95 ? 7 : 0;
   }
@@ -617,10 +649,8 @@ function calculateStrategicBoost(
     boost += 6;
   }
 
-  if (
-    isIndianEngineeringCollege(college) &&
-    (profile.educationBoard === 'CBSE' || profile.educationBoard === 'ICSE')
-  ) {
+  if (hasIndianTechTarget && isIndianEngineeringCollege(college) &&
+    (profile.educationBoard === 'CBSE' || profile.educationBoard === 'ICSE')) {
     boost += 2;
   }
 
@@ -1123,6 +1153,17 @@ function categorizeCollegeWithContext(
   const acceptanceRate = college.acceptanceRate;
   const gradeGap = profile.grades - college.admissionRequirements.minGrades;
 
+  // Highly selective international universities remain reaches even for a
+  // strong profile because essays, recommendations, context, and institutional
+  // priorities are not captured by this score.
+  if (
+    isInternationalCollege(college) &&
+    acceptanceRate <= 20 &&
+    /top|ivy|global/i.test(college.ranking ?? '')
+  ) {
+    return 'reach';
+  }
+
   // Tier 1 colleges (MIT, Stanford, IIT Bombay, AIIMS, etc.) are almost always Reach
   if (tier === 1) {
     // Only "match" if student is truly exceptional
@@ -1206,6 +1247,9 @@ function hasIndianEngineeringTarget(
   const countryPreference = profile.preferredCountries.some(
     (country) => normalize(country) === 'india',
   );
+  const technicalOrMedicalMajor = profile.intendedMajors.some((major) =>
+    ['Engineering/Technology', 'Computer Science/IT', 'Medicine/Health Sciences'].includes(major),
+  );
   const targetCollegeHint = profile.targetColleges.some((collegeName) =>
     /iit|nit|bits|iiit|engineering|technology/i.test(collegeName),
   );
@@ -1213,7 +1257,10 @@ function hasIndianEngineeringTarget(
     isIndianEngineeringCollege(recommendation.college),
   );
 
-  return countryPreference || targetCollegeHint || recommendationHint;
+  return (
+    technicalOrMedicalMajor &&
+    (countryPreference || targetCollegeHint || recommendationHint)
+  );
 }
 
 function hasInternationalTarget(
